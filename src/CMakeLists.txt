@@ -1,8 +1,7 @@
 file (GLOB_RECURSE sources *.h *.cpp *.hpp *.tpp)
 include_directories(solvers)
-include_directories(solvers/exact_solvers)
-include_directories(solvers/greedy_solver)
-include_directories(dynamic_programming_solvers)
+include_directories(solvers/solvers_1d)
+include_directories(solvers/solvers_2d)
 include_directories(gpl_data_structure)
 include_directories(tools)
 add_executable(OriSpanner ${sources})
@@ -41,6 +40,11 @@ if(MSVC AND MT)
     set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} /MTd")
 	
 endif()
+
+
+
+find_package(Boost REQUIRED)
+target_link_libraries(OriSpanner PRIVATE Boost::boost)
 
 
 set_property(TARGET OriSpanner PROPERTY CXX_STANDARD 17)

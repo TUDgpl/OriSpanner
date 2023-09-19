@@ -9,13 +9,19 @@
 #include <iostream>
 #include<vector>
 #include<cassert>
+#include <boost/heap/priority_queue.hpp>
+#include <set>
 #include "cxxopts.hpp"
 #include "jsonM.h"
+
 using namespace std;
-extern jsonM measures;
-extern string result_folder_s;
-extern string input_file_s;
-extern string algo_t;
+extern jsonM Measures;
+extern string Result_folder_s;
+extern string Input_file_s;
+extern string Algo_t;
+extern double W;
+extern double H;
+
 void hello();
 
 
@@ -39,6 +45,8 @@ void hello();
 #define BOLDWHITE   "\033[1m\033[37m"      /* Bold White */
 
 
-void outputMeasure(const char* append);
 
+void printArgs(int argc, char* argv[]);
+void parseInitOptions(int argc, char* argv[]);
+void outputMeasure(const char* append);
 void printInitUsage();

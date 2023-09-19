@@ -3,5 +3,7 @@
 
 #pragma once
 #include "miscellaneous.h" 
-#include "graph.h"
+#include "simple.h"
+
+
 
