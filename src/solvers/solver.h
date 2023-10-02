@@ -11,7 +11,9 @@ public:
 	virtual void debug();
 	virtual void readFile();
 	virtual void read_point(char* str) = 0;
-	virtual void solve() = 0;
+	virtual double solve() { return -1; };
+	virtual void output(const char* outFile, double od)=0;
 protected:
-	virtual bool check_planarity() { return false; };
+	virtual bool isPlanarity() { return false; };
+	
 };

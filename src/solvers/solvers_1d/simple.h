@@ -3,6 +3,7 @@
 #include "solver.h"
 #include "solver1D.h"
 #include <set>
+#include "dgraph.h"
 //<key, value>
 struct Arc_greater
 {
@@ -56,7 +57,7 @@ class Simple :public Solver_1D {
 public:
 	void say_hello() { printf("Run Simple"); };
 
-	void solve();
+	double solve();
 private:
 	boost::heap::priority_queue<Arc_1D, boost::heap::compare<Arc_greater>> T;
 };

@@ -10,6 +10,7 @@
 *.userosscache
 *.sln.docstates
 
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -385,3 +386,4 @@ drawings/
 
 RESULT/
 build_win/
+cairo_drawings/

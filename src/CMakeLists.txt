@@ -43,6 +43,14 @@ endif()
 
 
 
+
+include_directories(C:/src/vcpkg/installed/x64-windows/include/cairo)
+target_link_libraries(OriSpanner PRIVATE C:/src/vcpkg/installed/x64-windows/lib/cairo.lib)
+
+
+
+
+
 find_package(Boost REQUIRED)
 target_link_libraries(OriSpanner PRIVATE Boost::boost)
 

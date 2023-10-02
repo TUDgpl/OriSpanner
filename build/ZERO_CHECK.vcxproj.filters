@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\GIT\OriSpanner\build\CMakeFiles\c2c288498e06eb57e28fd68abb0e0a61\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{E76C236E-F118-39FD-82F3-07F98AA0F705}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

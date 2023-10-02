@@ -6,6 +6,9 @@ string Algo_t;
 string Input_file_s;
 double W;
 double H;
+double epsilon = 0.000000000000001;
+
+
 
 void printArgs(int argc, char* argv[]) {
 	std::cout << argc-1 <<" arguments:" << std::endl;
@@ -20,7 +23,8 @@ void parseInitOptions(int argc, char* argv[]) {
 	options.add_options()
 		("a,algorithm", "Algorithm Option", cxxopts::value<std::string>())
 		("h,help", "Print usage")
-		("d", "dictionary", cxxopts::value<std::string>()->default_value("D:/GIT/OriSpanner"))
+		("d", "dictionary", cxxopts::value<std::string>()->default_value("D:/GIT/OriSpannerP/solutions/"))
+		
 		("f,filename", "input file", cxxopts::value<std::string>())
 		;
 	options.allow_unrecognised_options();
@@ -91,3 +95,29 @@ void outputMeasure(const char* append) {
 	appendix += append;
 	measures.output(Result_folder_s.c_str(), appendix.c_str(), outFile.c_str());
 };
+
+bool find_cross(const Arc_1D& a1, const Arc_1D& a2)
+{
+	int s1 = min(a1.s, a1.t);
+	int s2 = min(a2.s, a2.t);
+	int t1 = max(a1.s, a1.t);
+	int t2 = max(a2.s, a2.t);
+	if (a1.s < a2.s) return (a1.t < a2.t && a1.t > a2.s);
+	else {
+		if (a1.s > a2.s) return (a2.t < a1.t && a2.t > a1.s);
+	}
+	return false;
+}
+
+bool find_cross(unsigned int s1, unsigned int t1, unsigned int s2, unsigned int t2)
+{
+	s1 = min(s1, t1);
+	s2 = min(s2, t2);
+	t1 = max(s1, t1);
+	t2 = max(s2, t2);
+	if (s1 < s2) return (t1 < t2 && t1 > s2);
+	else {
+		if (s1 > s2) return (t2 < t1 && t2 > s1);
+	}
+	return false;
+}
