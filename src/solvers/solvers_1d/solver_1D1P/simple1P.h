@@ -1,9 +1,10 @@
 # pragma once
 #include <queue>
 #include "solver.h"
-#include "solver1D.h"
+#include "solver1D1P.h"
 #include <set>
 #include "dgraph.h"
+// greedy approach, with garantee 5
 //<key, value>
 struct Arc_greater
 {
@@ -53,11 +54,12 @@ public:
     }
 };
 
-class Simple :public Solver_1D {
+class Simple :public Solver_1D1P{
 public:
 	void say_hello() { printf("Run Simple"); };
 
 	double solve();
 private:
 	boost::heap::priority_queue<Arc_1D, boost::heap::compare<Arc_greater>> T;
+    double teo_g = 5;
 };

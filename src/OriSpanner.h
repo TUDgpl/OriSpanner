@@ -3,8 +3,8 @@
 
 #pragma once
 #include "miscellaneous.h" 
-#include "simple.h"
-#include "dp.h"
+#include "simple1P.h"
+#include "dp1P.h"
 
 
 

@@ -1,6 +1,8 @@
 file (GLOB_RECURSE sources *.h *.cpp *.hpp *.tpp)
 include_directories(solvers)
 include_directories(solvers/solvers_1d)
+include_directories(solvers/solvers_1d/solver_1D1P)
+include_directories(solvers/solvers_1d/solver_1D2P)
 include_directories(solvers/solvers_2d)
 include_directories(gpl_data_structure)
 include_directories(tools)

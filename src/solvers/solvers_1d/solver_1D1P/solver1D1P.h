@@ -1,22 +1,22 @@
 #pragma once
 using namespace std;
 #include <cmath>
-#include "solver.h"
+#include "solver_1D.h"
 #include "miscellaneous.h"
 #include <list>
 #include "dgraph.h"
 #include <set>
 
 
-class Solver_1D:public Solver {
+class Solver_1D1P:public Solver_1D{
 public:
-	Solver_1D() {};
+	Solver_1D1P() {};
 	void set(size_t point_size);
-	virtual void say_hello() { printf("Run Solver_1D"); };
-	void read_point(char* str);
+	virtual void say_hello() { printf("Run Solver_1D1P"); };
 	void print();
 	void debug();
-	void output(const char* outFile, double od);
+	void output(double od);
+	void draw();
 protected:
 	vector<double> pVector;
 	// (p_i, p_i+1) path not included

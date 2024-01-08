@@ -1,4 +1,4 @@
-#include "solver1D.h"
+#include "solver1D1P.h"
 
 
 
@@ -13,31 +13,8 @@ void Arc_1D::debug(vector<unsigned int>& pVector) {
 
 }
 
-void Solver_1D::print() {
-	// print points
-	int i = 0;
-	for (vector<double>::iterator it = pVector.begin(); it != pVector.end(); ++it) {
-		cout << i << ": "<< *it << endl;
-		i++;
-	
-	}
 
-};
-void Solver_1D::debug() {
-	for (vector<double>::iterator it = pVector.begin(); it != pVector.end()-1; ++it) {
-		assert((*it) < *(it + 1));
-	}
-};
-
-void Solver_1D::read_point(char* str) {
-	pVector.push_back(atof(strtok(str, " ")));
-};
-
-void Solver_1D::set(size_t point_size) {
-	pVector.reserve(point_size);
-	solution_g = DGraph(point_size);
-};
-bool Solver_1D::isPlanarity() {
+bool Solver_1D1P::isPlanarity() {
 	std::set<unsigned int>::iterator it;
 	std::set<unsigned int>::iterator iv;
 	for (unsigned int i = 0; i < solution_g.adList.size(); i++) {
@@ -57,16 +34,26 @@ bool Solver_1D::isPlanarity() {
 	return true;
 };
 
-void Solver_1D::output(const char* outFile, double od) {
+void Solver_1D::output( double od) {
+	char file_str[400];
+	strcpy(file_str, Result_folder_s.c_str());
+	strcat(file_str, get_file_name_no_extension(Input_file_s).c_str());
+	strcat(file_str, Algo_t.c_str());
+	strcat(file_str, "solution.txt");
+
 	std::ofstream ofs;
-	std::string s(outFile);
-	//outFile = "/home1/guangping/dynaMIS/RESULT/"+outFile;
+	std::string s(file_str);
 	try {
 		ofs.open(s, std::fstream::out);
 	}
 	catch (std::ofstream::failure& e) {
 		std::cerr << "Exception opening file: " << std::strerror(errno) << "\n";
 	}
+	ifstream src;
+	ofstream dst;
+	src.open(Input_file_s, std::fstream::in);
+	ofs << src.rdbuf();
+	src.close();
 	ofs << "d " <<od<< endl;
 	size_t eSize = 0;
 	for (unsigned int i = solution_g.start_index; i <= solution_g.end_index; i++) {
@@ -87,4 +74,15 @@ void Solver_1D::output(const char* outFile, double od) {
 	}
 	ofs.close();
 }
-
+void Solver_1D::draw() {
+	std::string filename = "D:/GIT/OriSpannerP/OSpanner/drawSolution.py ";
+	std::string command = "d:/GIT/OriSpannerP/.venv/Scripts/python.exe ";
+	command += filename;
+	char file_str[400];
+	strcpy(file_str, Result_folder_s.c_str());
+	strcat(file_str, get_file_name_no_extension(Input_file_s).c_str());
+	strcat(file_str, Algo_t.c_str());
+	strcat(file_str, "solution.tex");
+	command += file_str;
+	system(command.c_str());
+}

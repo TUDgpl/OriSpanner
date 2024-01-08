@@ -18,7 +18,7 @@ void printArgs(int argc, char* argv[]) {
 	}
 }
 void parseInitOptions(int argc, char* argv[]) {
-	printArgs(argc, argv);
+	//printArgs(argc, argv);
 	cxxopts::Options options("OriSpanner", "Test");
 	options.add_options()
 		("a,algorithm", "Algorithm Option", cxxopts::value<std::string>())
@@ -52,6 +52,10 @@ void parseInitOptions(int argc, char* argv[]) {
 
 
 	Result_folder_s = result["d"].as<std::string>();
+	if(Input_file_s.find("uniform") != std::string::npos) Result_folder_s += "1D/Uniform/";
+	if (Input_file_s.find("exp") != std::string::npos) Result_folder_s += "1D/Exp/";
+	if (Input_file_s.find("mixed") != std::string::npos) Result_folder_s += "1D/Mixed/";
+	if (Input_file_s.find("unit") != std::string::npos) Result_folder_s += "1D/Unit/";
 
 	if (result.count("algorithm")) {
 		Algo_t = result["algorithm"].as<std::string>();
@@ -121,3 +125,45 @@ bool find_cross(unsigned int s1, unsigned int t1, unsigned int s2, unsigned int 
 	}
 	return false;
 }
+
+// edge (a,b) on page c
+tuple<int, int, int> encode(unsigned int i, unsigned int base) {
+	unsigned int a = i % base;
+	unsigned int b = (i / base) % base;
+	unsigned int c = i / (base * base);
+	tuple<unsigned int, unsigned int, unsigned int> index{ a, b, c };
+	return index;
+}
+
+
+void tools_debug() {
+	unsigned int base = 10;
+	unsigned int a = 189;
+	tuple<unsigned int, unsigned int, unsigned int> index = encode(a, base);
+	assert(get<0>(index) == 9);
+	assert(get<1>(index) == 8);
+	assert(get<2>(index) == 1);
+	assert(decode(index, base) == a);
+}
+
+bool find_cross(const pair<unsigned int, unsigned int>& a1,
+	const pair<unsigned int, unsigned int>& a2) {
+	if (a1.first < a2.first)
+		return (a1.second < a2.second && a2.second < a1.first);
+	else {
+		if (a1.first > a2.first)
+			return (a2.second < a1.second && a1.second < a2.first);
+	}
+	return false;
+}
+
+// check if one page is planar
+bool is_planar(const vector<pair<unsigned int, unsigned int>>& page_0) {
+	for (int i = 0; i < page_0.size(); i++) {
+		for (int j = i + 1; j < page_0.size(); j++) {
+			if (find_cross(page_0[i], page_0[j])) return false;
+		}
+	}
+	return true;
+}
+

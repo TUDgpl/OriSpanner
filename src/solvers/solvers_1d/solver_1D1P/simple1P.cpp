@@ -1,4 +1,4 @@
-#include "simple.h"
+#include "simple1P.h"
 double Simple::solve() {
 	DList L;
 	for (int i = 0; i < pVector.size(); i++) 
@@ -20,7 +20,7 @@ double Simple::solve() {
 		DList::iterator suss = L.find(Cover_min.t);
 		if (suss != L.end() && prev != L.end()) {
 			L.erase(*(next(suss,1)));
-			solution_g.addEdge(Cover_min.s, Cover_min.t);
+			solution.addEdge(Cover_min.s, Cover_min.t);
 			std::cout << *prev <<", "<< *suss << std::endl;
 			DList::iterator suss_s = std::prev(suss,1);
 			DList::iterator prev_v = std::next(prev,1);
@@ -31,7 +31,8 @@ double Simple::solve() {
 		}
 	}
 	assert(isPlanarity() == true);
-	double od = solution_g.get_dilation(pVector);
+	double od = solution.get_dilation(pVector);
+	assert(od <= teo_g);
 	printf("Simple solved with %f", od );
 	return od;
 }

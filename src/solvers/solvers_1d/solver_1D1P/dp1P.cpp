@@ -1,4 +1,4 @@
-#include "dp.h"
+#include "dp1P.h"
 double DP::solve() {
 	//initialize
 	/*
@@ -30,7 +30,7 @@ double DP::solve() {
 			int r = l + s;
 			for (int lp = l + 2; lp <= r; lp++) {
 				for (int rp = l; rp < r - 1; rp++) {
-					std::cout << "(" << l << ", " << lp << ", " << rp << ", " << r << ") " << std::endl;
+					//std::cout << "(" << l << ", " << lp << ", " << rp << ", " << r << ") " << std::endl;
 					if (lp == r && rp == l && r == l+2) {
 						//std::cout << "case ix" << std::endl;
 						//oE[l][lp][rp][r].set_start(l);
@@ -204,8 +204,8 @@ double DP::solve() {
 	back_trace(0, lpmin, rpmin, pVector.size()-1);
 	//assert(gg.get_edges_size() == solution_g.get_edges_size());
 	//assert(gg.get_dilation_dijkstra(pVector) == solution_g.get_dilation_dijkstra(pVector));
-	double od_dij = solution_g.get_dilation_dijkstra(pVector);
-	double od = solution_g.get_dilation(pVector);
+	double od_dij = solution.get_dilation_dijkstra(pVector);
+	double od = solution.get_dilation(pVector);
 	assert(abs(od- od_dij) <= epsilon);
 	assert(abs(od - odV[0][lpmin][rpmin][pVector.size() - 1]) <= epsilon);
 	printf("DP solved with %f", odV[0][lpmin][rpmin][pVector.size() - 1]);
@@ -216,7 +216,7 @@ double DP::solve() {
 
 
 void DP::back_trace(int l, int lp, int rp, int r) {
-	solution_g.addEdge(r, l);
+	solution.addEdge(r, l);
 	int k = get<0>(back_tracing[l][lp][rp][r]);
 	int kl = get<1>(back_tracing[l][lp][rp][r]);
 	int kr = get<2>(back_tracing[l][lp][rp][r]);

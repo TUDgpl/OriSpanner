@@ -1,14 +1,5 @@
 #include "Solver.h"
-void Solver::print() {
 
-
-};
-
- void Solver::debug() {
-
-
-
-};
 
 void Solver::readFile() {
 	//cout<< "in readFile"<<endl;

@@ -1,8 +1,9 @@
 #pragma once
 #include "solver.h"
-#include "solver1D.h"
-class DP :public Solver_1D {
+#include "solver1D1P.h"
+class DP :public Solver_1D1P {
 public:
+	DP() {};
 	void say_hello() { printf("Run DP"); };
 
 	double solve();

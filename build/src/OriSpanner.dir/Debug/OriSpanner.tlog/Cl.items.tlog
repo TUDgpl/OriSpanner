@@ -1,8 +1,12 @@
 D:\GIT\OriSpanner\src\OriSpanner.cpp;D:\GIT\OriSpanner\build\src\OriSpanner.dir\Debug\OriSpanner.obj
 D:\GIT\OriSpanner\src\gpl_data_structure\dgraph.cpp;D:\GIT\OriSpanner\build\src\OriSpanner.dir\Debug\dgraph.obj
+D:\GIT\OriSpanner\src\gpl_data_structure\graph.cpp;D:\GIT\OriSpanner\build\src\OriSpanner.dir\Debug\graph.obj
 D:\GIT\OriSpanner\src\solvers\solver.cpp;D:\GIT\OriSpanner\build\src\OriSpanner.dir\Debug\solver.obj
-D:\GIT\OriSpanner\src\solvers\solvers_1d\dp.cpp;D:\GIT\OriSpanner\build\src\OriSpanner.dir\Debug\dp.obj
-D:\GIT\OriSpanner\src\solvers\solvers_1d\simple.cpp;D:\GIT\OriSpanner\build\src\OriSpanner.dir\Debug\simple.obj
-D:\GIT\OriSpanner\src\solvers\solvers_1d\solver1D.cpp;D:\GIT\OriSpanner\build\src\OriSpanner.dir\Debug\solver1D.obj
+D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D.cpp;D:\GIT\OriSpanner\build\src\OriSpanner.dir\Debug\solver_1D.obj
+D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P\dp1P.cpp;D:\GIT\OriSpanner\build\src\OriSpanner.dir\Debug\dp1P.obj
+D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P\simple1P.cpp;D:\GIT\OriSpanner\build\src\OriSpanner.dir\Debug\simple1P.obj
+D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P\solver1D1P.cpp;D:\GIT\OriSpanner\build\src\OriSpanner.dir\Debug\solver1D1P.obj
+D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P\sat1D2P.cpp;D:\GIT\OriSpanner\build\src\OriSpanner.dir\Debug\sat1D2P.obj
+D:\GIT\OriSpanner\src\tools\drawer.cpp;D:\GIT\OriSpanner\build\src\OriSpanner.dir\Debug\drawer.obj
 D:\GIT\OriSpanner\src\tools\jsonM.cpp;D:\GIT\OriSpanner\build\src\OriSpanner.dir\Debug\jsonM.obj
 D:\GIT\OriSpanner\src\tools\miscellaneous.cpp;D:\GIT\OriSpanner\build\src\OriSpanner.dir\Debug\miscellaneous.obj

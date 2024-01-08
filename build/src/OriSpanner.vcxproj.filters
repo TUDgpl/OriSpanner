@@ -7,16 +7,28 @@
     <ClCompile Include="D:\GIT\OriSpanner\src\gpl_data_structure\dgraph.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="D:\GIT\OriSpanner\src\gpl_data_structure\graph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="D:\GIT\OriSpanner\src\solvers\solver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\dp.cpp">
+    <ClCompile Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\simple.cpp">
+    <ClCompile Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P\dp1P.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver1D.cpp">
+    <ClCompile Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P\simple1P.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P\solver1D1P.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P\sat1D2P.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\GIT\OriSpanner\src\tools\drawer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="D:\GIT\OriSpanner\src\tools\jsonM.cpp">
@@ -33,19 +45,31 @@
     <ClInclude Include="D:\GIT\OriSpanner\src\gpl_data_structure\dgraph.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="D:\GIT\OriSpanner\src\gpl_data_structure\graph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="D:\GIT\OriSpanner\src\solvers\solver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\dp.h">
+    <ClInclude Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\simple.h">
+    <ClInclude Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P\dp1P.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver1D.h">
+    <ClInclude Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P\simple1P.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P\solver1D1P.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P\sat1D2P.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="D:\GIT\OriSpanner\src\tools\cxxopts.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\GIT\OriSpanner\src\tools\drawer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="D:\GIT\OriSpanner\src\tools\json.hpp">

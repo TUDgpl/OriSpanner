@@ -97,6 +97,32 @@ inline string get_file_name(const std::string& file) {
 inline string get_file_name_no_extension(const std::string& file) {
 	string file_name = get_file_name(file);
 	const std::size_t found = file_name.find_last_of(".");
-	return  file_name.substr(0, found - 1);
+	return  file_name.substr(0, found );
 
 }
+
+//+++++++++++++++++++++++++ 1D +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// edge (a,b) on page c
+tuple<int, int, int> encode(unsigned int i, unsigned int base);
+inline unsigned int decode(
+	const tuple<unsigned int, unsigned int, unsigned int>& index,
+	unsigned int base) {
+	assert(get<2>(index) == 0 or get<2>(index) == 1);
+	return get<0>(index) + get<1>(index) * base + get<2>(index) * (base * base);
+}
+
+inline unsigned int decode(unsigned int a, unsigned int b, unsigned int c,
+	unsigned int base) {
+	assert(c == 0 or c == 1);
+	return a + b * base + c * (base * base);
+}
+
+void tools_debug();
+
+bool find_cross(const pair<unsigned int, unsigned int>& a1,
+	const pair<unsigned int, unsigned int>& a2);
+// check if one page is planar
+bool is_planar(const vector<pair<unsigned int, unsigned int>>& page_0);
+
+
+//----------------------1D---------------------------------------------------
