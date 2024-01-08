@@ -37,6 +37,8 @@ extern double epsilon;
 
 void hello();
 
+static const std::string sat_solver_PATH = "D:/glucose-4.1-win-x64/glucose.exe ";
+static const  std::string tmp_dictionary = "D:/GIT/2Page/tmp";
 
 //the following are UBUNTU/LINUX, and MacOS ONLY terminal color codes.
 #define RESET   "\033[0m"

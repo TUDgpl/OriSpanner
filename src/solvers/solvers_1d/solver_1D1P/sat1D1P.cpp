@@ -1,4 +1,4 @@
-#include "sat1D2P.h"
+#include "sat1D1P.h"
 using namespace std;
 // binary search
 
@@ -10,17 +10,17 @@ c2: left (l,i+2), l < i
 c3: right (i, r), r > i+2
 c4: cut va:(l,i+1) and vb:(i+1, r), l < i and r > i+2
 */
-void Sat2P:: write_clauses_2(vector<pair<unsigned int, unsigned int>>& candidate_edges, int C, ofstream& outdata, double test_v) {
+void Sat1P::write_clauses_2(vector<pair<unsigned int, unsigned int>>& candidate_edges, int C, ofstream& outdata, double test_v) {
     for (unsigned int i = 0; i < pVector.size() - 2; i++) {
         unsigned int j = i + 2;
         double maxD = test_v * (pVector[j] - pVector[i]);
         // c1
-        outdata << decode(j, i, 0, base) << " " << decode(j, i, 1, base) << " ";
+        outdata << decode(j, i, 0, base) << " ";
         candidate_edges.push_back(pair<unsigned int, unsigned int>(j, i));
         // c2
         for (int l = i - 1; l >= 0; l--) {
             if (pVector[j] - pVector[l] <= maxD) {
-                outdata << decode(j, l, 0, base) << " " << decode(j, l, 1, base) << " ";
+                outdata << decode(j, l, 0, base)  << " ";
                 candidate_edges.push_back(pair<unsigned int, unsigned int>(j, l));
             }
             else
@@ -29,7 +29,7 @@ void Sat2P:: write_clauses_2(vector<pair<unsigned int, unsigned int>>& candidate
         // c3
         for (int r = j + 1; r < pVector.size(); r++) {
             if (pVector[r] - pVector[i] <= maxD) {
-                outdata << decode(r, i, 0, base) << " " << decode(r, i, 1, base) << " ";
+                outdata << decode(r, i, 0, base)  << " ";
                 candidate_edges.push_back(pair<unsigned int, unsigned int>(r, i));
             }
             else
@@ -60,15 +60,11 @@ void Sat2P:: write_clauses_2(vector<pair<unsigned int, unsigned int>>& candidate
         for (int index = 0; index < candidates_ende_pairs.size(); index++) {
             outdata << -C_start << " "
                 << decode(i + 1, candidates_ende_pairs[index].first, 0, base)
-                << " "
-                << decode(i + 1, candidates_ende_pairs[index].first, 1, base)
                 << " 0" << endl;
             candidate_edges.push_back(pair<unsigned int, unsigned int>(
                 i + 1, candidates_ende_pairs[index].first));
             outdata << -C_start << " "
                 << decode(candidates_ende_pairs[index].second, i + 1, 0, base)
-                << " "
-                << decode(candidates_ende_pairs[index].second, i + 1, 1, base)
                 << " 0" << endl;
             candidate_edges.push_back(pair<unsigned int, unsigned int>(
                 candidates_ende_pairs[index].second, i + 1));
@@ -77,127 +73,7 @@ void Sat2P:: write_clauses_2(vector<pair<unsigned int, unsigned int>>& candidate
     }
 }
 
-void Sat2P::write_clauses_3( vector<pair<unsigned int, unsigned int>>& candidate_edges, int C,
-    ofstream& outdata, double test_v) {
-    //  consider all pairs <i, i+3>
-    /*
-    c1 or c2 or c3 or c41 or c42 or c43
-    c1: just (i, i+3)
-    c2: left (l,i+3), l < i
-    c3: right (i, r), r > i+3
-    c41: cut va:(l,i+1) and vb:(i+1, r), l < i and r > i+2
-    c42: cut va:(l,i+2) and vb:(i+2, r), l < i+1 and r > i+3
-    c43: cut va:(l,i+2) and vb:(i+1, r), l < i+1 and r > i+2
-    */
-    for (unsigned int i = 0; i < pVector.size() - 3; i++) {
-        unsigned j = i + 3;
-        double maxD = test_v * (pVector[j] - pVector[i]);
-        // c1
-        outdata << decode(j, i, 0, base) << " " << decode(j, i, 1, base) << " ";
-        candidate_edges.push_back(pair<unsigned int, unsigned int>(j, i));
-        // c2
-        for (int l = i - 1; l >= 0; l--) {
-            if (pVector[j] - pVector[l] <= maxD) {
-                outdata << decode(j, l, 0, base) << " " << decode(j, l, 1, base) << " ";
-                candidate_edges.push_back(pair<unsigned int, unsigned int>(j, l));
-            }
-            else
-                break;
-        }
-        // c3
-        for (int r = j + 1; r < pVector.size(); r++) {
-            if (pVector[r] - pVector[i] <= maxD) {
-                outdata << decode(r, i, 0, base) << " " << decode(r, i, 1, base) << " ";
-                candidate_edges.push_back(pair<unsigned int, unsigned int>(r, i));
-            }
-            else
-                break;
-        }
-        // c4
-        vector<bool> candidates_ende_pairs_valid_c43;
-        vector<pair<unsigned int, unsigned int>> candidates_ende_pairs;
-        int C_start = C;
-        for (int l = i - 1; l >= 0; l--) {
-            if (pVector[j] - pVector[l] > maxD) break;
-            for (unsigned int r = j + 1; r < pVector.size(); r++) {
-                if (pVector[r] - pVector[l] <= maxD) {
-                    // for c41
-                    outdata << C << " ";
-                    C++;
-                    // for c42
-                    outdata << C << " ";
-                    C++;
-                    candidates_ende_pairs.push_back(
-                        pair<unsigned int, unsigned int>(l, r));
-                    // for c43
-                    if (pVector[r] - pVector[l] + pVector[i + 2] - pVector[i + 1] <=
-                        maxD) {
-                        candidates_ende_pairs_valid_c43.push_back(true);
-                        outdata << C << " ";
-                        C++;
-                    }
-                    else {
-                        candidates_ende_pairs_valid_c43.push_back(false);
-                    }
-                }
-                else {
-                    break;
-                }
-            }
-        }
-        outdata << "0" << std::endl;
-        // add c4 clauses
-        for (int index = 0; index < candidates_ende_pairs.size(); index++) {
-            // c41
-            outdata << -C_start << " "
-                << decode(i + 1, candidates_ende_pairs[index].first, 0, base)
-                << " "
-                << decode(i + 1, candidates_ende_pairs[index].first, 1, base)
-                << " 0" << endl;
-            candidate_edges.push_back(pair<unsigned int, unsigned int>(
-                i + 1, candidates_ende_pairs[index].first));
-            outdata << -C_start << " "
-                << decode(candidates_ende_pairs[index].second, i + 1, 0, base)
-                << " "
-                << decode(candidates_ende_pairs[index].second, i + 1, 1, base)
-                << " 0" << endl;
-            candidate_edges.push_back(pair<unsigned int, unsigned int>(
-                candidates_ende_pairs[index].second, i + 1));
-            C_start++;
-            // c42
-            outdata << -C_start << " "
-                << decode(i + 2, candidates_ende_pairs[index].first, 0, base)
-                << " "
-                << decode(i + 2, candidates_ende_pairs[index].first, 1, base)
-                << " 0" << endl;
-            candidate_edges.push_back(pair<unsigned int, unsigned int>(
-                i + 2, candidates_ende_pairs[index].first));
-            outdata << -C_start << " "
-                << decode(candidates_ende_pairs[index].second, i + 2, 0, base)
-                << " "
-                << decode(candidates_ende_pairs[index].second, i + 2, 1, base)
-                << " 0" << endl;
-            candidate_edges.push_back(pair<unsigned int, unsigned int>(
-                candidates_ende_pairs[index].second, i + 2));
-            C_start++;
-            // c3
-            if (candidates_ende_pairs_valid_c43[index] == true) {
-                outdata << -C_start << " "
-                    << decode(i + 2, candidates_ende_pairs[index].first, 0, base)
-                    << " "
-                    << decode(i + 2, candidates_ende_pairs[index].first, 1, base)
-                    << " 0" << endl;
-                outdata << -C_start << " "
-                    << decode(candidates_ende_pairs[index].second, i + 1, 0, base)
-                    << " "
-                    << decode(candidates_ende_pairs[index].second, i + 1, 1, base)
-                    << " 0" << endl;
-                C_start++;
-            }
-        }
-    }
-}
-void Sat2P::write_solver_input(double test_v) {
+void Sat1P::write_solver_input(double test_v) {
     ofstream outdata;
     int count = 0;
     string filename = tmp_dictionary + "/" + Input_file_s + +"_" +
@@ -221,12 +97,11 @@ void Sat2P::write_solver_input(double test_v) {
       for each c4, S++;
     */
     //// tuple(a,b,c) -----> edge (a,b) on page c
-    int C = 2 * pVector.size() * pVector.size() + 2;
+    int C =  pVector.size() * pVector.size() + 2;
     base = pVector.size();
 
     vector<pair<unsigned int, unsigned int>> candidate_edges;
-    write_clauses_2( candidate_edges,  C, outdata, base);
-    write_clauses_3(candidate_edges, C, outdata, base);
+    write_clauses_2(candidate_edges, C, outdata, test_v);
 
     // Todo: first write all candidate clauses (store all edges into a vector
     // edges)
@@ -239,14 +114,8 @@ void Sat2P::write_solver_input(double test_v) {
                 outdata << -decode(candidate_edges[i].first, candidate_edges[i].second,
                     0, base)
                     << " "
-                    << -decode(candidate_edges[i].first, candidate_edges[i].second,
-                        1, base)
-                    << " "
                     << -decode(candidate_edges[j].first, candidate_edges[j].second,
                         0, base)
-                    << " "
-                    << -decode(candidate_edges[j].first, candidate_edges[j].second,
-                        1, base)
                     << " 0" << endl;
             }
         }
@@ -260,9 +129,8 @@ void Sat2P::write_solver_input(double test_v) {
 //      compute the dilation (<= test_v)
 
 //// tuple(a,b,c) -----> edge (a,b) on page c
-void Sat2P::verify(const vector<unsigned int>& solution_indices, double test_v) {
+void Sat1P::verify(const vector<unsigned int>& solution_indices, double test_v) {
     vector<pair<unsigned int, unsigned int>> page_0;
-    vector<pair<unsigned int, unsigned int>> page_1;
     unsigned int base = pVector.size();
     for (int i = 0; i < solution_indices.size(); i++) {
         tuple<unsigned int, unsigned int, unsigned int> index =
@@ -271,24 +139,16 @@ void Sat2P::verify(const vector<unsigned int>& solution_indices, double test_v) 
             page_0.push_back(
                 pair<unsigned int, unsigned int>(get<0>(index), get<1>(index)));
         }
-        else {
-            assert(get<2>(index) == 1);
-            page_1.push_back(
-                pair<unsigned int, unsigned int>(get<0>(index), get<1>(index)));
-        }
     }
     // planarity check
     assert(is_planar(page_0));
-    assert(is_planar(page_1));
     // compute dilation and check if it is <= test_v
     // set up the graph
-    solution= DGraph(pVector.size());
     solution.addEdges(page_0);
-    solution.addEdges(page_1);
     double od = solution.get_dilation(pVector);
     assert(od <= test_v);
 }
-bool Sat2P::read_solution(double test_v) {
+bool Sat1P::read_solution(double test_v) {
     vector<unsigned int> solution_indices;
     string file_d =
         tmp_dictionary + "/" + Input_file_s + +"_" + to_string(test_v);
@@ -324,7 +184,8 @@ bool Sat2P::read_solution(double test_v) {
     return true;
 };
 
-bool Sat2P::sat_solve(bool only_short, double test_v) {
+
+bool Sat1P::sat_solve(bool only_short, double test_v) {
     // remove the datas
     string file_d =
         tmp_dictionary + "/" + Input_file_s + +"_" + to_string(test_v);
@@ -337,7 +198,7 @@ bool Sat2P::sat_solve(bool only_short, double test_v) {
 
     return read_solution(test_v);
 }
-vector<double> Sat2P::get_candidate() {
+vector<double> Sat1P::get_candidate() {
     std::set<double> candidate_ods;
     for (int i = 0; i < pVector.size() - 2; i++) {
         // consider all pairs <i, i+2>
@@ -350,32 +211,19 @@ vector<double> Sat2P::get_candidate() {
             }
         }
     }
-    for (int i = 0; i < pVector.size() - 2; i++) {
-        // consider all pairs <i, i+3>
-        int j = i + 3;
-        double sp = pVector[j] - pVector[i];
-        double rp = pVector[i + 2] - pVector[i + 1];
-        for (int k = 0; k <= i; k++) {
-            for (int m = j; m < pVector.size(); m++) {
-                double sc = pVector[m] - pVector[k];
-                if (sc / sp <= teo_g) candidate_ods.insert(sc / sp);
-                if ((sc + rp) / sp <= teo_g) candidate_ods.insert((sc + rp) / sp);
-            }
-        }
-    }
     vector<double> vc(candidate_ods.begin(), candidate_ods.end());
     return vc;
 }
 
 
-double Sat2P::solve() {
+double Sat1P::solve() {
     vector<double> candidate_ods = get_candidate();
     int l = 0;
     int r = candidate_ods.size() - 1;
-    double best_od = 2.0;
+    double best_od = teo_g;
     while (r >= l) {
         int mid = l + (r - l) / 2;
-        bool found = sat_solve(candidate_ods[mid], false);
+        bool found = sat_solve( false, candidate_ods[mid]);
         best_od = candidate_ods[mid];
         if (found) {
             r = mid - 1;
@@ -384,6 +232,6 @@ double Sat2P::solve() {
             l = mid + 1;
         }
     }
-    assert(best_od <= teo_g)
+    assert(best_od <= teo_g);
     return best_od;
 }

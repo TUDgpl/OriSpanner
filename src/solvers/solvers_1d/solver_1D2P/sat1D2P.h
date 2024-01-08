@@ -15,8 +15,7 @@
 #include "solver1D2P.h"
 #include "dgraph.h"
 // binary search
-std::string sat_solver_PATH = "D:/glucose-4.1-win-x64/glucose.exe ";
-std::string tmp_dictionary = "D:/GIT/2Page/tmp";
+
 
 class Sat2P :public Solver_1D2P {
 public:

@@ -12,7 +12,7 @@ void solve() {
 
 int main(int argc, char* argv[]) {
 	parseInitOptions(argc, argv);
-	DP S;
+	Sat1P S;
 	S.readFile();
 	//S.print();
 	// set solver

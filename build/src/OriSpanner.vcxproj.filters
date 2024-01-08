@@ -19,6 +19,9 @@
     <ClCompile Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P\dp1P.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P\sat1D1P.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P\simple1P.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -26,6 +29,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P\sat1D2P.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P\solver1D2P.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="D:\GIT\OriSpanner\src\tools\drawer.cpp">
@@ -57,6 +63,9 @@
     <ClInclude Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P\dp1P.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P\sat1D1P.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P\simple1P.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -66,10 +75,19 @@
     <ClInclude Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P\sat1D2P.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P\solver1D2P.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="D:\GIT\OriSpanner\src\tools\cxxopts.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="D:\GIT\OriSpanner\src\tools\drawer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\GIT\OriSpanner\src\tools\graphIPE.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\GIT\OriSpanner\src\tools\graphTIKZ.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="D:\GIT\OriSpanner\src\tools\json.hpp">

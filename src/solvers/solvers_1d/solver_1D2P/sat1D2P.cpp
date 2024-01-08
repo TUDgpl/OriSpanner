@@ -225,8 +225,8 @@ void Sat2P::write_solver_input(double test_v) {
     base = pVector.size();
 
     vector<pair<unsigned int, unsigned int>> candidate_edges;
-    write_clauses_2( candidate_edges,  C, outdata, base);
-    write_clauses_3(candidate_edges, C, outdata, base);
+    write_clauses_2( candidate_edges,  C, outdata, test_v);
+    write_clauses_3(candidate_edges, C, outdata, test_v);
 
     // Todo: first write all candidate clauses (store all edges into a vector
     // edges)
@@ -350,7 +350,7 @@ vector<double> Sat2P::get_candidate() {
             }
         }
     }
-    for (int i = 0; i < pVector.size() - 2; i++) {
+    for (int i = 0; i < pVector.size() - 3; i++) {
         // consider all pairs <i, i+3>
         int j = i + 3;
         double sp = pVector[j] - pVector[i];
@@ -375,7 +375,7 @@ double Sat2P::solve() {
     double best_od = 2.0;
     while (r >= l) {
         int mid = l + (r - l) / 2;
-        bool found = sat_solve(candidate_ods[mid], false);
+        bool found = sat_solve(false, candidate_ods[mid]);
         best_od = candidate_ods[mid];
         if (found) {
             r = mid - 1;

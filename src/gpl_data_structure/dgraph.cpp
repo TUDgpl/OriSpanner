@@ -129,7 +129,6 @@ double DGraph::get_dilation(const vector<double>& pVector) {
                 pVector[i + 1]) /
                 double(pVector[j] - pVector[i]));
         }
-        assert(tmin < 2);
         tmax = max(tmax, tmin);
     }
     return tmax;
