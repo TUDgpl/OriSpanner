@@ -384,6 +384,6 @@ double Sat2P::solve() {
             l = mid + 1;
         }
     }
-    assert(best_od <= teo_g)
+    assert(best_od <= teo_g);
     return best_od;
 }

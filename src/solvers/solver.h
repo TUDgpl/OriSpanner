@@ -14,7 +14,7 @@ public:
 	virtual double solve() { return -1; };
 	virtual void output(double od)=0;
 	virtual void draw() = 0;
-	virtual bool isPlanarity() { return false; };
+	virtual bool is_planarity() = 0;
 	// theoretical guarantee
 protected:
 	double teo_g = 5;

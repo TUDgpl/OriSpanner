@@ -30,7 +30,7 @@ double Simple::solve() {
 			if (prev_v != L.end()) T.push(Arc_1D(*prev_v, *suss, pVector[*prev_v]-pVector[*suss]));
 		}
 	}
-	assert(isPlanarity() == true);
+	assert(is_planarity() == true);
 	double od = solution.get_dilation(pVector);
 	assert(od <= teo_g);
 	printf("Simple solved with %f", od );

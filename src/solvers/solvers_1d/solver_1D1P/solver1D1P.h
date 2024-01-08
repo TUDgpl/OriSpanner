@@ -11,16 +11,11 @@ using namespace std;
 class Solver_1D1P:public Solver_1D{
 public:
 	Solver_1D1P() {};
-	void set(size_t point_size);
 	virtual void say_hello() { printf("Run Solver_1D1P"); };
-	void print();
-	void debug();
-	void output(double od);
-	void draw();
-protected:
-	vector<double> pVector;
-	// (p_i, p_i+1) path not included
-	DGraph solution_g;
-	bool isPlanarity();
+	void debug() override;
+	void print() override;
+	void draw_tikz(double range, std::string path, std::string optional_parameters) override;
+	bool is_planarity() override;
+
 private:
 };
