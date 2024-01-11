@@ -58,8 +58,8 @@ class Simple :public Solver_1D1P{
 public:
 	void say_hello() { printf("Run Simple"); };
 
-	double solve() override;
+    RationalNumber solve() override;
 private:
 	boost::heap::priority_queue<Arc_1D, boost::heap::compare<Arc_greater>> T;
-    double teo_g = 5;
+    RationalNumber teo_g = RationalNumber(5);
 };

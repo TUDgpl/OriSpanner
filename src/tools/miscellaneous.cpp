@@ -4,9 +4,11 @@ jsonM measures;
 string Result_folder_s;
 string Algo_t;
 string Input_file_s;
+string Input_file_name;
 double W;
 double H;
 double epsilon = 0.000000000000001;
+
 
 
 
@@ -37,6 +39,7 @@ void parseInitOptions(int argc, char* argv[]) {
 
 	if (result.count("filename")) {
 		Input_file_s = strdup(result["filename"].as<std::string>().c_str());
+		Input_file_name = get_file_name(Input_file_s);
 		string outFile(Input_file_s);
 		std::string key = "/";
 		std::size_t found = outFile.rfind(key);

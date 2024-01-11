@@ -19,19 +19,20 @@
 
 class Sat2P :public Solver_1D2P {
 public:
-    double solve() override;
-    const string Input_file_s;
+    RationalNumber solve() override;
     int base;
-
+    bool conjecture_check( RationalNumber& best, RationalNumber& best_short, int test_len);
 protected:
-    vector<double> get_candidate();
-    bool sat_solve( bool only_short, double test_v);
-    bool read_solution(double test_v);
-    void write_solver_input(double test_v);
+    vector<RationalNumber> get_candidate();
+    RationalNumber sat_solve( bool only_short, RationalNumber test_v, int test_len);
+    RationalNumber read_solution(bool only_short, RationalNumber test_v);
+    void write_solver_input(bool only_short, RationalNumber test_v, int test_len);
 private:
     void write_clauses_2(vector<pair<unsigned int, unsigned int>>& candidate_edges,
-        int C, ofstream& outdata,  double test_v);
+        int C, ofstream& outdata,  RationalNumber test_v);
     void write_clauses_3(vector<pair<unsigned int, unsigned int>>& candidate_edges,
-        int C, ofstream& outdata,double test_v);
-    void verify(const vector<unsigned int>& solution_indices, double test_v);
+        int C, ofstream& outdata, RationalNumber test_v);
+    void sat_debug(RationalNumber test_v);
+
+
 };

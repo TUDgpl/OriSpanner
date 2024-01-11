@@ -10,10 +10,10 @@ c2: left (l,i+2), l < i
 c3: right (i, r), r > i+2
 c4: cut va:(l,i+1) and vb:(i+1, r), l < i and r > i+2
 */
-void Sat1P::write_clauses_2(vector<pair<unsigned int, unsigned int>>& candidate_edges, int C, ofstream& outdata, double test_v) {
+void Sat1P::write_clauses_2(vector<pair<unsigned int, unsigned int>>& candidate_edges, int C, ofstream& outdata, RationalNumber test_v) {
     for (unsigned int i = 0; i < pVector.size() - 2; i++) {
         unsigned int j = i + 2;
-        double maxD = test_v * (pVector[j] - pVector[i]);
+        RationalNumber maxD = test_v * (pVector[j] - pVector[i]);
         // c1
         outdata << decode(j, i, 0, base) << " ";
         candidate_edges.push_back(pair<unsigned int, unsigned int>(j, i));
@@ -73,11 +73,11 @@ void Sat1P::write_clauses_2(vector<pair<unsigned int, unsigned int>>& candidate_
     }
 }
 
-void Sat1P::write_solver_input(double test_v) {
+void Sat1P::write_solver_input(RationalNumber test_v) {
     ofstream outdata;
     int count = 0;
     string filename = tmp_dictionary + "/" + Input_file_s + +"_" +
-        to_string(test_v) + "_DIMACS.txt";
+        to_string(boost::rational_cast<double>(test_v)) + "_DIMACS.txt";
 
     outdata.open(filename.c_str());
     if (!outdata) {
@@ -129,7 +129,7 @@ void Sat1P::write_solver_input(double test_v) {
 //      compute the dilation (<= test_v)
 
 //// tuple(a,b,c) -----> edge (a,b) on page c
-void Sat1P::verify(const vector<unsigned int>& solution_indices, double test_v) {
+void Sat1P::verify(const vector<unsigned int>& solution_indices, RationalNumber test_v) {
     vector<pair<unsigned int, unsigned int>> page_0;
     unsigned int base = pVector.size();
     for (int i = 0; i < solution_indices.size(); i++) {
@@ -144,14 +144,15 @@ void Sat1P::verify(const vector<unsigned int>& solution_indices, double test_v) 
     assert(is_planar(page_0));
     // compute dilation and check if it is <= test_v
     // set up the graph
+    solution = DGraph(pVector.size());
     solution.addEdges(page_0);
-    double od = solution.get_dilation(pVector);
+    RationalNumber od = solution.get_dilation(pVector);
     assert(od <= test_v);
 }
-bool Sat1P::read_solution(double test_v) {
+bool Sat1P::read_solution(RationalNumber test_v) {
     vector<unsigned int> solution_indices;
     string file_d =
-        tmp_dictionary + "/" + Input_file_s + +"_" + to_string(test_v);
+        tmp_dictionary + "/" + Input_file_s + +"_" + to_string(boost::rational_cast<double>(test_v));
     string solution_d = file_d + "_DIMACS_solution.txt";
     ifstream solution_file;
     solution_file.open(solution_d.c_str());
@@ -165,6 +166,10 @@ bool Sat1P::read_solution(double test_v) {
     char head;
     int i;
     getline(solution_file, line);
+    if (!line.compare("UNSAT")) {
+        // 's' and 't' are equal.
+        return false;
+    }
     char* str = strdup(line.c_str());
     const char s[2] = " ";
     char* token = strtok(str, s);
@@ -185,47 +190,47 @@ bool Sat1P::read_solution(double test_v) {
 };
 
 
-bool Sat1P::sat_solve(bool only_short, double test_v) {
+bool Sat1P::sat_solve(bool only_short, RationalNumber test_v) {
     // remove the datas
     string file_d =
-        tmp_dictionary + "/" + Input_file_s + +"_" + to_string(test_v);
+        tmp_dictionary + "/" + Input_file_s + +"_" + to_string(boost::rational_cast<double>(test_v));
     write_solver_input(test_v);
     string o = sat_solver_PATH + file_d + "_DIMACS.txt " + file_d +
-        "_DIMACS_solution.txt";
+        "_DIMACS_solution.txt" + "> NUL 2>&1";;
     int success = system(o.c_str());
     if (remove((file_d + "_DIMACS.txt").c_str()) != 0)
         perror("Error deleting instance file");
 
     return read_solution(test_v);
 }
-vector<double> Sat1P::get_candidate() {
-    std::set<double> candidate_ods;
+vector<RationalNumber> Sat1P::get_candidate() {
+    std::set<RationalNumber> candidate_ods;
     for (int i = 0; i < pVector.size() - 2; i++) {
         // consider all pairs <i, i+2>
         int j = i + 2;
-        double sp = pVector[j] - pVector[i];
+        RationalNumber sp = pVector[j] - pVector[i];
         for (int k = 0; k <= i; k++) {
             for (int m = j; m < pVector.size(); m++) {
-                double sc = pVector[m] - pVector[k];
+                RationalNumber sc = pVector[m] - pVector[k];
                 if (sc / sp <= teo_g) candidate_ods.insert(sc / sp);
             }
         }
     }
-    vector<double> vc(candidate_ods.begin(), candidate_ods.end());
+    vector<RationalNumber> vc(candidate_ods.begin(), candidate_ods.end());
     return vc;
 }
 
 
-double Sat1P::solve() {
-    vector<double> candidate_ods = get_candidate();
+RationalNumber Sat1P::solve() {
+    vector<RationalNumber> candidate_ods = get_candidate();
     int l = 0;
     int r = candidate_ods.size() - 1;
-    double best_od = teo_g;
+    RationalNumber best_od = teo_g;
     while (r >= l) {
         int mid = l + (r - l) / 2;
         bool found = sat_solve( false, candidate_ods[mid]);
-        best_od = candidate_ods[mid];
         if (found) {
+            best_od = candidate_ods[mid];
             r = mid - 1;
         }
         else {
@@ -233,5 +238,6 @@ double Sat1P::solve() {
         }
     }
     assert(best_od <= teo_g);
+    printf("Sat1P solved with %f", boost::rational_cast<double>(best_od) );
     return best_od;
 }

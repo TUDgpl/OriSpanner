@@ -6,10 +6,10 @@
 	cout << "Arc (" << s << ", " << t << "), " << l << std::endl;
 }
 
-void Arc_1D::debug(vector<unsigned int>& pVector) {
+void Arc_1D::debug(vector<RationalNumber>& pVector) {
 	assert(pVector.size() > t);
 	assert(pVector.size() > s);
-	assert(fabs(pVector[t] - pVector[s]) == l);
+	assert(abs(pVector[t] - pVector[s]) == l);
 
 }
 
@@ -34,14 +34,6 @@ bool Solver_1D1P::is_planarity() {
 	return true;
 };
 
-void Solver_1D1P::print() {
-    solution.print();
-}
-
-void Solver_1D1P::debug() {
-    bool is_planar = is_planarity();
-    assert(is_planar);
-}
 
 void Solver_1D1P::draw_tikz(double range, std::string path,  std::string optional_parameters = "every node/.append style={draw, circle}, rotate = 90")
 {
@@ -59,7 +51,7 @@ void Solver_1D1P::draw_tikz(double range, std::string path,  std::string optiona
 
     // if you want to highligt points, just create another list of points and output them in a similar fashion as below but change stroke (color), size, and name (shape)
     for (int i = 0; i < num_nodes; ++i) {
-        o << "\\node[] at (" << range*pVector[i] << "," << 0 << ") (" << i << ") {} ;" << std::endl;
+        o << "\\node[] at (" << range * boost::rational_cast<double>(pVector[i])<< "," << 0 << ") (" << i << ") {} ;" << std::endl;
     }
 
     // if you want to highligt edges, just create another list of edges and output them in a similar fashion as below but change stroke (color) and pen (thickness)

@@ -22,10 +22,10 @@ public:
     void addEdges(const vector<pair<unsigned int, unsigned int>>& edges);
     void addEdge(unsigned int source, unsigned int target) override;
     bool containEdge(unsigned int source, unsigned int target) override;
-    double get_dilation(const vector<double>& pVector);
-    double get_dilation_dijkstra(const vector<double>& pVector);
-    double get_dilation_dijkstra(const vector<double>& pVector, size_t s);
-    int minDistance(const vector<double>& pVector, const vector<double>& dist, const vector<bool>& sptSet);
-    double get_shortest_path_complete(const vector<double>& pVector, size_t s, size_t t);
-    void draw_tikz(double range, std::string path, const vector<double>& pVector, std::string optional_parameters);
+    RationalNumber get_dilation(const vector<RationalNumber>& pVector);
+    RationalNumber get_dilation_dijkstra(const vector<RationalNumber>& pVector);
+    RationalNumber get_dilation_dijkstra(const vector<RationalNumber>& pVector, size_t s);
+    int minDistance(const vector<RationalNumber>& pVector, const vector<RationalNumber>& dist, const vector<bool>& sptSet);
+    RationalNumber get_shortest_path_complete(const vector<RationalNumber>& pVector, size_t s, size_t t);
+    void draw_tikz(double range, std::string path, const vector<RationalNumber>& pVector, std::string optional_parameters);
 };

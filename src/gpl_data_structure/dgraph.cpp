@@ -44,41 +44,38 @@ bool DGraph::containEdge(unsigned int v1, unsigned int v2) {
 }
 
 
-double DGraph::get_dilation(const vector<double>& pVector) {
-    double tmax = 1;
+RationalNumber DGraph::get_dilation(const vector<RationalNumber>& pVector) {
+    RationalNumber tmax(1);
     size_t inD = 0;
     size_t outD = 0;
     size_t l = 0;
     size_t r = 0;
     int lar = -1;
     for (int i = 0; i < pVector.size() - 2; i++) {
-        double tmin = 5;
+        RationalNumber tmin(pVector.back() * 2000);
         int j = i + 2;
         // ONE COVER
         if (!adList[i].InNeighborhood.empty()) {
             l = i;
             r = *(adList[i].InNeighborhood.begin());
-            tmin = min(tmin, double(pVector[r] - pVector[l]) /
-                double(pVector[j] - pVector[i]));
+            tmin = min(tmin, (pVector[r] - pVector[l])/(pVector[j] - pVector[i]));
         }
         if (!adList[j].OutNeighborhood.empty()) {
             l = *(adList[j].OutNeighborhood.rbegin());
             r = j;
-            tmin = min(tmin, double(pVector[r] - pVector[l]) /
-                double(pVector[j] - pVector[i]));
+            tmin = min(tmin, (pVector[r] - pVector[l])/ (pVector[j] - pVector[i]));
         }
         // TWO FLIPS
         if (!adList[i + 1].OutNeighborhood.empty() &&
             !adList[i + 1].InNeighborhood.empty()) {
             l = *(adList[i + 1].OutNeighborhood.rbegin());
             r = *(adList[i + 1].InNeighborhood.begin());
-            tmin = min(tmin, double(pVector[r] - pVector[l]) /
-                double(pVector[j] - pVector[i]));
+            tmin = min(tmin, (pVector[r] - pVector[l])/ (pVector[j] - pVector[i]));
         }
         tmax = max(tmax, tmin);
     }
     for (int i = 0; i < pVector.size() - 3; i++) {
-        double tmin = 2;
+        RationalNumber tmin(pVector.back() * 2000);
         int j = i + 3;
         // ONE COVER
         if (!adList[i].InNeighborhood.empty()) {
@@ -87,8 +84,7 @@ double DGraph::get_dilation(const vector<double>& pVector) {
                 itr != adList[i].InNeighborhood.end(); itr++) {
                 r = *(itr);
                 if (r > i + 2) {
-                    tmin = min(tmin, double(pVector[r] - pVector[l]) /
-                        double(pVector[j] - pVector[i]));
+                    tmin = min(tmin, (pVector[r] - pVector[l])/(pVector[j] - pVector[i]));
                     break;
                 }
             }
@@ -99,8 +95,7 @@ double DGraph::get_dilation(const vector<double>& pVector) {
                 itr != adList[j].OutNeighborhood.rend(); itr++) {
                 l = *(itr);
                 if (l <= i) {
-                    tmin = min(tmin, double(pVector[r] - pVector[l]) /
-                        double(pVector[j] - pVector[i]));
+                    tmin = min(tmin, (pVector[r] - pVector[l])/(pVector[j] - pVector[i]));
                     break;
                 }
             }
@@ -111,33 +106,32 @@ double DGraph::get_dilation(const vector<double>& pVector) {
             !adList[i + 1].InNeighborhood.empty()) {
             l = *(adList[i + 1].OutNeighborhood.rbegin());
             r = *(adList[i + 1].InNeighborhood.begin());
-            tmin = min(tmin, double(pVector[r] - pVector[l]) /
-                double(pVector[j] - pVector[i]));
+            tmin = min(tmin, (pVector[r] - pVector[l])/(pVector[j] - pVector[i]));
         }
         if (!adList[i + 2].OutNeighborhood.empty() &&
             !adList[i + 2].InNeighborhood.empty()) {
             l = *(adList[i + 2].OutNeighborhood.rbegin());
             r = *(adList[i + 2].InNeighborhood.begin());
-            tmin = min(tmin, double(pVector[r] - pVector[l]) /
-                double(pVector[j] - pVector[i]));
+            tmin = min(tmin, (pVector[r] - pVector[l])/(pVector[j] - pVector[i]));
         }
         if (!adList[i + 2].OutNeighborhood.empty() &&
             !adList[i + 1].InNeighborhood.empty()) {
             l = *(adList[i + 2].OutNeighborhood.rbegin());
             r = *(adList[i + 1].InNeighborhood.begin());
-            tmin = min(tmin, double(pVector[r] - pVector[l] + pVector[i + 2] -
-                pVector[i + 1]) /
-                double(pVector[j] - pVector[i]));
+            tmin = min(tmin, (pVector[r] - pVector[l] + pVector[i + 2] -pVector[i + 1])/
+                (pVector[j] - pVector[i]));
         }
+        assert(tmin < 2);
         tmax = max(tmax, tmin);
     }
-    return tmax;
-}
 
-int DGraph::minDistance(const vector<double>& pVector, const vector<double>& dist,
+    return tmax;
+};
+
+int DGraph::minDistance(const vector<RationalNumber>& pVector, const vector<RationalNumber>& dist,
     const vector<bool>& processed) {
     // Initialize min value
-    int min = INT_MAX;
+    RationalNumber min = 2 * pVector.back();
     int min_index = -1;
 
     for (int v = 0; v < pVector.size(); v++)
@@ -145,28 +139,28 @@ int DGraph::minDistance(const vector<double>& pVector, const vector<double>& dis
 
     return min_index;
 }
-double DGraph::get_shortest_path_complete(const vector<double>& pVector, size_t s,
+RationalNumber DGraph::get_shortest_path_complete(const vector<RationalNumber>& pVector, size_t s,
     size_t t) {
     if (s > t) swap(s, t);
     if (t > s + 1) return 2 * (pVector[t] - pVector[s]);
     // searching for the nearst point
     else {
-        double prev = -INT_MAX;
-        double suss = INT_MAX;
+        RationalNumber prev = -2*pVector.back();
+        RationalNumber suss = 2 * pVector.back();
         if (s > 0) prev = pVector[s - 1];
         if (t < pVector.size() - 1) suss = pVector[t + 1];
-        double dis = pVector[s] - prev;
+        RationalNumber dis = pVector[s] - prev;
         if (dis > suss - pVector[t]) dis = suss - pVector[t];
         assert(pVector[t] - pVector[s] + dis > 0);
-        return 2 * (pVector[t] - pVector[s] + dis);
+        return RationalNumber(2 * (pVector[t] - pVector[s] + dis));
     }
 }
-double DGraph::get_dilation_dijkstra(const vector<double>& pVector, size_t src) {
+RationalNumber DGraph::get_dilation_dijkstra(const vector<RationalNumber>& pVector, size_t src) {
     size_t V = pVector.size();
-    vector<double> dist;
+    vector<RationalNumber> dist;
     vector<bool> processed;
     for (int i = 0; i < V; i++) {
-        dist.push_back(INT_MAX);
+        dist.push_back(pVector.back()*2);
         processed.push_back(false);
     }
     dist[src] = 0;
@@ -175,33 +169,31 @@ double DGraph::get_dilation_dijkstra(const vector<double>& pVector, size_t src) 
         processed[u] = true;
         for (size_t v = 0; v < V; v++) {
             if (!processed[v] && (adList[u].OutNeighborhood.count(v) || u < v) &&
-                dist[u] != INT_MAX &&
-                dist[u] + std::abs(
-                    (double)((double)pVector[u] - (double)pVector[v])) <
+                dist[u] != pVector.back() * 2 &&
+                dist[u] + abs(pVector[u] - pVector[v]) <
                 dist[v]) {
-                dist[v] = dist[u] +
-                    std::abs((double)((double)pVector[u] - (double)pVector[v]));
+                dist[v] = dist[u] + abs(pVector[u] - pVector[v]);
             }
         }
     }
-    double tmax = 1.0;
-    double od = 0;
+    RationalNumber tmax = RationalNumber(1);
+    RationalNumber od = 0;
     for (int i = 0; i < src; i++) {
         // coumpute od
         od = (dist[i] + (pVector[src] - pVector[i])) /
             get_shortest_path_complete(pVector, src, i);
         assert(od >= 1);
         assert(od <= pVector[V - 1] - pVector[0] + 1);
-        tmax = std::max(tmax, od);
+        tmax = max(tmax, od);
     }
     assert(tmax >= 1);
     // assert(tmax <= pVector[end_index]- pVector[start_index] + 1);
     return tmax;
 }
 
-double DGraph::get_dilation_dijkstra(const vector<double>& pVector) {
-    double tmax = 0;
-    double od = 0;
+RationalNumber DGraph::get_dilation_dijkstra(const vector<RationalNumber>& pVector) {
+    RationalNumber tmax = 0;
+    RationalNumber od = 0;
     for (int i = 0; i < pVector.size(); i++) {
         od = get_dilation_dijkstra(pVector, i);
         tmax = std::max(tmax, od);
@@ -209,7 +201,7 @@ double DGraph::get_dilation_dijkstra(const vector<double>& pVector) {
     return tmax;
 }
 
-void DGraph::draw_tikz(double range, std::string path, const vector<double>& pVector, std::string optional_parameters = "every node / .append style = { draw, circle }, rotate = 90")
+void DGraph::draw_tikz(double range, std::string path, const vector<RationalNumber>& pVector, std::string optional_parameters = "every node / .append style = { draw, circle }, rotate = 90")
 {
     uint64_t num_nodes = pVector.size();
     std::ofstream o(path);
@@ -226,7 +218,7 @@ void DGraph::draw_tikz(double range, std::string path, const vector<double>& pVe
 
     // if you want to highligt points, just create another list of points and output them in a similar fashion as below but change stroke (color), size, and name (shape)
     for (int i = 0; i < num_nodes; ++i) {
-        o << "\\node[] at (" << pVector[i]/range << "," << 0 << ") (" << i << ") {} ;" << std::endl;
+        o << "\\node[] at (" << boost::rational_cast<double>(pVector[i])/range << "," << 0 << ") (" << i << ") {} ;" << std::endl;
     }
                     
     // if you want to highligt edges, just create another list of edges and output them in a similar fashion as below but change stroke (color) and pen (thickness)

@@ -12,11 +12,13 @@ public:
 	virtual void set(size_t point_size);
 	virtual void say_hello() { printf("Run Solver_1D1P"); };
 	void read_point(char* str);
-	void output(double od) override;
+	void output(RationalNumber od) override;
+	void print() override;
 	void draw() override;
+	void debug() override;
 	virtual bool is_planarity() = 0;
-	vector<double> pVector;
+	vector<RationalNumber> pVector;
 	DGraph solution;
-	double teo_g = 5;
+	RationalNumber teo_g = 5;
 	virtual void draw_tikz(double range, std::string path, std::string optional_parameters) = 0;
 };

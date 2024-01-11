@@ -10,10 +10,10 @@ c2: left (l,i+2), l < i
 c3: right (i, r), r > i+2
 c4: cut va:(l,i+1) and vb:(i+1, r), l < i and r > i+2
 */
-void Sat2P:: write_clauses_2(vector<pair<unsigned int, unsigned int>>& candidate_edges, int C, ofstream& outdata, double test_v) {
+void Sat2P:: write_clauses_2(vector<pair<unsigned int, unsigned int>>& candidate_edges, int C, ofstream& outdata, RationalNumber test_v) {
     for (unsigned int i = 0; i < pVector.size() - 2; i++) {
         unsigned int j = i + 2;
-        double maxD = test_v * (pVector[j] - pVector[i]);
+        RationalNumber maxD = test_v * (pVector[j] - pVector[i]);
         // c1
         outdata << decode(j, i, 0, base) << " " << decode(j, i, 1, base) << " ";
         candidate_edges.push_back(pair<unsigned int, unsigned int>(j, i));
@@ -77,8 +77,8 @@ void Sat2P:: write_clauses_2(vector<pair<unsigned int, unsigned int>>& candidate
     }
 }
 
-void Sat2P::write_clauses_3( vector<pair<unsigned int, unsigned int>>& candidate_edges, int C,
-    ofstream& outdata, double test_v) {
+void Sat2P::write_clauses_3(vector<pair<unsigned int, unsigned int>>& candidate_edges,
+    int C, ofstream& outdata, RationalNumber test_v) {
     //  consider all pairs <i, i+3>
     /*
     c1 or c2 or c3 or c41 or c42 or c43
@@ -91,7 +91,7 @@ void Sat2P::write_clauses_3( vector<pair<unsigned int, unsigned int>>& candidate
     */
     for (unsigned int i = 0; i < pVector.size() - 3; i++) {
         unsigned j = i + 3;
-        double maxD = test_v * (pVector[j] - pVector[i]);
+        RationalNumber maxD = test_v * (pVector[j] - pVector[i]);
         // c1
         outdata << decode(j, i, 0, base) << " " << decode(j, i, 1, base) << " ";
         candidate_edges.push_back(pair<unsigned int, unsigned int>(j, i));
@@ -117,16 +117,20 @@ void Sat2P::write_clauses_3( vector<pair<unsigned int, unsigned int>>& candidate
         vector<bool> candidates_ende_pairs_valid_c43;
         vector<pair<unsigned int, unsigned int>> candidates_ende_pairs;
         int C_start = C;
-        for (int l = i - 1; l >= 0; l--) {
+        for (int l = i; l >= 0; l--) {
             if (pVector[j] - pVector[l] > maxD) break;
-            for (unsigned int r = j + 1; r < pVector.size(); r++) {
+            for (unsigned int r = j; r < pVector.size(); r++) {
                 if (pVector[r] - pVector[l] <= maxD) {
                     // for c41
-                    outdata << C << " ";
-                    C++;
+                    if (l < i) {
+                        outdata << C << " ";
+                        C++;
+                    }
                     // for c42
-                    outdata << C << " ";
-                    C++;
+                    if (r > j) {
+                        outdata << C << " ";
+                        C++;
+                    }
                     candidates_ende_pairs.push_back(
                         pair<unsigned int, unsigned int>(l, r));
                     // for c43
@@ -149,37 +153,41 @@ void Sat2P::write_clauses_3( vector<pair<unsigned int, unsigned int>>& candidate
         // add c4 clauses
         for (int index = 0; index < candidates_ende_pairs.size(); index++) {
             // c41
-            outdata << -C_start << " "
-                << decode(i + 1, candidates_ende_pairs[index].first, 0, base)
-                << " "
-                << decode(i + 1, candidates_ende_pairs[index].first, 1, base)
-                << " 0" << endl;
-            candidate_edges.push_back(pair<unsigned int, unsigned int>(
-                i + 1, candidates_ende_pairs[index].first));
-            outdata << -C_start << " "
-                << decode(candidates_ende_pairs[index].second, i + 1, 0, base)
-                << " "
-                << decode(candidates_ende_pairs[index].second, i + 1, 1, base)
-                << " 0" << endl;
-            candidate_edges.push_back(pair<unsigned int, unsigned int>(
-                candidates_ende_pairs[index].second, i + 1));
-            C_start++;
+            if (candidates_ende_pairs[index].first < i) {
+                outdata << -C_start << " "
+                    << decode(i + 1, candidates_ende_pairs[index].first, 0, base)
+                    << " "
+                    << decode(i + 1, candidates_ende_pairs[index].first, 1, base)
+                    << " 0" << endl;
+                candidate_edges.push_back(pair<unsigned int, unsigned int>(
+                    i + 1, candidates_ende_pairs[index].first));
+                outdata << -C_start << " "
+                    << decode(candidates_ende_pairs[index].second, i + 1, 0, base)
+                    << " "
+                    << decode(candidates_ende_pairs[index].second, i + 1, 1, base)
+                    << " 0" << endl;
+                candidate_edges.push_back(pair<unsigned int, unsigned int>(
+                    candidates_ende_pairs[index].second, i + 1));
+                C_start++;
+            }
             // c42
-            outdata << -C_start << " "
-                << decode(i + 2, candidates_ende_pairs[index].first, 0, base)
-                << " "
-                << decode(i + 2, candidates_ende_pairs[index].first, 1, base)
-                << " 0" << endl;
-            candidate_edges.push_back(pair<unsigned int, unsigned int>(
-                i + 2, candidates_ende_pairs[index].first));
-            outdata << -C_start << " "
-                << decode(candidates_ende_pairs[index].second, i + 2, 0, base)
-                << " "
-                << decode(candidates_ende_pairs[index].second, i + 2, 1, base)
-                << " 0" << endl;
-            candidate_edges.push_back(pair<unsigned int, unsigned int>(
-                candidates_ende_pairs[index].second, i + 2));
-            C_start++;
+            if (candidates_ende_pairs[index].second > j) {
+                outdata << -C_start << " "
+                    << decode(i + 2, candidates_ende_pairs[index].first, 0, base)
+                    << " "
+                    << decode(i + 2, candidates_ende_pairs[index].first, 1, base)
+                    << " 0" << endl;
+                candidate_edges.push_back(pair<unsigned int, unsigned int>(
+                    i + 2, candidates_ende_pairs[index].first));
+                outdata << -C_start << " "
+                    << decode(candidates_ende_pairs[index].second, i + 2, 0, base)
+                    << " "
+                    << decode(candidates_ende_pairs[index].second, i + 2, 1, base)
+                    << " 0" << endl;
+                candidate_edges.push_back(pair<unsigned int, unsigned int>(
+                    candidates_ende_pairs[index].second, i + 2));
+                C_start++;
+            }
             // c3
             if (candidates_ende_pairs_valid_c43[index] == true) {
                 outdata << -C_start << " "
@@ -187,21 +195,31 @@ void Sat2P::write_clauses_3( vector<pair<unsigned int, unsigned int>>& candidate
                     << " "
                     << decode(i + 2, candidates_ende_pairs[index].first, 1, base)
                     << " 0" << endl;
+                candidate_edges.push_back(pair<unsigned int, unsigned int>(
+                    i + 2, candidates_ende_pairs[index].first));
+
                 outdata << -C_start << " "
                     << decode(candidates_ende_pairs[index].second, i + 1, 0, base)
                     << " "
                     << decode(candidates_ende_pairs[index].second, i + 1, 1, base)
                     << " 0" << endl;
+
+                candidate_edges.push_back(pair<unsigned int, unsigned int>(
+                    candidates_ende_pairs[index].second, i + 1));
                 C_start++;
             }
         }
     }
 }
-void Sat2P::write_solver_input(double test_v) {
+void Sat2P::write_solver_input(bool only_short, RationalNumber test_v, int test_len) {
     ofstream outdata;
     int count = 0;
-    string filename = tmp_dictionary + "/" + Input_file_s + +"_" +
+    string filename = tmp_dictionary + "/" + Input_file_name + +"_" +
         to_string(test_v) + "_DIMACS.txt";
+
+    if (only_short)
+        filename = tmp_dictionary + "/" + Input_file_name + +"_" + to_string(test_v) +
+        "_DIMACS_short.txt";
 
     outdata.open(filename.c_str());
     if (!outdata) {
@@ -236,18 +254,30 @@ void Sat2P::write_solver_input(double test_v) {
     for (int i = 0; i < candidate_edges.size(); i++) {
         for (int j = i + 1; j < candidate_edges.size(); j++) {
             if (find_cross(candidate_edges[i], candidate_edges[j])) {
-                outdata << -decode(candidate_edges[i].first, candidate_edges[i].second,
+                outdata << -(int)decode(candidate_edges[i].first, candidate_edges[i].second,
                     0, base)
                     << " "
-                    << -decode(candidate_edges[i].first, candidate_edges[i].second,
-                        1, base)
-                    << " "
-                    << -decode(candidate_edges[j].first, candidate_edges[j].second,
+                    << -(int)decode(candidate_edges[j].first, candidate_edges[j].second,
                         0, base)
+                    << " 0" << endl;
+
+                outdata << -(int)decode(candidate_edges[i].first, candidate_edges[i].second,
+                    1, base)
                     << " "
-                    << -decode(candidate_edges[j].first, candidate_edges[j].second,
+                    << -(int)decode(candidate_edges[j].first, candidate_edges[j].second,
                         1, base)
                     << " 0" << endl;
+            }
+        }
+    }
+    // if only short is allowed, deactivate all long edges
+    if (only_short) {
+        for (int i = 0; i < candidate_edges.size(); i++) {
+            if (candidate_edges[i].first - candidate_edges[i].second >= test_len) {
+                outdata << -(int)decode(candidate_edges[i].first, candidate_edges[i].second,
+                    0, base) << " 0" << endl;
+                outdata << -(int)decode(candidate_edges[i].first, candidate_edges[i].second,
+                    1, base) << " 0" << endl;
             }
         }
     }
@@ -255,44 +285,12 @@ void Sat2P::write_solver_input(double test_v) {
     outdata << flush;
     outdata.close();
 }
-// Todo: check if it is a valid solution
-//      check if it is crossing-free
-//      compute the dilation (<= test_v)
 
-//// tuple(a,b,c) -----> edge (a,b) on page c
-void Sat2P::verify(const vector<unsigned int>& solution_indices, double test_v) {
-    vector<pair<unsigned int, unsigned int>> page_0;
-    vector<pair<unsigned int, unsigned int>> page_1;
-    unsigned int base = pVector.size();
-    for (int i = 0; i < solution_indices.size(); i++) {
-        tuple<unsigned int, unsigned int, unsigned int> index =
-            encode(solution_indices[i], base);
-        if (get<2>(index) == 0) {
-            page_0.push_back(
-                pair<unsigned int, unsigned int>(get<0>(index), get<1>(index)));
-        }
-        else {
-            assert(get<2>(index) == 1);
-            page_1.push_back(
-                pair<unsigned int, unsigned int>(get<0>(index), get<1>(index)));
-        }
-    }
-    // planarity check
-    assert(is_planar(page_0));
-    assert(is_planar(page_1));
-    // compute dilation and check if it is <= test_v
-    // set up the graph
-    solution= DGraph(pVector.size());
-    solution.addEdges(page_0);
-    solution.addEdges(page_1);
-    double od = solution.get_dilation(pVector);
-    assert(od <= test_v);
-}
-bool Sat2P::read_solution(double test_v) {
-    vector<unsigned int> solution_indices;
+RationalNumber Sat2P::read_solution(bool only_short, RationalNumber test_v) {
     string file_d =
-        tmp_dictionary + "/" + Input_file_s + +"_" + to_string(test_v);
+        tmp_dictionary + "/" + Input_file_name + +"_" + to_string(test_v);
     string solution_d = file_d + "_DIMACS_solution.txt";
+    if (only_short) solution_d = file_d + "_DIMACS_solution_short.txt";
     ifstream solution_file;
     solution_file.open(solution_d.c_str());
     if (!solution_file) {
@@ -305,47 +303,65 @@ bool Sat2P::read_solution(double test_v) {
     char head;
     int i;
     getline(solution_file, line);
-    char* str = strdup(line.c_str());
+    if (!line.compare("UNSAT")) {
+        // 's' and 't' are equal.
+        return -1;
+    }
+    solution_indices.clear();
+    char* str = _strdup(line.c_str());
     const char s[2] = " ";
-    char* token = strtok(str, s);
-    while (token != NULL) {
+    char* next_token;
+    char* token = strtok_s(str, s, &next_token);
+    int index_MAX = pVector.size() * pVector.size() + (pVector.size() - 1) * pVector.size() + (pVector.size() - 1);
+    int index = 0;
+    while (token != NULL && index < index_MAX) {
         i = atoi(token);
+        index++;
         if (i > 0) {
             // Todo: how to know if it is satisfiing and how to encode the index as
             // tripe
             solution_indices.push_back(i);
         }
-        token = strtok(NULL, s);
+        token = strtok_s(NULL, s, &next_token);
     }
     solution_file.close();
-    if (remove((file_d + "_DIMACS_solution.txt").c_str()) != 0)
+    /*
+    if (remove(solution_d.c_str()) != 0)
         perror("Error deleting solution file");
-    verify(solution_indices, test_v);
-    return true;
+    */
+    set_pages();
+    RationalNumber od = solution.get_dilation(pVector);
+    return od;
 };
 
-bool Sat2P::sat_solve(bool only_short, double test_v) {
+RationalNumber Sat2P::sat_solve(bool only_short, RationalNumber test_v, int test_len) {
     // remove the datas
     string file_d =
-        tmp_dictionary + "/" + Input_file_s + +"_" + to_string(test_v);
-    write_solver_input(test_v);
+        tmp_dictionary + "/" + Input_file_name + +"_" + to_string(test_v);
+    write_solver_input(only_short, test_v, test_len);
     string o = sat_solver_PATH + file_d + "_DIMACS.txt " + file_d +
-        "_DIMACS_solution.txt";
+        "_DIMACS_solution.txt" + "> NUL 2>&1";
+    if (only_short) o = sat_solver_PATH + file_d + "_DIMACS_short.txt " + file_d +
+        "_DIMACS_solution_short.txt" + "> NUL 2>&1";
     int success = system(o.c_str());
-    if (remove((file_d + "_DIMACS.txt").c_str()) != 0)
-        perror("Error deleting instance file");
 
-    return read_solution(test_v);
+    string instance_f = file_d + "_DIMACS.txt";
+    if (only_short)instance_f = file_d + "_DIMACS_short.txt";
+  /*
+    if (remove(instance_f.c_str()) != 0)
+      perror("Error deleting instance file");
+  */
+  return read_solution(only_short, test_v);
 }
-vector<double> Sat2P::get_candidate() {
-    std::set<double> candidate_ods;
+vector<RationalNumber> Sat2P::get_candidate() {
+    std::set<RationalNumber> candidate_ods;
     for (int i = 0; i < pVector.size() - 2; i++) {
         // consider all pairs <i, i+2>
         int j = i + 2;
-        double sp = pVector[j] - pVector[i];
+        RationalNumber sp = pVector[j] - pVector[i];
         for (int k = 0; k <= i; k++) {
             for (int m = j; m < pVector.size(); m++) {
-                double sc = pVector[m] - pVector[k];
+                RationalNumber sc = pVector[m] - pVector[k];
                 if (sc / sp <= teo_g) candidate_ods.insert(sc / sp);
             }
         }
@@ -353,37 +369,110 @@ vector<double> Sat2P::get_candidate() {
     for (int i = 0; i < pVector.size() - 3; i++) {
         // consider all pairs <i, i+3>
         int j = i + 3;
-        double sp = pVector[j] - pVector[i];
-        double rp = pVector[i + 2] - pVector[i + 1];
+        RationalNumber sp = pVector[j] - pVector[i];
+        RationalNumber rp = pVector[i + 2] - pVector[i + 1];
         for (int k = 0; k <= i; k++) {
             for (int m = j; m < pVector.size(); m++) {
-                double sc = pVector[m] - pVector[k];
-                if (sc / sp <= teo_g) candidate_ods.insert(sc / sp);
-                if ((sc + rp) / sp <= teo_g) candidate_ods.insert((sc + rp) / sp);
+                RationalNumber sc = pVector[m] - pVector[k];
+                if (sc / sp <= teo_g) {
+                    candidate_ods.insert(sc / sp);
+                }
+                if ((sc + rp) / sp <= teo_g) {
+                    candidate_ods.insert((sc + rp) / sp);
+                }
             }
         }
     }
-    vector<double> vc(candidate_ods.begin(), candidate_ods.end());
+    vector<RationalNumber> vc(candidate_ods.begin(), candidate_ods.end());
     return vc;
 }
 
 
-double Sat2P::solve() {
-    vector<double> candidate_ods = get_candidate();
+RationalNumber Sat2P::solve() {
+    vector<RationalNumber> candidate_ods = get_candidate();
     int l = 0;
     int r = candidate_ods.size() - 1;
-    double best_od = 2.0;
+    RationalNumber best_od = 2;
     while (r >= l) {
         int mid = l + (r - l) / 2;
-        bool found = sat_solve(false, candidate_ods[mid]);
-        best_od = candidate_ods[mid];
+        bool found = sat_solve(false, candidate_ods[mid], 0);
         if (found) {
             r = mid - 1;
+            best_od = candidate_ods[mid];
         }
         else {
             l = mid + 1;
         }
     }
     assert(best_od <= teo_g);
+    printf("Sat2P solved with %f", to_string(best_od));
+    set_pages();
     return best_od;
+}
+
+void Sat2P::sat_debug(RationalNumber test_v) {
+    RationalNumber od = solution.get_dilation(pVector);
+    assert(od <= test_v);
+}
+
+// test if it requires long edges.
+bool Sat2P::conjecture_check( RationalNumber& best, RationalNumber& best_short, int test_len) {
+    vector<RationalNumber> candidate_ods = get_candidate();
+    int l = 0;
+    int r = candidate_ods.size() - 1;
+    int mid = 0;
+    while (r >= l) {
+        mid = l + (r - l) / 2;
+        if (candidate_ods[mid] >= best) {
+            r = mid - 1;
+            continue;
+        }
+        RationalNumber found = sat_solve(false, candidate_ods[mid], test_len);
+        assert(found < best);
+        bool found_value = false;
+        if (found > 0) {
+            for (int i = 0; i < candidate_ods.size(); i++) {
+                if (candidate_ods[i] == found) {
+                    found_value = true;
+                }
+            }
+            assert(found_value);
+        }
+        //check if "found" can be computed
+        //  
+        if (found > 0) {
+            RationalNumber checked_found = sat_solve(false, found, test_len);
+            if (checked_found <= 0) {
+                std::cout <<"check the files: "<< to_string(found)
+                    <<" "<< to_string(candidate_ods[mid]) << std::endl;
+            }
+            assert(checked_found > 0);
+        }
+        assert(found < 0 || found_value);
+        cout<< "best dilation <=" << to_string(candidate_ods[mid]) <<": " << to_string(found) << endl;
+        if (found > 0) {
+            best = found;
+            RationalNumber found_short = sat_solve(true, found, test_len);
+            bool found_value_short = false;
+            for (int i = 0; i < candidate_ods.size(); i++) {
+                if (candidate_ods[i] == found) found_value_short = true;
+            }
+            assert(found_short < 0 || found_value_short);
+            cout << "short best dilation <=" << to_string(found) << ": " << to_string(found_short) << endl;
+            if (found_short < 0) {
+                cout<<"This is a conter - example with "<< to_string(candidate_ods[mid])<< endl;
+                return true;
+            }
+            else {
+                best = min(best, found_short);
+                best_short = min(best_short, found_short);
+            }
+            r = mid - 1;
+        }
+        else {
+            l = mid + 1;
+        }
+    }
+    assert(best == best_short);
+    return false;
 }

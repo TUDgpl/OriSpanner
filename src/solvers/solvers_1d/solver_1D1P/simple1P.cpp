@@ -1,5 +1,5 @@
 #include "simple1P.h"
-double Simple::solve() {
+RationalNumber Simple::solve() {
 	DList L;
 	for (int i = 0; i < pVector.size(); i++) 
 	{
@@ -21,7 +21,6 @@ double Simple::solve() {
 		if (suss != L.end() && prev != L.end()) {
 			L.erase(*(next(suss,1)));
 			solution.addEdge(Cover_min.s, Cover_min.t);
-			std::cout << *prev <<", "<< *suss << std::endl;
 			DList::iterator suss_s = std::prev(suss,1);
 			DList::iterator prev_v = std::next(prev,1);
 			//add (i+1,i-2)
@@ -31,8 +30,8 @@ double Simple::solve() {
 		}
 	}
 	assert(is_planarity() == true);
-	double od = solution.get_dilation(pVector);
+	RationalNumber od = solution.get_dilation(pVector);
 	assert(od <= teo_g);
-	printf("Simple solved with %f", od );
+	printf("Simple solved with %f", boost::rational_cast<double>(od) );
 	return od;
 }

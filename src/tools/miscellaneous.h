@@ -15,6 +15,9 @@
 #include <boost/heap/priority_queue.hpp>
 #include <set>
 
+#include <boost/rational.hpp>
+
+
 
 
 
@@ -30,15 +33,17 @@ using namespace std;
 extern jsonM Measures;
 extern string Result_folder_s;
 extern string Input_file_s;
+extern string Input_file_name;
 extern string Algo_t;
 extern double W;
 extern double H;
 extern double epsilon;
 
+
 void hello();
 
 static const std::string sat_solver_PATH = "D:/glucose-4.1-win-x64/glucose.exe ";
-static const  std::string tmp_dictionary = "D:/GIT/2Page/tmp";
+static const  std::string tmp_dictionary = "D:/GIT/OriSpanner/tmp";
 
 //the following are UBUNTU/LINUX, and MacOS ONLY terminal color codes.
 #define RESET   "\033[0m"
@@ -59,34 +64,18 @@ static const  std::string tmp_dictionary = "D:/GIT/2Page/tmp";
 #define BOLDCYAN    "\033[1m\033[36m"      /* Bold Cyan */
 #define BOLDWHITE   "\033[1m\033[37m"      /* Bold White */
 
-
+typedef boost::rational<int> RationalNumber;
 
 void printArgs(int argc, char* argv[]);
 void parseInitOptions(int argc, char* argv[]);
 void outputMeasure(const char* append);
 void printInitUsage();
 
-struct Arc_1D {
-	// s: source index 
-	// t: target index
-	//l: length
-	Arc_1D() { s = 0;  t = 0; l = 0; };
-	Arc_1D(unsigned int source, unsigned int target, int len) {
-		s = source;
-		t = target;
-		l = len;
-	}
-	void print() const;
-	void debug(vector<unsigned int>& points);
-
-	unsigned s;
-	unsigned t;
-	unsigned l;
-};
 
 
 
-bool find_cross(const Arc_1D& a1, const Arc_1D& a2);
+
+
 
 bool find_cross(unsigned int s1, unsigned int t1, unsigned int s2, unsigned int t2);
 
@@ -128,3 +117,254 @@ bool is_planar(const vector<pair<unsigned int, unsigned int>>& page_0);
 
 
 //----------------------1D---------------------------------------------------
+inline int gcd(int a, int b)
+{
+    while (b != a)
+    {
+        if (a < b)
+            b -= a;
+        else
+            a -= b;
+    }
+    return a;
+}
+
+inline RationalNumber atoR(char* str) {
+    int n = atoi(strtok(str, "."));
+    char* f = strtok(NULL, ".");
+    int d = 1;
+    if (f != NULL) {
+        d = strlen(f);
+        n = n * pow(10, d) + atoi(f);
+    }
+    return RationalNumber(n, d);
+}
+
+inline string to_string(RationalNumber const& test_v) {
+    return to_string(test_v.numerator()) + "_" + to_string(test_v.denominator());
+
+}
+/*
+class RationalNumber
+{
+public:
+
+    int numerator_;
+    int denominator_;
+
+    void reduce()
+    {
+        int tempGcd = gcd(numerator_, denominator_);
+
+        numerator_ = numerator_ / tempGcd;
+        denominator_ = denominator_ / tempGcd;
+    }
+
+    RationalNumber()
+    {
+        numerator_ = 0;
+        denominator_ = 1;
+    }
+    RationalNumber(int a)
+    {
+        numerator_ = a;
+        denominator_ = 1;
+    }
+    RationalNumber(int a, int b)
+    {
+        numerator_ = a;
+        denominator_ = b;
+    }
+    RationalNumber(const RationalNumber& other)
+    {
+        numerator_ = other.numerator_;
+        denominator_ = other.denominator_;
+    }
+    RationalNumber& operator=(RationalNumber const& other) {
+        numerator_ = other.numerator_;
+        denominator_ = other.denominator_;
+        return *this;
+    }
+
+    RationalNumber& operator=(int other) {
+        numerator_ = other;
+        denominator_ = 1;
+        return *this;
+    }
+
+    ~RationalNumber() {}
+
+    float to_float() const
+    {
+        float tempNumerator = this->numerator_;
+        float tempDenominator = this->denominator_;
+        return tempNumerator / tempDenominator;
+    };
+
+    RationalNumber invert() const
+    {
+        RationalNumber resultInvert(denominator_, numerator_);
+        return resultInvert;
+    };
+
+};
+
+inline RationalNumber atoR(char* str) {
+    int n = atoi(strtok(str, "."));
+    char* f= strtok(NULL, ".");
+    int d = 1;
+    if (f != NULL) {
+        d = strlen(f);
+        n = n * pow(10, d) + atoi(f);
+    }
+    return RationalNumber(n,d);
+}
+inline bool operator <(RationalNumber const& lhs, RationalNumber const& other) {
+    if (other.numerator_ == INT_MAX) return true;
+    return(lhs.numerator_ * other.denominator_ < other.numerator_ * lhs.denominator_);
+
+}
+
+inline bool operator >(int other, RationalNumber const& rhs) {
+    return(other * rhs.denominator_ > rhs.numerator_);
+
+}
+
+inline bool operator >(RationalNumber const& rhs, int other) {
+    return(rhs.numerator_ > other * rhs.denominator_);
+
+}
+inline bool operator >=(RationalNumber const& lhs, RationalNumber const& rhs) {
+    return(lhs.numerator_ * rhs.denominator_ >= rhs.numerator_ * lhs.denominator_);
+
+}
+
+inline bool operator <(int other, RationalNumber const& rhs) {
+    return(rhs.numerator_ > other * rhs.denominator_);
+
+}
+
+inline bool operator <=(int other, RationalNumber const& rhs) {
+    return(other * rhs.denominator_ <= rhs.numerator_);
+
+}
+
+inline RationalNumber operator +(RationalNumber const& lhs, const RationalNumber& rhs)
+{
+    int tempNum = lhs.numerator_;
+    int tempDenum = lhs.denominator_;
+    int n = (tempNum * rhs.denominator_) + (rhs.numerator_ * tempDenum);
+    int d = tempDenum * rhs.denominator_;
+    RationalNumber a(n, d);
+    a.reduce();
+    return a;
+};
+
+
+inline RationalNumber operator -(RationalNumber const& lhs, const RationalNumber& rhs)
+{
+    int tempNum = lhs.numerator_;
+    int tempDenum = lhs.denominator_;
+    int n = (tempNum * rhs.denominator_) - (rhs.numerator_ * tempDenum);
+    int d = tempDenum * rhs.denominator_;
+    RationalNumber a(n,d);
+    a.reduce();
+    return a;
+};
+
+
+inline RationalNumber operator /(RationalNumber const& lhs, const RationalNumber& rhs)
+{
+    RationalNumber a(lhs.numerator_ * rhs.denominator_, lhs.denominator_ * rhs.numerator_);
+    a.reduce();
+    return a;
+};
+
+
+inline RationalNumber operator *(RationalNumber const& lhs, const RationalNumber& rhs)
+{
+    RationalNumber a(lhs.numerator_ * rhs.numerator_, lhs.denominator_ * rhs.denominator_);
+    a.reduce();
+    return a;
+};
+
+inline RationalNumber operator *(RationalNumber const& lhs, unsigned int other) {
+    RationalNumber a(lhs.numerator_ * other, lhs.denominator_);
+    a.reduce();
+    return a;
+
+}
+inline RationalNumber operator -(RationalNumber const& lhs, double other) {
+    RationalNumber a(lhs.numerator_ * other, lhs.denominator_);
+    a.reduce();
+    return a;
+
+}
+
+inline bool operator <=(RationalNumber const& lhs, RationalNumber const& other) {
+    return(lhs.numerator_ * other.denominator_ <= other.numerator_ * lhs.denominator_);
+
+}
+
+inline bool operator >(RationalNumber const& lhs, RationalNumber const& other) {
+    return(lhs.numerator_ * other.denominator_ > other.numerator_ * lhs.denominator_);
+
+}
+
+inline RationalNumber min(RationalNumber const& lhs, RationalNumber const& other) {
+    if (lhs <= other) return lhs;
+    return other;
+
+}
+inline RationalNumber abs(RationalNumber const&  other) {
+    RationalNumber a(abs(other.numerator_ ),abs(other.denominator_));
+    return a;
+
+}
+
+inline RationalNumber max(RationalNumber const& lhs, RationalNumber const& other) {
+    if (lhs <= other) return other;
+    return lhs;
+
+}
+inline string to_string(RationalNumber const& test_v) {
+    return to_string(test_v.numerator_) + "_" + to_string(test_v.denominator_);
+
+}
+
+
+inline bool operator ==(RationalNumber const& lhs, RationalNumber const& other) {
+    return(lhs.numerator_ * other.denominator_ == other.numerator_ * lhs.denominator_);
+
+}
+
+inline bool operator ==(RationalNumber const& lhs, int other) {
+    if (other == INT_MAX) {
+        cout << (lhs.numerator_ == INT_MAX);
+        cout << (lhs.denominator_ == 1);
+        return (lhs.numerator_ == INT_MAX && lhs.denominator_ == 1);
+    }
+    return(lhs.numerator_ == other * lhs.denominator_);
+
+}
+
+*/
+struct Arc_1D {
+    // s: source index 
+    // t: target index
+    //l: length
+    Arc_1D() { s = 0;  t = 0; l = 0; };
+    Arc_1D(unsigned int source, unsigned int target, RationalNumber len) {
+        s = source;
+        t = target;
+        l = len;
+    }
+    void print() const;
+    void debug(vector<RationalNumber>& points);
+
+    unsigned s;
+    unsigned t;
+    RationalNumber l;
+};
+
+bool find_cross(const Arc_1D& a1, const Arc_1D& a2);

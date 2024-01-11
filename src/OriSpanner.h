@@ -6,6 +6,7 @@
 #include "simple1P.h"
 #include "dp1P.h"
 #include "sat1D1P.h"
+#include "sat1D2P.h"
 
 
 
