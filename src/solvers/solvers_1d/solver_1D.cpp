@@ -55,9 +55,11 @@ void Solver_1D::draw() {
 	strcpy(file_str, Result_folder_s.c_str());
 	strcat(file_str, get_file_name_no_extension(Input_file_s).c_str());
 	strcat(file_str, Algo_t.c_str());
-	strcat(file_str, "solution.tex");
-	double range = 20.0 / boost::rational_cast<double>(pVector.back() - pVector[0]);
-	draw_tikz(range, file_str, "every node/.append style={draw, circle}, rotate = 90");
+	double range = 40.0 / boost::rational_cast<double>(pVector.back() - pVector[0]);
+	//strcat(file_str, "solution.tex");
+	//draw_tikz(range, file_str, "every node/.append style={draw, circle}");
+	strcat(file_str, "solution.xml");
+	draw_ipe( file_str);
 }
 
 

@@ -395,7 +395,7 @@ RationalNumber Sat2P::solve() {
     RationalNumber best_od = 2;
     while (r >= l) {
         int mid = l + (r - l) / 2;
-        bool found = sat_solve(false, candidate_ods[mid], 0);
+        bool found = sat_solve(true, candidate_ods[mid], 5);
         if (found) {
             r = mid - 1;
             best_od = candidate_ods[mid];

@@ -13,6 +13,7 @@ public:
 	Solver_1D2P() {};
 	virtual void say_hello() { printf("Run Solver_1D2P"); };
 	void draw_tikz(double range, std::string path, std::string optional_parameters) override;
+	void draw_ipe(std::string path) override;
 	bool is_planarity() override;
 	vector<unsigned int> solution_indices;
 	vector<pair<unsigned int, unsigned int>> page_0;

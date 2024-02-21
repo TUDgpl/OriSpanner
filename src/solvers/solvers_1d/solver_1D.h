@@ -21,4 +21,5 @@ public:
 	DGraph solution;
 	RationalNumber teo_g = 5;
 	virtual void draw_tikz(double range, std::string path, std::string optional_parameters) = 0;
+	virtual void draw_ipe(std::string path) = 0;
 };
