@@ -387,3 +387,4 @@ drawings/
 RESULT/
 build_win/
 cairo_drawings/
+tmp/
