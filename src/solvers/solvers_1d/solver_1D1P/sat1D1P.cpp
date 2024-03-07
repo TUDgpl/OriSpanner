@@ -241,3 +241,5 @@ RationalNumber Sat1P::solve() {
     printf("Sat1P solved with %f", boost::rational_cast<double>(best_od) );
     return best_od;
 }
+
+

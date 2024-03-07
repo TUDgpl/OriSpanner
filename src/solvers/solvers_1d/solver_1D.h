@@ -9,10 +9,10 @@ using namespace std;
 class Solver_1D :public Solver {
 public:
 	Solver_1D() {};
-	virtual void set(size_t point_size);
+	void set(size_t point_size) override;
 	virtual void say_hello() { printf("Run Solver_1D1P"); };
-	void read_point(char* str);
-	void output(RationalNumber od) override;
+	void readIPE() override;
+	void read_point(string str) override;
 	void print() override;
 	void draw() override;
 	void debug() override;

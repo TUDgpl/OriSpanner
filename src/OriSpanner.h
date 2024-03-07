@@ -7,6 +7,8 @@
 #include "dp1P.h"
 #include "sat1D1P.h"
 #include "sat1D2P.h"
+#include "miscellaneous_exaction.h" 
 
+// long edge conjecture test
 
-
+void say_hi() { std::cout << "Hey" << std::endl; };

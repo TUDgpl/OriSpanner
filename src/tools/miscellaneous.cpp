@@ -1,13 +1,14 @@
 #include "miscellaneous.h"
 jsonM measures;
-
 string Result_folder_s;
 string Algo_t;
+string input_ipe_s;
 string Input_file_s;
 string Input_file_name;
 double W;
 double H;
 double epsilon = 0.000000000000001;
+
 
 
 
@@ -26,7 +27,7 @@ void parseInitOptions(int argc, char* argv[]) {
 		("a,algorithm", "Algorithm Option", cxxopts::value<std::string>())
 		("h,help", "Print usage")
 		("d", "dictionary", cxxopts::value<std::string>()->default_value("D:/GIT/OriSpannerP/solutions/"))
-		
+		("i,ipe", "ipe input file", cxxopts::value<std::string>())
 		("f,filename", "input file", cxxopts::value<std::string>())
 		;
 	options.allow_unrecognised_options();
@@ -47,13 +48,21 @@ void parseInitOptions(int argc, char* argv[]) {
 		measures.addElement("info", "file", outFile);
 	}
 	else {
-		std::cerr << "Input file missing" << std::endl;
-		printInitUsage();
-		exit(0);
+		if (result.count("ipe")) {
+			input_ipe_s = strdup(result["ipe"].as<std::string>().c_str());
+			Input_file_name = get_file_name(input_ipe_s);
+			string outFile(input_ipe_s);
+			std::string key = "/";
+			std::size_t found = outFile.rfind(key);
+			outFile = outFile.substr(found + 1);
+			measures.addElement("info", "file", outFile);
+		}
+		else {
+			std::cerr << "Input file missing" << std::endl;
+			printInitUsage();
+			exit(0);
+		}
 	}
-
-
-
 	Result_folder_s = result["d"].as<std::string>();
 	if(Input_file_s.find("uniform") != std::string::npos) Result_folder_s += "1D/Uniform/";
 	if (Input_file_s.find("exp") != std::string::npos) Result_folder_s += "1D/Exp/";
@@ -92,10 +101,7 @@ void printInitUsage() {
 }
 
 void outputMeasure(const char* append) {
-	string outFile(Input_file_s);
-	std::string key = "/";
-	std::size_t found = outFile.rfind(key);
-	outFile = outFile.substr(found + 1);
+	string outFile(Input_file_name);
 	string appendix;
 	appendix += "-";
 	appendix += Algo_t;

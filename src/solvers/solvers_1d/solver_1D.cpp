@@ -1,7 +1,60 @@
 #include "solver_1D.h"
+#include <algorithm>
+// read input form an IPE file
+//write the input points into a standard DIMACS file
+void Solver_1D::readIPE() {
+	ifstream fp;
+	fp.open(input_ipe_s, std::ios::in);
+	if (!fp.is_open()) {
+		std::cout << Input_file_s << std::endl;
+		perror("read file fails");
+		exit(EXIT_FAILURE);
+	}
 
-void Solver_1D::read_point(char* str) {
-	pVector.push_back(atoR(strtok(str, " ")));
+	string buff;
+	string s = "pos";
+	char const* digits = "0123456789";
+	getline(fp, buff);
+	while (!fp.eof()) {
+		if (buff.find(s) != std::string::npos) {
+
+			std::size_t const n = buff.find_first_of(digits);
+			if (n != std::string::npos)
+			{
+				std::size_t const m = buff.find_first_not_of(digits, n);
+				string number = buff.substr(n, m != std::string::npos ? m - n : m);
+				pVector.push_back(atoR(strdup(number.c_str())));
+			}
+		}
+		getline(fp, buff);
+	}
+
+	set(pVector.size());
+
+	/*
+	Input_file_s = "test.txt";
+	readFile();
+	*/
+
+}
+
+
+
+void Solver_1D::read_point(string s) {
+	// if string is a floating number/ integer number
+	int  n = std::count(s.begin(), s.end(), ' ');
+	char* str = strdup(s.c_str());
+	if (n == 1) {
+		pVector.push_back(atoR(strtok(str, " ")));
+	}
+	else {
+		int n = atoi(strtok(str, " "));
+		int d = atoi(strtok(NULL, " "));
+		assert(n >= 0);
+		assert(d > 0);
+		pVector.push_back(RationalNumber(n,d));
+	}
+	
 };
 
 void Solver_1D::set(size_t point_size) {
@@ -9,46 +62,8 @@ void Solver_1D::set(size_t point_size) {
 	solution = DGraph(point_size);
 };
 
-void Solver_1D::output(RationalNumber od) {
-	char file_str[400];
-	strcpy(file_str, Result_folder_s.c_str());
-	strcat(file_str, get_file_name_no_extension(Input_file_s).c_str());
-	strcat(file_str, Algo_t.c_str());
-	strcat(file_str, "solution.txt");
 
-	std::ofstream ofs;
-	std::string s(file_str);
-	try {
-		ofs.open(s, std::fstream::out);
-	}
-	catch (std::ofstream::failure& e) {
-		std::cerr << "Exception opening file: " << std::strerror(errno) << "\n";
-	}
-	ifstream src;
-	ofstream dst;
-	src.open(Input_file_s, std::fstream::in);
-	ofs << src.rdbuf();
-	src.close();
-	ofs << "d " << od<< endl;
-	size_t eSize = 0;
-	for (unsigned int i = 0; i < pVector.size(); i++) {
-		eSize += solution.adList[i].InNeighborhood.size();
-	}
-	for (unsigned int i = 0; i < pVector.size(); ++i) {
-		ofs << i << ": " << endl;
-		ofs << "in: ";
-		for (auto itr = solution.adList[i].InNeighborhood.begin(); itr != solution.adList[i].InNeighborhood.end(); ++itr) {
-			ofs << *itr << " ";
-		}
-		ofs << endl;
-		ofs << "out: ";
-		for (auto itr = solution.adList[i].OutNeighborhood.begin(); itr != solution.adList[i].OutNeighborhood.end(); ++itr) {
-			ofs << *itr << " ";
-		}
-		ofs << endl;
-	}
-	ofs.close();
-}
+
 
 void Solver_1D::draw() {
 	char file_str[400];

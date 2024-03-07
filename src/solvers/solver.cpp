@@ -6,7 +6,7 @@ void Solver::readFile() {
 	ifstream fp;
 	//fp.open("Debug/instance.cnf",std::ios::in);
 	fp.open(Input_file_s, std::ios::in);
-	if (!fp.is_open()) {
+	if (!fp.is_open() ) {
 		std::cout << Input_file_s << std::endl;
 		perror("read file fails");
 		exit(EXIT_FAILURE);
@@ -35,7 +35,6 @@ void Solver::readFile() {
 	for (unsigned int i = 0; i < point_size; i++) {
 		getline(fp, buff);
 		if (buff.empty()) continue;
-		str = strdup(buff.c_str());
-		read_point(str);
+		read_point(buff);
 	}
 };

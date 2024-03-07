@@ -150,9 +150,10 @@ RationalNumber DP::solve() {
 	back_trace(0, lpmin, rpmin, pVector.size() - 1);
 	//assert(gg.get_edges_size() == solution_g.get_edges_size());
 	//assert(gg.get_dilation_dijkstra(pVector) == solution_g.get_dilation_dijkstra(pVector));
-	RationalNumber od_dij = solution.get_dilation_dijkstra(pVector);
 	RationalNumber od = solution.get_dilation(pVector);
-	assert(abs(boost::rational_cast<double>(od - od_dij ))<= epsilon );
+	double od_dij = solution.get_dilation_dijkstra(pVector);
+	double diff = abs(boost::rational_cast<double>(od) - od_dij);
+	assert(diff <= epsilon );
 	assert(abs(boost::rational_cast<double>(od - odV[0][lpmin][rpmin][pVector.size() - 1])) <= epsilon);
 	printf("DP solved with %f", boost::rational_cast<double>(odV[0][lpmin][rpmin][pVector.size() - 1]));
 	return odV[0][lpmin][rpmin][pVector.size() - 1];
@@ -186,11 +187,5 @@ void DP::back_trace(int l, int lp, int rp, int r) {
 		return;
 	}
 	return;
-
-
-
-
-
-
 
 }

@@ -384,15 +384,13 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P\solver1D2P.cpp" />
     <ClInclude Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P\solver1D2P.h" />
     <ClInclude Include="D:\GIT\OriSpanner\src\tools\cxxopts.hpp" />
-    <ClCompile Include="D:\GIT\OriSpanner\src\tools\drawer.cpp" />
-    <ClInclude Include="D:\GIT\OriSpanner\src\tools\drawer.h" />
-    <ClInclude Include="D:\GIT\OriSpanner\src\tools\graphIPE.hpp" />
-    <ClInclude Include="D:\GIT\OriSpanner\src\tools\graphTIKZ.hpp" />
     <ClInclude Include="D:\GIT\OriSpanner\src\tools\json.hpp" />
     <ClCompile Include="D:\GIT\OriSpanner\src\tools\jsonM.cpp" />
     <ClInclude Include="D:\GIT\OriSpanner\src\tools\jsonM.h" />
     <ClCompile Include="D:\GIT\OriSpanner\src\tools\miscellaneous.cpp" />
     <ClInclude Include="D:\GIT\OriSpanner\src\tools\miscellaneous.h" />
+    <ClCompile Include="D:\GIT\OriSpanner\src\tools\miscellaneous_exaction.cpp" />
+    <ClInclude Include="D:\GIT\OriSpanner\src\tools\miscellaneous_exaction.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="D:\GIT\OriSpanner\build\ZERO_CHECK.vcxproj">

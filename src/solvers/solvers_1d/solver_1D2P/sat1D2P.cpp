@@ -14,6 +14,8 @@ void Sat2P:: write_clauses_2(vector<pair<unsigned int, unsigned int>>& candidate
     for (unsigned int i = 0; i < pVector.size() - 2; i++) {
         unsigned int j = i + 2;
         RationalNumber maxD = test_v * (pVector[j] - pVector[i]);
+        assert(maxD.numerator() > 0);
+        assert(maxD.denominator() > 0);
         // c1
         outdata << decode(j, i, 0, base) << " " << decode(j, i, 1, base) << " ";
         candidate_edges.push_back(pair<unsigned int, unsigned int>(j, i));
@@ -214,6 +216,8 @@ void Sat2P::write_clauses_3(vector<pair<unsigned int, unsigned int>>& candidate_
 void Sat2P::write_solver_input(bool only_short, RationalNumber test_v, int test_len) {
     ofstream outdata;
     int count = 0;
+    assert(test_v.numerator() > 0);
+    assert(test_v.denominator() > 0);
     string filename = tmp_dictionary + "/" + Input_file_name + +"_" +
         to_string(test_v) + "_DIMACS.txt";
 
@@ -362,6 +366,8 @@ vector<RationalNumber> Sat2P::get_candidate() {
         for (int k = 0; k <= i; k++) {
             for (int m = j; m < pVector.size(); m++) {
                 RationalNumber sc = pVector[m] - pVector[k];
+                RationalNumber q = sc / sp;
+                assert(q.numerator() > 0 && q.denominator() > 0);
                 if (sc / sp <= teo_g) candidate_ods.insert(sc / sp);
             }
         }
@@ -375,9 +381,13 @@ vector<RationalNumber> Sat2P::get_candidate() {
             for (int m = j; m < pVector.size(); m++) {
                 RationalNumber sc = pVector[m] - pVector[k];
                 if (sc / sp <= teo_g) {
+                    RationalNumber q = sc / sp;
+                    assert(q.numerator() > 0 && q.denominator() > 0);
                     candidate_ods.insert(sc / sp);
                 }
                 if ((sc + rp) / sp <= teo_g) {
+                    RationalNumber q = (sc + rp) / sp;
+                    assert(q.numerator() > 0 && q.denominator() > 0);
                     candidate_ods.insert((sc + rp) / sp);
                 }
             }
@@ -395,8 +405,10 @@ RationalNumber Sat2P::solve() {
     RationalNumber best_od = 2;
     while (r >= l) {
         int mid = l + (r - l) / 2;
-        bool found = sat_solve(true, candidate_ods[mid], 5);
-        if (found) {
+        assert(candidate_ods[mid].numerator() > 0);
+        assert(candidate_ods[mid].denominator() > 0);
+        RationalNumber found_od = sat_solve(false, candidate_ods[mid], 5);
+        if (found_od > 0) {
             r = mid - 1;
             best_od = candidate_ods[mid];
         }
@@ -405,7 +417,7 @@ RationalNumber Sat2P::solve() {
         }
     }
     assert(best_od <= teo_g);
-    printf("Sat2P solved with %f", to_string(best_od));
+    printf("Sat2P solved with %f", boost::rational_cast<double>(best_od));
     set_pages();
     return best_od;
 }

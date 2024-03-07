@@ -34,13 +34,13 @@
     <ClCompile Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P\solver1D2P.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\GIT\OriSpanner\src\tools\drawer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="D:\GIT\OriSpanner\src\tools\jsonM.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="D:\GIT\OriSpanner\src\tools\miscellaneous.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\GIT\OriSpanner\src\tools\miscellaneous_exaction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -81,15 +81,6 @@
     <ClInclude Include="D:\GIT\OriSpanner\src\tools\cxxopts.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\GIT\OriSpanner\src\tools\drawer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="D:\GIT\OriSpanner\src\tools\graphIPE.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="D:\GIT\OriSpanner\src\tools\graphTIKZ.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="D:\GIT\OriSpanner\src\tools\json.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -97,6 +88,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="D:\GIT\OriSpanner\src\tools\miscellaneous.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\GIT\OriSpanner\src\tools\miscellaneous_exaction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

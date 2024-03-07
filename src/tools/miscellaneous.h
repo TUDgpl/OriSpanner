@@ -22,16 +22,16 @@
 
 
 
+
 #include <cairo/cairo.h>
 #include <cairo/cairo-pdf.h>
-
-
 #include "cxxopts.hpp"
 #include "jsonM.h"
 
 using namespace std;
-extern jsonM Measures;
+extern jsonM measures;
 extern string Result_folder_s;
+extern string input_ipe_s;
 extern string Input_file_s;
 extern string Input_file_name;
 extern string Algo_t;
@@ -64,7 +64,7 @@ static const  std::string tmp_dictionary = "D:/GIT/OriSpanner/tmp";
 #define BOLDCYAN    "\033[1m\033[36m"      /* Bold Cyan */
 #define BOLDWHITE   "\033[1m\033[37m"      /* Bold White */
 
-typedef boost::rational<int> RationalNumber;
+typedef boost::rational<long long> RationalNumber;
 
 void printArgs(int argc, char* argv[]);
 void parseInitOptions(int argc, char* argv[]);
@@ -132,12 +132,16 @@ inline int gcd(int a, int b)
 inline RationalNumber atoR(char* str) {
     int n = atoi(strtok(str, "."));
     char* f = strtok(NULL, ".");
-    int d = 1;
+    int d = 0;
     if (f != NULL) {
         d = strlen(f);
+        if (d >= 16) {
+        perror("To large denominator, please use the rational numbers");
+        exit(EXIT_FAILURE);
+        }
         n = n * pow(10, d) + atoi(f);
     }
-    return RationalNumber(n, d);
+    return RationalNumber(n, (int)pow(10, d));
 }
 
 inline string to_string(RationalNumber const& test_v) {

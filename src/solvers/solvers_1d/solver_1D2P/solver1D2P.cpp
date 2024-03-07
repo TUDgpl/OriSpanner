@@ -6,6 +6,52 @@
 //// tuple(a,b,c) -----> edge (a,b) on page c
 
 
+void Solver_1D2P::outputMeasures() {
+    // page 0
+    for (auto i : page_0) {
+        measures.addElement("page_0", std::to_string(i.first), std::to_string(i.second));
+    }
+    //page 1
+    for (auto i : page_1) {
+        measures.addElement("page_1", std::to_string(i.first), std::to_string(i.second));
+    }
+}
+
+void Solver_1D2P::output(RationalNumber od) {
+    char file_str[400];
+    strcpy(file_str, Result_folder_s.c_str());
+    strcat(file_str, get_file_name_no_extension(Input_file_s).c_str());
+    strcat(file_str, Algo_t.c_str());
+    strcat(file_str, "solution.txt");
+
+    std::ofstream ofs;
+    std::string s(file_str);
+    try {
+        ofs.open(s, std::fstream::out);
+    }
+    catch (std::ofstream::failure& e) {
+        std::cerr << "Exception opening file: " << std::strerror(errno) << "\n";
+    }
+    ifstream src;
+    ofstream dst;
+    src.open(Input_file_s, std::fstream::in);
+    ofs << src.rdbuf();
+    src.close();
+    ofs << "d " << od << endl;
+
+    // page 0
+    ofs <<  "Page_0: " << endl;
+    for (auto i : page_0) {
+        ofs <<"("<< std::to_string(i.first)<<", " << std::to_string(i.second) << ")" << endl;
+    }
+    //page 1
+    ofs << "Page_1: " << endl;
+    for (auto i : page_1) {
+        ofs << "(" << std::to_string(i.first) << ", " << std::to_string(i.second) << ")" << endl;
+    }
+    ofs.close();
+}
+
 bool Solver_1D2P::is_planarity() {
     // planarity check
     return (is_planar(page_0) && is_planar(page_1));
@@ -64,12 +110,8 @@ void Solver_1D2P::draw_ipe(std::string path) {
 
     // Find extreme coords of the graph (if you use CGAL you can use inbuild functions instead)
 
-    double xmin = 0, xmax = 0;
-    for (RationalNumber p : pVector)
-    {
-        xmin = std::min(xmin, boost::rational_cast<double>(p));
-        xmax = std::max(xmax, boost::rational_cast<double>(p));
-    }
+    double xmin =0;
+    double xmax = boost::rational_cast<double>(pVector.back());
     float scale = xmax - xmin;
 
     // Header of the IPE File
@@ -128,8 +170,19 @@ void Solver_1D2P::draw_ipe(std::string path) {
     o << "<layer name=\"points\"/>\n";
     o << "<view layers=\"edges points\" active=\"points\"/>\n";
 
+/*
+    <ipeselection pos = "20.1445 300.135">
+        < path layer = "edges" stroke = "black">
+        16 300 m
+        576 300 l
+        h
+        < / path>
+        <use layer = "points" name = "mark/disk(sx)" pos = "21.045 300" size = "normal" stroke = "black" / >
+        < / ipeselection>
+*/
+
+
     // if you want to highligt edges, just create another list of edges and output them in a similar fashion as below but change stroke (color) and pen (thickness)
-    cout << "scale: " << scale << endl;
     o << "<path layer=\"edges\" stroke=\"black\" pen=\"normal\">\n";
     o << fixed << ((xmin - xmin) * 560 / scale + 16) << " "
         << y << " m\n";
@@ -200,10 +253,6 @@ void Solver_1D2P::draw_ipe(std::string path) {
     o << fixed << "</ipe>\n";
 
     o.close();
-
-
-
-
 }
 
 
@@ -230,7 +279,7 @@ void Solver_1D2P::set_pages() {
     solution.addEdges(page_1);
 }
 
-void Solver_1D2P::set(int point_size) {
+void Solver_1D2P::set(size_t point_size) {
     base = point_size;
 }
 

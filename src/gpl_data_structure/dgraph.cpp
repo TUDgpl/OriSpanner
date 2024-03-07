@@ -53,17 +53,20 @@ RationalNumber DGraph::get_dilation(const vector<RationalNumber>& pVector) {
     int lar = -1;
     for (int i = 0; i < pVector.size() - 2; i++) {
         RationalNumber tmin(pVector.back() * 2000);
+        assert(tmin > 0);
         int j = i + 2;
         // ONE COVER
         if (!adList[i].InNeighborhood.empty()) {
             l = i;
             r = *(adList[i].InNeighborhood.begin());
             tmin = min(tmin, (pVector[r] - pVector[l])/(pVector[j] - pVector[i]));
+            assert(tmin > 0);
         }
         if (!adList[j].OutNeighborhood.empty()) {
             l = *(adList[j].OutNeighborhood.rbegin());
             r = j;
             tmin = min(tmin, (pVector[r] - pVector[l])/ (pVector[j] - pVector[i]));
+            assert(tmin > 0);
         }
         // TWO FLIPS
         if (!adList[i + 1].OutNeighborhood.empty() &&
@@ -71,11 +74,22 @@ RationalNumber DGraph::get_dilation(const vector<RationalNumber>& pVector) {
             l = *(adList[i + 1].OutNeighborhood.rbegin());
             r = *(adList[i + 1].InNeighborhood.begin());
             tmin = min(tmin, (pVector[r] - pVector[l])/ (pVector[j] - pVector[i]));
+            assert(pVector[r] - pVector[l] > 0);
+            assert(pVector[j] - pVector[i] > 0);
+            assert(tmin > 0);
         }
+        /*
+        double  tmin_dijkstra = get_dilation_dijkstra(pVector, j, i);
+        assert(abs(boost::rational_cast<double>(tmin) - tmin_dijkstra) <= epsilon);
+        */
+        //std::cout << "(" << i << "," << j << "), d: " << boost::rational_cast<double>(tmin) << std::endl;
         tmax = max(tmax, tmin);
+
+
     }
     for (int i = 0; i < pVector.size() - 3; i++) {
-        RationalNumber tmin(pVector.back() * 2000);
+        RationalNumber tmin(pVector.back() * 2);
+        assert(tmin > 0);
         int j = i + 3;
         // ONE COVER
         if (!adList[i].InNeighborhood.empty()) {
@@ -121,17 +135,21 @@ RationalNumber DGraph::get_dilation(const vector<RationalNumber>& pVector) {
             tmin = min(tmin, (pVector[r] - pVector[l] + pVector[i + 2] -pVector[i + 1])/
                 (pVector[j] - pVector[i]));
         }
-        assert(tmin < 2);
+        /*
+        double  tmin_dijkstra = get_dilation_dijkstra(pVector, j, i);
+        assert(abs(boost::rational_cast<double>(tmin) - tmin_dijkstra) <= epsilon);
+        */
+        //std::cout << "(" << i << "," << j << "), d: " << boost::rational_cast<double>(tmin) << std::endl;
         tmax = max(tmax, tmin);
     }
 
     return tmax;
 };
 
-int DGraph::minDistance(const vector<RationalNumber>& pVector, const vector<RationalNumber>& dist,
+int DGraph::minDistance(const vector<RationalNumber>& pVector, const vector<double>& dist,
     const vector<bool>& processed) {
     // Initialize min value
-    RationalNumber min = 2 * pVector.back();
+    double min = 2 * boost::rational_cast<double>(pVector.back());
     int min_index = -1;
 
     for (int v = 0; v < pVector.size(); v++)
@@ -139,28 +157,31 @@ int DGraph::minDistance(const vector<RationalNumber>& pVector, const vector<Rati
 
     return min_index;
 }
-RationalNumber DGraph::get_shortest_path_complete(const vector<RationalNumber>& pVector, size_t s,
+double DGraph::get_shortest_path_complete(const vector<RationalNumber>& pVector, size_t s,
     size_t t) {
     if (s > t) swap(s, t);
-    if (t > s + 1) return 2 * (pVector[t] - pVector[s]);
+    if (t > s + 1) return 2 * boost::rational_cast<double>((pVector[t] - pVector[s]));
     // searching for the nearst point
     else {
-        RationalNumber prev = -2*pVector.back();
-        RationalNumber suss = 2 * pVector.back();
-        if (s > 0) prev = pVector[s - 1];
-        if (t < pVector.size() - 1) suss = pVector[t + 1];
-        RationalNumber dis = pVector[s] - prev;
-        if (dis > suss - pVector[t]) dis = suss - pVector[t];
-        assert(pVector[t] - pVector[s] + dis > 0);
-        return RationalNumber(2 * (pVector[t] - pVector[s] + dis));
+        double prev = -2* boost::rational_cast<double>(pVector.back());
+        double suss = 2 * boost::rational_cast<double>(pVector.back());
+        if (s > 0) prev = boost::rational_cast<double>(pVector[s - 1]);
+        if (t < pVector.size() - 1) suss = boost::rational_cast<double>(pVector[t + 1]);
+        double dis = boost::rational_cast<double>(pVector[s]) - prev;
+        if (dis > suss - boost::rational_cast<double>(pVector[t])) dis = suss - boost::rational_cast<double>(pVector[t]);
+        assert(boost::rational_cast<double>(pVector[t] - pVector[s]) + dis > 0);
+        return 2 * (boost::rational_cast<double>(pVector[t] - pVector[s]) + dis);
     }
 }
-RationalNumber DGraph::get_dilation_dijkstra(const vector<RationalNumber>& pVector, size_t src) {
+
+double DGraph::get_dilation_dijkstra(const vector<RationalNumber>& pVector, size_t src, size_t target) {
     size_t V = pVector.size();
-    vector<RationalNumber> dist;
+    vector<double> dist;
     vector<bool> processed;
+    double MAX = boost::rational_cast<double>(pVector.back()) * 2;
+    assert(MAX > 0);
     for (int i = 0; i < V; i++) {
-        dist.push_back(pVector.back()*2);
+        dist.push_back(MAX);
         processed.push_back(false);
     }
     dist[src] = 0;
@@ -168,22 +189,36 @@ RationalNumber DGraph::get_dilation_dijkstra(const vector<RationalNumber>& pVect
         int u = minDistance(pVector, dist, processed);
         processed[u] = true;
         for (size_t v = 0; v < V; v++) {
+            assert(boost::rational_cast<double>(abs(pVector[u] - pVector[v])) >= 0);
+            assert(dist[u] + boost::rational_cast<double>(abs(pVector[u] - pVector[v])) >= 0);
             if (!processed[v] && (adList[u].OutNeighborhood.count(v) || u < v) &&
-                dist[u] != pVector.back() * 2 &&
-                dist[u] + abs(pVector[u] - pVector[v]) <
+                dist[u] != MAX &&
+                dist[u] + boost::rational_cast<double>(abs(pVector[u] - pVector[v])) <
                 dist[v]) {
-                dist[v] = dist[u] + abs(pVector[u] - pVector[v]);
+                dist[v] = dist[u] + boost::rational_cast<double>(abs(pVector[u] - pVector[v]));
             }
         }
     }
-    RationalNumber tmax = RationalNumber(1);
-    RationalNumber od = 0;
+    double od = 0;
+   
+    // coumpute od
+    od = (dist[target] + boost::rational_cast<double>((pVector[src] - pVector[target]))) /
+        get_shortest_path_complete(pVector, src, target);
+    assert(od <= boost::rational_cast<double>(pVector[V - 1] - pVector[0] + 1));
+
+    assert (od- 1 >-epsilon);
+    // assert(tmax <= pVector[end_index]- pVector[start_index] + 1);
+    return od;
+}
+
+double DGraph::get_dilation_dijkstra(const vector<RationalNumber>& pVector, size_t src) {
+    size_t V = pVector.size();
+    double tmax = 1;
+    double od = 0;
     for (int i = 0; i < src; i++) {
         // coumpute od
-        od = (dist[i] + (pVector[src] - pVector[i])) /
-            get_shortest_path_complete(pVector, src, i);
-        assert(od >= 1);
-        assert(od <= pVector[V - 1] - pVector[0] + 1);
+        od = get_dilation_dijkstra(pVector, src, i);
+        assert(od <= boost::rational_cast<double>(pVector[V - 1] - pVector[0] + 1));
         tmax = max(tmax, od);
     }
     assert(tmax >= 1);
@@ -191,9 +226,9 @@ RationalNumber DGraph::get_dilation_dijkstra(const vector<RationalNumber>& pVect
     return tmax;
 }
 
-RationalNumber DGraph::get_dilation_dijkstra(const vector<RationalNumber>& pVector) {
-    RationalNumber tmax = 0;
-    RationalNumber od = 0;
+double DGraph::get_dilation_dijkstra(const vector<RationalNumber>& pVector) {
+    double tmax = 0;
+    double od = 0;
     for (int i = 0; i < pVector.size(); i++) {
         od = get_dilation_dijkstra(pVector, i);
         tmax = std::max(tmax, od);
