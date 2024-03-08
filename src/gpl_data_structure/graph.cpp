@@ -1,4 +1,3 @@
-#pragma once
 #include "graph.h"
 
 size_t Graph::get_edges_size()
