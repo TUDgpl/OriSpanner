@@ -7,6 +7,8 @@ string Input_file_s;
 string Input_file_name;
 double W;
 double H;
+bool short_edges_only_flag = true;
+int long_edge_length = 3;
 double epsilon = 0.000000000000001;
 
 

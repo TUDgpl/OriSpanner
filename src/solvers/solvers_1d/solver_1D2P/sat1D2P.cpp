@@ -407,7 +407,7 @@ RationalNumber Sat2P::solve() {
         int mid = l + (r - l) / 2;
         assert(candidate_ods[mid].numerator() > 0);
         assert(candidate_ods[mid].denominator() > 0);
-        RationalNumber found_od = sat_solve(false, candidate_ods[mid], 5);
+        RationalNumber found_od = sat_solve(short_edges_only_flag, candidate_ods[mid], long_edge_length);
         if (found_od > 0) {
             r = mid - 1;
             best_od = candidate_ods[mid];

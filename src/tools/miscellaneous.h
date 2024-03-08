@@ -38,6 +38,8 @@ extern string Algo_t;
 extern double W;
 extern double H;
 extern double epsilon;
+extern bool short_edges_only_flag;
+extern int long_edge_length;
 
 
 void hello();
