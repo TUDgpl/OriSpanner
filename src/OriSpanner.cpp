@@ -1,6 +1,5 @@
 ﻿// OriSpanner.cpp : Defines the entry point for the application.
 //
-#pragma once
 #include "OriSpanner.h"
 
 template <typename SolverT>
