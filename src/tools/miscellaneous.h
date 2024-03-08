@@ -23,8 +23,6 @@
 
 
 
-#include <cairo/cairo.h>
-#include <cairo/cairo-pdf.h>
 #include "cxxopts.hpp"
 #include "jsonM.h"
 
