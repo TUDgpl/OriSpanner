@@ -312,10 +312,9 @@ RationalNumber Sat2P::read_solution(bool only_short, RationalNumber test_v) {
         return -1;
     }
     solution_indices.clear();
-    char* str = _strdup(line.c_str());
+    char* str = line.data();
     const char s[2] = " ";
-    char* next_token;
-    char* token = strtok_s(str, s, &next_token);
+    char* token = strtok(str, s);
     int index_MAX = pVector.size() * pVector.size() + (pVector.size() - 1) * pVector.size() + (pVector.size() - 1);
     int index = 0;
     while (token != NULL && index < index_MAX) {
@@ -326,7 +325,7 @@ RationalNumber Sat2P::read_solution(bool only_short, RationalNumber test_v) {
             // tripe
             solution_indices.push_back(i);
         }
-        token = strtok_s(NULL, s, &next_token);
+        token = strtok(NULL, s);
     }
     solution_file.close();
     /*
