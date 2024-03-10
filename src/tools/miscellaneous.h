@@ -25,6 +25,15 @@
 
 #include "cxxopts.hpp"
 #include "jsonM.h"
+#ifdef _WIN32
+static const std::string sat_solver_PATH = "D:/glucose-4.1-win-x64/glucose.exe ";
+static const  std::string tmp_dictionary = "D:/GIT/OriSpanner/tmp";
+#endif
+
+#ifdef linux
+static const std::string sat_solver_PATH = "glucose/glucose-syrup ";
+static const  std::string tmp_dictionary = "/tmp";
+#endif
 
 using namespace std;
 extern jsonM measures;
@@ -42,8 +51,6 @@ extern int long_edge_length;
 
 void hello();
 
-static const std::string sat_solver_PATH = "D:/glucose-4.1-win-x64/glucose.exe ";
-static const  std::string tmp_dictionary = "D:/GIT/OriSpanner/tmp";
 
 
 
