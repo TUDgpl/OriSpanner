@@ -7,8 +7,8 @@ string Input_file_s;
 string Input_file_name;
 double W;
 double H;
-bool short_edges_only_flag = true;
-int long_edge_length = 3;
+bool short_edges_only_flag = false;
+int long_edge_length = 6;
 double epsilon = 0.000000000000001;
 
 
@@ -31,6 +31,8 @@ void parseInitOptions(int argc, char* argv[]) {
 		("d", "dictionary", cxxopts::value<std::string>()->default_value("D:/GIT/OriSpannerP/solutions/"))
 		("i,ipe", "ipe input file", cxxopts::value<std::string>())
 		("f,filename", "input file", cxxopts::value<std::string>())
+		("l,length", "edge length limit", cxxopts::value<int>()->default_value("6"))
+		("s,short", "short edge only", cxxopts::value<bool>()->default_value("false"))
 		;
 	options.allow_unrecognised_options();
 	auto result = options.parse(argc, argv);
@@ -38,6 +40,10 @@ void parseInitOptions(int argc, char* argv[]) {
 	{
 		printInitUsage();
 		exit(0);
+	}
+	if (result.count("short")) {
+		short_edges_only_flag = true;
+		long_edge_length = result["l"].as<int>();
 	}
 
 	if (result.count("filename")) {
@@ -105,8 +111,12 @@ void printInitUsage() {
 void outputMeasure(const char* append) {
 	string outFile(Input_file_name);
 	string appendix;
-	appendix += "-";
+	appendix += "_";
 	appendix += Algo_t;
+	appendix += "_";
+	appendix += BoolToString(short_edges_only_flag);
+	appendix += "_";
+	appendix += std::to_string(long_edge_length);
 	appendix += append;
 	measures.output(Result_folder_s.c_str(), appendix.c_str(), outFile.c_str());
 };

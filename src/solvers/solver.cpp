@@ -7,6 +7,7 @@ void Solver::readFile() {
 	//fp.open("Debug/instance.cnf",std::ios::in);
 	fp.open(Input_file_s, std::ios::in);
 	if (!fp.is_open() ) {
+		std::cout << std::filesystem::current_path() << std::endl;
 		std::cout << Input_file_s << std::endl;
 		perror("read file fails");
 		exit(EXIT_FAILURE);

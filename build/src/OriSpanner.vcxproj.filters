@@ -28,7 +28,7 @@
     <ClCompile Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P\solver1D1P.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P\sat1D2P.cpp">
+    <ClCompile Include="..\..\src\solvers\solvers_1d\solver_1D2P\flag.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P\solver1D2P.cpp">

@@ -155,7 +155,7 @@ RationalNumber DP::solve() {
 	double diff = abs(boost::rational_cast<double>(od) - od_dij);
 	assert(diff <= epsilon );
 	assert(abs(boost::rational_cast<double>(od - odV[0][lpmin][rpmin][pVector.size() - 1])) <= epsilon);
-	printf("DP solved with %f", boost::rational_cast<double>(odV[0][lpmin][rpmin][pVector.size() - 1]));
+	printf("DP  solved with %lld, %lld",odV[0][lpmin][rpmin][pVector.size() - 1].numerator(), odV[0][lpmin][rpmin][pVector.size() - 1].denominator());
 	return odV[0][lpmin][rpmin][pVector.size() - 1];
 
 };

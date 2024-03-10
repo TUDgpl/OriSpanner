@@ -238,7 +238,7 @@ RationalNumber Sat1P::solve() {
         }
     }
     assert(best_od <= teo_g);
-    printf("Sat1P solved with %f", boost::rational_cast<double>(best_od) );
+    printf("Sat1P solved with %lld, %lld", best_od.numerator(),best_od.denominator());
     return best_od;
 }
 

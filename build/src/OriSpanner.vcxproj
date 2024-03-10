@@ -87,7 +87,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\GIT\OriSpanner\src\solvers;D:\GIT\OriSpanner\src\solvers\solvers_1d;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P;D:\GIT\OriSpanner\src\solvers\solvers_2d;D:\GIT\OriSpanner\src\gpl_data_structure;D:\GIT\OriSpanner\src\tools;C:\src\vcpkg\installed\x64-windows\include\cairo;C:\src\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\GIT\OriSpanner\src\solvers;D:\GIT\OriSpanner\src\solvers\solvers_1d;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P;D:\GIT\OriSpanner\src\solvers\solvers_2d;D:\GIT\OriSpanner\src\gpl_data_structure;D:\GIT\OriSpanner\src\tools;C:\src\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -104,10 +104,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\GIT\OriSpanner\src\solvers;D:\GIT\OriSpanner\src\solvers\solvers_1d;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P;D:\GIT\OriSpanner\src\solvers\solvers_2d;D:\GIT\OriSpanner\src\gpl_data_structure;D:\GIT\OriSpanner\src\tools;C:\src\vcpkg\installed\x64-windows\include\cairo;C:\src\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\GIT\OriSpanner\src\solvers;D:\GIT\OriSpanner\src\solvers\solvers_1d;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P;D:\GIT\OriSpanner\src\solvers\solvers_2d;D:\GIT\OriSpanner\src\gpl_data_structure;D:\GIT\OriSpanner\src\tools;C:\src\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\GIT\OriSpanner\src\solvers;D:\GIT\OriSpanner\src\solvers\solvers_1d;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P;D:\GIT\OriSpanner\src\solvers\solvers_2d;D:\GIT\OriSpanner\src\gpl_data_structure;D:\GIT\OriSpanner\src\tools;C:\src\vcpkg\installed\x64-windows\include\cairo;C:\src\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\GIT\OriSpanner\src\solvers;D:\GIT\OriSpanner\src\solvers\solvers_1d;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P;D:\GIT\OriSpanner\src\solvers\solvers_2d;D:\GIT\OriSpanner\src\gpl_data_structure;D:\GIT\OriSpanner\src\tools;C:\src\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -115,7 +115,8 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message></Message>
+      <Message>
+      </Message>
       <Command>setlocal
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/src/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/GIT/OriSpanner/build/src/Debug/OriSpanner.exe -installedDir C:/src/vcpkg/installed/x64-windows/debug/bin -OutVariable out
 if %errorlevel% neq 0 goto :cmEnd
@@ -127,7 +128,7 @@ exit /b %1
 if %errorlevel% neq 0 goto :VCEnd</Command>
     </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>C:\src\vcpkg\installed\x64-windows\lib\cairo.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -142,7 +143,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\GIT\OriSpanner\src\solvers;D:\GIT\OriSpanner\src\solvers\solvers_1d;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P;D:\GIT\OriSpanner\src\solvers\solvers_2d;D:\GIT\OriSpanner\src\gpl_data_structure;D:\GIT\OriSpanner\src\tools;C:\src\vcpkg\installed\x64-windows\include\cairo;C:\src\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\GIT\OriSpanner\src\solvers;D:\GIT\OriSpanner\src\solvers\solvers_1d;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P;D:\GIT\OriSpanner\src\solvers\solvers_2d;D:\GIT\OriSpanner\src\gpl_data_structure;D:\GIT\OriSpanner\src\tools;C:\src\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -158,10 +159,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\GIT\OriSpanner\src\solvers;D:\GIT\OriSpanner\src\solvers\solvers_1d;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P;D:\GIT\OriSpanner\src\solvers\solvers_2d;D:\GIT\OriSpanner\src\gpl_data_structure;D:\GIT\OriSpanner\src\tools;C:\src\vcpkg\installed\x64-windows\include\cairo;C:\src\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\GIT\OriSpanner\src\solvers;D:\GIT\OriSpanner\src\solvers\solvers_1d;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P;D:\GIT\OriSpanner\src\solvers\solvers_2d;D:\GIT\OriSpanner\src\gpl_data_structure;D:\GIT\OriSpanner\src\tools;C:\src\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\GIT\OriSpanner\src\solvers;D:\GIT\OriSpanner\src\solvers\solvers_1d;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P;D:\GIT\OriSpanner\src\solvers\solvers_2d;D:\GIT\OriSpanner\src\gpl_data_structure;D:\GIT\OriSpanner\src\tools;C:\src\vcpkg\installed\x64-windows\include\cairo;C:\src\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\GIT\OriSpanner\src\solvers;D:\GIT\OriSpanner\src\solvers\solvers_1d;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P;D:\GIT\OriSpanner\src\solvers\solvers_2d;D:\GIT\OriSpanner\src\gpl_data_structure;D:\GIT\OriSpanner\src\tools;C:\src\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -169,7 +170,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message></Message>
+      <Message>
+      </Message>
       <Command>setlocal
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/src/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/GIT/OriSpanner/build/src/Release/OriSpanner.exe -installedDir C:/src/vcpkg/installed/x64-windows/bin -OutVariable out
 if %errorlevel% neq 0 goto :cmEnd
@@ -181,7 +183,7 @@ exit /b %1
 if %errorlevel% neq 0 goto :VCEnd</Command>
     </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>C:\src\vcpkg\installed\x64-windows\lib\cairo.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -196,7 +198,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\GIT\OriSpanner\src\solvers;D:\GIT\OriSpanner\src\solvers\solvers_1d;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P;D:\GIT\OriSpanner\src\solvers\solvers_2d;D:\GIT\OriSpanner\src\gpl_data_structure;D:\GIT\OriSpanner\src\tools;C:\src\vcpkg\installed\x64-windows\include\cairo;C:\src\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\GIT\OriSpanner\src\solvers;D:\GIT\OriSpanner\src\solvers\solvers_1d;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P;D:\GIT\OriSpanner\src\solvers\solvers_2d;D:\GIT\OriSpanner\src\gpl_data_structure;D:\GIT\OriSpanner\src\tools;C:\src\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
@@ -213,10 +215,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\GIT\OriSpanner\src\solvers;D:\GIT\OriSpanner\src\solvers\solvers_1d;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P;D:\GIT\OriSpanner\src\solvers\solvers_2d;D:\GIT\OriSpanner\src\gpl_data_structure;D:\GIT\OriSpanner\src\tools;C:\src\vcpkg\installed\x64-windows\include\cairo;C:\src\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\GIT\OriSpanner\src\solvers;D:\GIT\OriSpanner\src\solvers\solvers_1d;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P;D:\GIT\OriSpanner\src\solvers\solvers_2d;D:\GIT\OriSpanner\src\gpl_data_structure;D:\GIT\OriSpanner\src\tools;C:\src\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\GIT\OriSpanner\src\solvers;D:\GIT\OriSpanner\src\solvers\solvers_1d;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P;D:\GIT\OriSpanner\src\solvers\solvers_2d;D:\GIT\OriSpanner\src\gpl_data_structure;D:\GIT\OriSpanner\src\tools;C:\src\vcpkg\installed\x64-windows\include\cairo;C:\src\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\GIT\OriSpanner\src\solvers;D:\GIT\OriSpanner\src\solvers\solvers_1d;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P;D:\GIT\OriSpanner\src\solvers\solvers_2d;D:\GIT\OriSpanner\src\gpl_data_structure;D:\GIT\OriSpanner\src\tools;C:\src\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -224,7 +226,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message></Message>
+      <Message>
+      </Message>
       <Command>setlocal
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/src/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/GIT/OriSpanner/build/src/MinSizeRel/OriSpanner.exe -installedDir C:/src/vcpkg/installed/x64-windows/bin -OutVariable out
 if %errorlevel% neq 0 goto :cmEnd
@@ -236,7 +239,7 @@ exit /b %1
 if %errorlevel% neq 0 goto :VCEnd</Command>
     </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>C:\src\vcpkg\installed\x64-windows\lib\cairo.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -251,7 +254,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\GIT\OriSpanner\src\solvers;D:\GIT\OriSpanner\src\solvers\solvers_1d;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P;D:\GIT\OriSpanner\src\solvers\solvers_2d;D:\GIT\OriSpanner\src\gpl_data_structure;D:\GIT\OriSpanner\src\tools;C:\src\vcpkg\installed\x64-windows\include\cairo;C:\src\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\GIT\OriSpanner\src\solvers;D:\GIT\OriSpanner\src\solvers\solvers_1d;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P;D:\GIT\OriSpanner\src\solvers\solvers_2d;D:\GIT\OriSpanner\src\gpl_data_structure;D:\GIT\OriSpanner\src\tools;C:\src\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -267,10 +270,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\GIT\OriSpanner\src\solvers;D:\GIT\OriSpanner\src\solvers\solvers_1d;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P;D:\GIT\OriSpanner\src\solvers\solvers_2d;D:\GIT\OriSpanner\src\gpl_data_structure;D:\GIT\OriSpanner\src\tools;C:\src\vcpkg\installed\x64-windows\include\cairo;C:\src\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\GIT\OriSpanner\src\solvers;D:\GIT\OriSpanner\src\solvers\solvers_1d;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P;D:\GIT\OriSpanner\src\solvers\solvers_2d;D:\GIT\OriSpanner\src\gpl_data_structure;D:\GIT\OriSpanner\src\tools;C:\src\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>D:\GIT\OriSpanner\src\solvers;D:\GIT\OriSpanner\src\solvers\solvers_1d;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P;D:\GIT\OriSpanner\src\solvers\solvers_2d;D:\GIT\OriSpanner\src\gpl_data_structure;D:\GIT\OriSpanner\src\tools;C:\src\vcpkg\installed\x64-windows\include\cairo;C:\src\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\GIT\OriSpanner\src\solvers;D:\GIT\OriSpanner\src\solvers\solvers_1d;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P;D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P;D:\GIT\OriSpanner\src\solvers\solvers_2d;D:\GIT\OriSpanner\src\gpl_data_structure;D:\GIT\OriSpanner\src\tools;C:\src\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -278,7 +281,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message></Message>
+      <Message>
+      </Message>
       <Command>setlocal
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/src/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/GIT/OriSpanner/build/src/RelWithDebInfo/OriSpanner.exe -installedDir C:/src/vcpkg/installed/x64-windows/bin -OutVariable out
 if %errorlevel% neq 0 goto :cmEnd
@@ -290,7 +294,7 @@ exit /b %1
 if %errorlevel% neq 0 goto :VCEnd</Command>
     </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>C:\src\vcpkg\installed\x64-windows\lib\cairo.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -379,7 +383,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P\simple1P.h" />
     <ClCompile Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P\solver1D1P.cpp" />
     <ClInclude Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D1P\solver1D1P.h" />
-    <ClCompile Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P\sat1D2P.cpp" />
+    <ClCompile Include="..\..\src\solvers\solvers_1d\solver_1D2P\flag.cpp" />
     <ClInclude Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P\sat1D2P.h" />
     <ClCompile Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P\solver1D2P.cpp" />
     <ClInclude Include="D:\GIT\OriSpanner\src\solvers\solvers_1d\solver_1D2P\solver1D2P.h" />

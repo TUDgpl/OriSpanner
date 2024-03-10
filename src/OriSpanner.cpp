@@ -28,10 +28,9 @@ int main(int argc, char* argv[]) {
 	}
 }
 */
-
-int main(int argc, char* argv[]) {
-	parseInitOptions(argc, argv);
-	Sat2P S;
+template <typename Solver_T>
+void test_solver(){
+	Solver_T S;
 	if (Input_file_s.empty()) S.readIPE();
 	else S.readFile();
 	//S.print();
@@ -40,10 +39,26 @@ int main(int argc, char* argv[]) {
 		RationalNumber od = S.solve();
 		S.debug();
 		S.output(od);
-		measures.addElement("info", "solver", "DP");
-		measures.addElement("performance", "dilation", to_string(boost::rational_cast<double>(od)));
-		S.outputMeasures();
-		outputMeasure("dp.json");
+		measures.addElement("info", "solver", Algo_t);
+		measures.addElement("performance", "dilation", to_string(od));
+		//measures.addElement("performance", "dilation", to_string(boost::rational_cast<double>(od)));
+		outputMeasure(".json");
 		S.draw();
 	}
 }
+
+int main(int argc, char* argv[]) {
+	parseInitOptions(argc, argv);
+	if (Algo_t.compare("dp") == 0)
+	{
+		test_solver<DP>();
+		return 0;
+	}
+	if (Algo_t.compare("sat") == 0)
+	{
+		test_solver<Sat2P>();
+		return 0;
+	}
+	return -1;
+}
+

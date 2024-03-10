@@ -70,6 +70,11 @@ void Solver_1D::draw() {
 	strcpy(file_str, Result_folder_s.c_str());
 	strcat(file_str, get_file_name_no_extension(Input_file_s).c_str());
 	strcat(file_str, Algo_t.c_str());
+	strcat(file_str, "_");
+	strcat(file_str, BoolToString(short_edges_only_flag));
+	strcat(file_str, "-");
+	strcat(file_str, std::to_string(long_edge_length).c_str());
+	strcat(file_str, "_");
 	double range = 40.0 / boost::rational_cast<double>(pVector.back() - pVector[0]);
 	//strcat(file_str, "solution.tex");
 	//draw_tikz(range, file_str, "every node/.append style={draw, circle}");

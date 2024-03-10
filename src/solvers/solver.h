@@ -1,7 +1,7 @@
 #pragma once
 using namespace std;
 #include "miscellaneous.h"
-
+#include <filesystem>  
 class Solver {
 public:
 	Solver() {};
