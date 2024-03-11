@@ -1,2 +1,6 @@
 cmake  -DCMAKE_TOOLCHAIN_FILE="C:\src\vcpkg\scripts\buildsystems\vcpkg.cmake" ..
 ssh -m hmac-sha2-512-etm@openssh.com -i D:\GIT\backup_ssh\id_rsa_lido mguali01@gw01.lido.tu-dortmund.de
+
+sbatch exp.sh
+squeue  --job <jobID> // check progress
+scancel <jobID> // kill process
