@@ -31,7 +31,7 @@ static const  std::string tmp_dictionary = "D:/GIT/OriSpanner/tmp";
 #endif
 
 #ifdef linux
-static const std::string sat_solver_PATH = "glucose/glucose-syrup ";
+static const std::string sat_solver_PATH = "./glucose-syrup ";
 static const  std::string tmp_dictionary = "/tmp";
 #endif
 

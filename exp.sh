@@ -5,6 +5,13 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=6000
 #SBATCH --job-name=Spanner64
-#SBATCH --output=/work/mcarrehs/instance_64/instance64_%a.out.txt
 cd /work/mguali01/Ori_spanner/OriSpanner
-./OriSpanner -f instances/uniform_8/uniform_1_8_$SLURM_ARRAY_TASK_ID.txt
+for s in 8 16 32 64
+do 
+	srun --output /work/mguali01/solutions/instance$s_%a.dp.txt ./OriSpanner -f instances/uniform_$s/uniform_1_$s_$SLURM_ARRAY_TASK_ID.txt -a dp 
+	srun --output /work/mguali01/solutions/instance$s_%a.sat.txt ./OriSpanner -f instances/uniform_$s/uniform_1_$s_$SLURM_ARRAY_TASK_ID.txt -a sat
+	srun --output /work/mguali01/solutions/instance$s_%a.sat_2.txt ./OriSpanner -f instances/uniform_$s/uniform_1_$s_$SLURM_ARRAY_TASK_ID.txt -a sat -s -l 2
+	srun --output /work/mguali01/solutions/instance$s_%a.sat_3.txt ./OriSpanner -f instances/uniform_$s/uniform_1_$s_$SLURM_ARRAY_TASK_ID.txt -a sat -s -l 3
+	srun --output /work/mguali01/solutions/instance$s_%a.sat_4.txt ./OriSpanner -f instances/uniform_$s/uniform_1_$s_$SLURM_ARRAY_TASK_ID.txt -a sat -s -l 4
+	srun --output /work/mguali01/solutions/instance$s_%a.sat_5.txt ./OriSpanner -f instances/uniform_$s/uniform_1_$s_$SLURM_ARRAY_TASK_ID.txt -a sat -s -l 5
+done

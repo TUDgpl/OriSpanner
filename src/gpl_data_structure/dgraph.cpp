@@ -12,7 +12,6 @@
  * remove the dynamic part
  * add vertex weights
  */
-#pragma once
 #include <cassert>
 #include <cstdio>
 #include <set>
