@@ -41,7 +41,7 @@ void test_solver(){
 		S.output(od);
 		measures.addElement("info", "solver", Algo_t);
 		measures.addElement("performance", "dilation", to_string(od));
-		//measures.addElement("performance", "dilation", to_string(boost::rational_cast<double>(od)));
+		S.outputMeasures();
 		outputMeasure(".json");
 		S.draw();
 	}
