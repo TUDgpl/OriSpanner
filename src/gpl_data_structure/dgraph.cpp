@@ -44,6 +44,8 @@ bool DGraph::containEdge(unsigned int v1, unsigned int v2) {
 
 
 RationalNumber DGraph::get_dilation(const vector<RationalNumber>& pVector) {
+    size_t index_i = 0;
+    size_t index_j = 0;
     RationalNumber tmax(1);
     size_t inD = 0;
     size_t outD = 0;
@@ -82,7 +84,12 @@ RationalNumber DGraph::get_dilation(const vector<RationalNumber>& pVector) {
         assert(abs(boost::rational_cast<double>(tmin) - tmin_dijkstra) <= epsilon);
         */
         //std::cout << "(" << i << "," << j << "), d: " << boost::rational_cast<double>(tmin) << std::endl;
+        if (tmax <= tmin) {
+            index_i = i;
+            index_j = i + 2;
+        }
         tmax = max(tmax, tmin);
+
 
 
     }
@@ -139,9 +146,13 @@ RationalNumber DGraph::get_dilation(const vector<RationalNumber>& pVector) {
         assert(abs(boost::rational_cast<double>(tmin) - tmin_dijkstra) <= epsilon);
         */
         //std::cout << "(" << i << "," << j << "), d: " << boost::rational_cast<double>(tmin) << std::endl;
+        if (tmax <= tmin) {
+            index_i = i;
+            index_j = i + 3;
+        }
         tmax = max(tmax, tmin);
     }
-
+    std::cout << "(" << index_i << "," << index_j << ")" << std::endl;
     return tmax;
 };
 

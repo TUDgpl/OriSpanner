@@ -8,7 +8,9 @@
 #SBATCH --output=/work/mguali01/Ori_spanner/OriSpanner/output
 cd /work/mguali01/Ori_spanner/OriSpanner
 for s in 8 16 32 64 128 256 512
-do 
-	srun --output /work/mguali01/Ori_spanner/OriSpanner/solutions/uniform_$s/instance${s}_%a.sat_6.txt /work/mguali01/Ori_spanner/OriSpanner/build_linux/Release/src/OriSpanner -f instances/uniform_$s/uniform_1_${s}_${SLURM_ARRAY_TASK_ID}.txt -a sat -s -l 6 -d solutions/uniform_$s/
-	srun --output /work/mguali01/Ori_spanner/OriSpanner/solutions/uniform_$s/instance${s}_%a.sat_7.txt /work/mguali01/Ori_spanner/OriSpanner/build_linux/Release/src/OriSpanner -f instances/uniform_$s/uniform_1_${s}_${SLURM_ARRAY_TASK_ID}.txt -a sat -s -l 7 -d solutions/uniform_$s/
+do
+	for l in 8 9 10 11 12 13 14 15 16
+	do 
+		srun --output /work/mguali01/Ori_spanner/OriSpanner/solutions/uniform_$s/instance${s}_%a.sat_{l}.txt /work/mguali01/Ori_spanner/OriSpanner/build_linux/Release/src/OriSpanner -f instances/uniform_$s/uniform_1_${s}_${SLURM_ARRAY_TASK_ID}.txt -a sat -s -l {l} -d solutions/uniform_$s/
+	done
 done
