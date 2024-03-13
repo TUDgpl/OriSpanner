@@ -59,6 +59,12 @@ int main(int argc, char* argv[]) {
 		test_solver<Sat2P>();
 		return 0;
 	}
+	if (Algo_t.compare("sat1") == 0)
+	{
+		test_solver<Sat1P>();
+		return 0;
+	}
+
 	return -1;
 }
 

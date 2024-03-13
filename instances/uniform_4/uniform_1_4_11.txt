@@ -1,7 +1,7 @@
 c This is a uniform distributed  1-D DIMACS file 
 c width height point_number
-p 1000 1000 4
-81 0
-92 0
-704 0
-922 0
+p 100000 100000 4
+10138 0
+21585 0
+36544 0
+72796 0

@@ -31,11 +31,12 @@ void Solver::readFile() {
 	strtok(str, s);
 	W = atof(strtok(NULL, s));
 	H = atof(strtok(NULL, s));
-	size_t point_size = (size_t)atoi(strtok(NULL, s));
-	set(point_size);
-	for (unsigned int i = 0; i < point_size; i++) {
+	unsigned int i = 0;
+	while (!fp.eof()) {
 		getline(fp, buff);
 		if (buff.empty()) continue;
 		read_point(buff);
+		i++;
 	}
+	set(i);
 };
