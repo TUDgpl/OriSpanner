@@ -266,7 +266,6 @@ void Solver_1D2P::draw_ipe(std::string path) {
 void Solver_1D2P::set_pages() {
     page_0.clear();
     page_1.clear();
-    // set the pages
     for (int i = 0; i < solution_indices.size(); i++) {
         tuple<unsigned int, unsigned int, unsigned int> index =
             encode(solution_indices[i], base);
