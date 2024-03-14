@@ -346,7 +346,6 @@ RationalNumber Sat2P::sat_solve(bool only_short, RationalNumber test_v, int test
     if (only_short) o = sat_solver_PATH + file_d + "_DIMACS_short.txt " + file_d +
         "_DIMACS_solution_short.txt" + "> NUL 2>&1";
     int success = system(o.c_str());
-
     string instance_f = file_d + "_DIMACS.txt";
     if (only_short)instance_f = file_d + "_DIMACS_short.txt";
   
