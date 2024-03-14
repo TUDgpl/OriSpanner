@@ -1,13 +1,14 @@
 #!/bin/bash -l
-#SBATCH --array=21
+#SBATCH --array=28
 #SBATCH --partition=short
 #SBATCH --time=01:00:00
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=6000
 #SBATCH --job-name=OriSp64
 #SBATCH --output=/work/mguali01/Ori_spanner/OriSpanner/output
+#SBATCH --error=/work/mguali01/Ori_spanner/OriSpanner/errors
 cd /work/mguali01/Ori_spanner/OriSpanner
-for s in 512
+for s in 16
 do
 	for l in 8 9 10 11 12 13 14 15 16 17 18 19 20
 	do 
