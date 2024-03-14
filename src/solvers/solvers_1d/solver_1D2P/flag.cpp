@@ -328,10 +328,9 @@ RationalNumber Sat2P::read_solution(bool only_short, RationalNumber test_v) {
         token = strtok(NULL, s);
     }
     solution_file.close();
-    /*
     if (remove(solution_d.c_str()) != 0)
         perror("Error deleting solution file");
-    */
+    
     set_pages();
     RationalNumber od = solution.get_dilation(pVector);
     return od;
@@ -350,10 +349,10 @@ RationalNumber Sat2P::sat_solve(bool only_short, RationalNumber test_v, int test
 
     string instance_f = file_d + "_DIMACS.txt";
     if (only_short)instance_f = file_d + "_DIMACS_short.txt";
-  /*
+  
     if (remove(instance_f.c_str()) != 0)
       perror("Error deleting instance file");
-  */
+  
   return read_solution(only_short, test_v);
 }
 vector<RationalNumber> Sat2P::get_candidate() {
