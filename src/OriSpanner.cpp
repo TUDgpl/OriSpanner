@@ -48,6 +48,7 @@ void test_solver(){
 }
 
 int main(int argc, char* argv[]) {
+	/*
 	parseInitOptions(argc, argv);
 	if (Algo_t.compare("dp") == 0)
 	{
@@ -66,5 +67,7 @@ int main(int argc, char* argv[]) {
 	}
 
 	return -1;
+	*/
+	std::cout<< "Hello world"<<std::endl;
 }
 
