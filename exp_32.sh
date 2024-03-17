@@ -9,8 +9,9 @@
 cd /work/mguali01/Ori_spanner/OriSpanner
 for s in 32
 do 
-	for g in range(0, 1, 49999) 
-		srun --output /work/mguali01/Ori_spanner/OriSpanner/solutions/uniform_$s/instance${s}_%{g}.dp.txt /work/mguali01/Ori_spanner/OriSpanner/build_linux/Release/src/OriSpanner -f instances_32/uniform_$s/uniform_1_${s}_${g}.txt -a sat1 -d solutions/uniform_$s/
-		srun --output /work/mguali01/Ori_spanner/OriSpanner/solutions/uniform_$s/instance${s}_%{g}.sat.txt /work/mguali01/Ori_spanner/OriSpanner/build_linux/Release/src/OriSpanner -f instances_32/uniform_$s/uniform_1_${s}_${g}.txt -a sat -d solutions/uniform_$s/
+	for g in range(0, 1, 49999)
+	do 
+		srun --output /work/mguali01/Ori_spanner/OriSpanner/solutions/uniform_$s/instance${s}_${g}.dp.txt /work/mguali01/Ori_spanner/OriSpanner/build_linux/Release/src/OriSpanner -f instances_32/uniform_$s/uniform_1_${s}_${g}.txt -a sat1 -d solutions/uniform_$s/
+		srun --output /work/mguali01/Ori_spanner/OriSpanner/solutions/uniform_$s/instance${s}_${g}.sat.txt /work/mguali01/Ori_spanner/OriSpanner/build_linux/Release/src/OriSpanner -f instances_32/uniform_$s/uniform_1_${s}_${g}.txt -a sat -d solutions/uniform_$s/
 	done 
 done
