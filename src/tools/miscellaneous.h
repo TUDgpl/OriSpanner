@@ -32,7 +32,7 @@ static const  std::string tmp_dictionary = "D:/GIT/OriSpanner/tmp";
 
 #ifdef linux
 static const std::string sat_solver_PATH = "./glucose-simp ";
-static const  std::string tmp_dictionary = "/tmp";
+static const  std::string tmp_dictionary = "/scratch";
 #endif
 
 using namespace std;
