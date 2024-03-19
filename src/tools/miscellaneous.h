@@ -2,7 +2,7 @@
  * miscellaneous.h 
  * OriSpanner
  *  Created on: Sep 15, 2013
- *      Author: guangping
+ *      Author: gpl
  */
 
 #pragma once
@@ -25,15 +25,11 @@
 
 #include "cxxopts.hpp"
 #include "jsonM.h"
-#ifdef _WIN32
-static const std::string sat_solver_PATH = "D:/glucose-4.1-win-x64/glucose.exe ";
-static const  std::string tmp_dictionary = "D:/GIT/OriSpanner/tmp";
-#endif
 
-#ifdef linux
-static const std::string sat_solver_PATH = "./glucose-simp ";
-static const  std::string tmp_dictionary = "/scratch";
-#endif
+extern std::string sat_solver_PATH;
+extern std::string tmp_dictionary;
+
+
 
 using namespace std;
 extern jsonM measures;

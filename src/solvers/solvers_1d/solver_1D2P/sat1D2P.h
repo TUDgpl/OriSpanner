@@ -28,6 +28,8 @@ protected:
     RationalNumber read_solution(bool only_short, RationalNumber test_v);
     void write_solver_input(bool only_short, RationalNumber test_v, int test_len);
 private:
+    string instance_f;
+    string solution_f;
     void write_clauses_2(vector<pair<unsigned int, unsigned int>>& candidate_edges,
         int C, ofstream& outdata,  RationalNumber test_v);
     void write_clauses_3(vector<pair<unsigned int, unsigned int>>& candidate_edges,

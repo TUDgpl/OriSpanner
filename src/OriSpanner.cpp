@@ -1,7 +1,8 @@
 ﻿// OriSpanner.cpp : Defines the entry point for the application.
 //
 #include "OriSpanner.h"
-
+#include <filesystem>
+using recursive_directory_iterator = std::filesystem::recursive_directory_iterator;
 template <typename SolverT>
 void solve() {
 	SolverT solver = new SolverT() ;
@@ -69,3 +70,14 @@ int main(int argc, char* argv[]) {
 	return -1;
 }
 
+
+/*
+int main(int argc, char* argv[]) {
+for (const auto& dirEntry : recursive_directory_iterator(myPath))
+	 std::cout << dirEntry << std::endl;
+
+
+
+
+}
+*/

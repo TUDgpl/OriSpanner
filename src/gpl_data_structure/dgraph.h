@@ -2,7 +2,7 @@
  * graph.h
  *
  *  Created on: Sep 24, 2019
- *  Author: guangping
+ *  Author: gpl
  *  Self-defined graph representation.
  *  Considering the extern algorithms we choose may be sensitive to the size of verices, we use this way.
  *
@@ -29,4 +29,5 @@ public:
     int minDistance(const vector<RationalNumber>& pVector, const vector<double>& dist, const vector<bool>& sptSet);
     double get_shortest_path_complete(const vector<RationalNumber>& pVector, size_t s, size_t t);
     void draw_tikz(double range, std::string path, const vector<RationalNumber>& pVector, std::string optional_parameters);
+    void get_longest_edge(const vector<RationalNumber>& pVector);
 };

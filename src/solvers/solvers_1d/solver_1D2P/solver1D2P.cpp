@@ -282,6 +282,7 @@ void Solver_1D2P::set_pages() {
     solution = DGraph(pVector.size());
     solution.addEdges(page_0);
     solution.addEdges(page_1);
+    solution.get_longest_edge(pVector);
 }
 
 void Solver_1D2P::set(size_t point_size) {

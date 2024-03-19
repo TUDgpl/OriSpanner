@@ -2,7 +2,7 @@
  * graph.h
  *
  *  Created on: Sep 24, 2019
- *  Author: guangping
+ *  Author: gpl
  *  Self-defined graph representation.
  *  Considering the extern algorithms we choose may be sensitive to the size of
  * verices, we use this way.
@@ -284,3 +284,22 @@ void DGraph::draw_tikz(double range, std::string path, const vector<RationalNumb
     o.close();
 }
 
+
+void DGraph::get_longest_edge(const vector<RationalNumber>& pVector) {
+    uint64_t num_nodes = pVector.size();
+    size_t max_len = 1;
+    int index_s = -1;
+    int index_t = -1;
+    for (int i = 0; i < num_nodes; ++i) {
+        for (auto& itr : adList[i].OutNeighborhood) {
+            int dis = itr - i;
+            size_t l = std::abs(dis);
+            if (l > max_len) {
+                max_len = l;
+                index_s = i;
+                index_t = itr;
+            }
+        }
+    }
+    std::cout << "The longest edge: (" << index_s << ", " << index_t <<") with length: "<< max_len<< std::endl;
+};

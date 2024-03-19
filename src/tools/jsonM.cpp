@@ -2,7 +2,7 @@
  * json.cpp
  *
  *  Created on: July 9, 2021
- *      Author: ping
+ *      Author: gpl
  */
 #include "jsonM.h"
 using namespace std;
