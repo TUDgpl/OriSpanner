@@ -1,5 +1,4 @@
 #!/bin/bash -l
-#SBATCH --array=0-99
 #SBATCH --partition=short
 #SBATCH --time=01:00:00
 #SBATCH --cpus-per-task=1
