@@ -9,6 +9,7 @@
 void Solver_1D2P::outputMeasures() {
     std::cout << "Hello world" << std::endl;
     // page 0
+    /*
     for (auto i : page_0) {
         measures.addElement("page_0", std::to_string(i.first), std::to_string(i.second));
     }
@@ -16,6 +17,7 @@ void Solver_1D2P::outputMeasures() {
     for (auto i : page_1) {
         measures.addElement("page_1", std::to_string(i.first), std::to_string(i.second));
     }
+    */
 }
 
 void Solver_1D2P::output(RationalNumber od) {
@@ -282,7 +284,7 @@ void Solver_1D2P::set_pages() {
     solution = DGraph(pVector.size());
     solution.addEdges(page_0);
     solution.addEdges(page_1);
-    solution.get_longest_edge(pVector);
+    //solution.get_longest_edge(pVector);
 }
 
 void Solver_1D2P::set(size_t point_size) {

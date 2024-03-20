@@ -32,7 +32,7 @@ extern std::string tmp_dictionary;
 
 
 using namespace std;
-extern jsonM measures;
+//extern jsonM measures;
 extern string Result_folder_s;
 extern string input_ipe_s;
 extern string Input_file_s;

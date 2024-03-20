@@ -40,10 +40,10 @@ void test_solver(){
 		RationalNumber od = S.solve();
 		S.debug();
 		S.output(od);
-		measures.addElement("info", "solver", Algo_t);
-		measures.addElement("performance", "dilation", to_string(od));
-		S.outputMeasures();
-		outputMeasure(".json");
+		//measures.addElement("info", "solver", Algo_t);
+		//measures.addElement("performance", "dilation", to_string(od));
+		//S.outputMeasures();
+		//outputMeasure(".json");
 		S.draw();
 	}
 }
@@ -69,13 +69,20 @@ int test(int argc, char* argv[]) {
 }
 
 int main(int argc, char* argv[]) {
-	for (const auto& dirEntry : recursive_directory_iterator(argv[1])) {
-		string arg = dirEntry.path().generic_string();
-		string bina= "./OriSpanner";
+	for (const auto& dirEntry : recursive_directory_iterator(argv[2])) {
+		string bina = "./OriSpanner";
 		string a_flag = "-a";
-		string algo = "sat1";
-		string instance_flag= "-f";
-		char* argv[] = {bina.data(), a_flag.data(), algo.data(),instance_flag.data(),  arg.data()};
-		test(5, argv);
+		string instance_flag = "-f";
+		string arg = dirEntry.path().generic_string();
+		if (argv[1] == "sat1") {
+			string algo = "sat1";
+			char* argv1[] = { bina.data(), a_flag.data(), algo.data(),instance_flag.data(),  arg.data() };
+			test(5, argv1);
+		}
+		else {
+			string algo2 = "sat";
+			char* argv2[] = { bina.data(), a_flag.data(), algo2.data(),instance_flag.data(),  arg.data() };
+			test(5, argv2);
+		}
 	}
 }

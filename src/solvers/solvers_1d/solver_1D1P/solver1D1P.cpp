@@ -14,11 +14,13 @@ void Arc_1D::debug(vector<RationalNumber>& pVector) {
 }
 
 void Solver_1D1P::outputMeasures() {
+    /*
     for (unsigned int i = 0; i < pVector.size(); ++i) {
         for (auto itr = solution.adList[i].OutNeighborhood.begin(); itr != solution.adList[i].OutNeighborhood.end(); ++itr) {
             measures.addElement("solution", std::to_string(i), std::to_string(*itr));
         }
     }
+    */
 }
 
 void Solver_1D1P::output(RationalNumber od) {

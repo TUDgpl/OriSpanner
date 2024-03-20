@@ -316,7 +316,7 @@ RationalNumber Sat2P::read_solution(bool only_short, RationalNumber test_v) {
     solution_file.close();    
     set_pages();
     RationalNumber od = solution.get_dilation(pVector);
-    std::cout << "get dilation: " << od << std::endl;
+    //std::cout << "get dilation: " << od << std::endl;
     return od;
 };
 
@@ -411,7 +411,7 @@ RationalNumber Sat2P::solve() {
         }
     }
     assert(best_od <= teo_g);
-    printf("Sat2P solved with %lld, %lld", best_od.numerator(),best_od.denominator());
+    printf("Sat2P solved with %lld, %lld\n", best_od.numerator(),best_od.denominator());
     set_pages();
     return best_od;
 }

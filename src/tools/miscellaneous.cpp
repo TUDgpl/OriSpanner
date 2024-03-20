@@ -1,5 +1,5 @@
 #include "miscellaneous.h"
-jsonM measures;
+//jsonM measures;
 string Result_folder_s;
 string Algo_t;
 string input_ipe_s;
@@ -64,7 +64,7 @@ void parseInitOptions(int argc, char* argv[]) {
 		std::string key = "/";
 		std::size_t found = outFile.rfind(key);
 		outFile = outFile.substr(found + 1);
-		measures.addElement("info", "file", outFile);
+		//measures.addElement("info", "file", outFile);
 	}
 	else {
 		if (result.count("ipe")) {
@@ -74,7 +74,7 @@ void parseInitOptions(int argc, char* argv[]) {
 			std::string key = "/";
 			std::size_t found = outFile.rfind(key);
 			outFile = outFile.substr(found + 1);
-			measures.addElement("info", "file", outFile);
+			//measures.addElement("info", "file", outFile);
 		}
 		else {
 			std::cerr << "Input file missing" << std::endl;
@@ -100,7 +100,7 @@ void parseInitOptions(int argc, char* argv[]) {
 
 	if (result.count("algorithm")) {
 		Algo_t = result["algorithm"].as<std::string>();
-		measures.addElement("info", "algo_type", Algo_t);
+		//measures.addElement("info", "algo_type", Algo_t);
 	}
 };
 void printInitOptions() {
@@ -146,7 +146,7 @@ void outputMeasure(const char* append) {
 	appendix += "_";
 	appendix += std::to_string(long_edge_length);
 	appendix += append;
-	measures.output(Result_folder_s.c_str(), appendix.c_str(), outFile.c_str());
+	//measures.output(Result_folder_s.c_str(), appendix.c_str(), outFile.c_str());
 };
 
 bool find_cross(const Arc_1D& a1, const Arc_1D& a2)
