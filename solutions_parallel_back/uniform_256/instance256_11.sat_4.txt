@@ -1,1 +1,0 @@
-Sat2P solved with 528, 401{"info":{"algo_type":"sat","file":"uniform_1_256_11.txt","solver":"sat"},"performance":{"dilation":"528_401"}}

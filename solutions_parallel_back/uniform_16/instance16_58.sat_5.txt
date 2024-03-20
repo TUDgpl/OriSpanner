@@ -1,1 +1,0 @@
-Sat2P solved with 8088, 7315{"info":{"algo_type":"sat","file":"uniform_1_16_58.txt","solver":"sat"},"performance":{"dilation":"8088_7315"}}

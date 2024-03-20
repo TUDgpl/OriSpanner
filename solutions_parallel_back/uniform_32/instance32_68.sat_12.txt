@@ -1,1 +1,0 @@
-Sat2P solved with 9174, 7523{"info":{"algo_type":"sat","file":"uniform_1_32_68.txt","solver":"sat"},"performance":{"dilation":"9174_7523"}}
