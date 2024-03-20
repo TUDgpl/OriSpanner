@@ -1,0 +1,6 @@
+Hello world
+(2,4)
+get dilation: 221/135
+(415,417)
+get dilation: 336/241
+slurmstepd: error: *** STEP 33990117.140 ON cstd01-153 CANCELLED AT 2024-03-14T13:05:38 DUE TO TIME LIMIT ***

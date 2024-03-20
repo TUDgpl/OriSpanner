@@ -1,0 +1,13 @@
+Hello world
+(3,6)
+get dilation: 4184/3209
+(2,4)
+get dilation: 179/126
+(3,6)
+get dilation: 4184/3209
+(2,4)
+get dilation: 179/126
+(2,4)
+get dilation: 179/126
+Sat2P solved with 179, 126Hello world
+{"info":{"algo_type":"sat","file":"uniform_1_16_51.txt","solver":"sat"},"page_0":{"11":"9","13":"11","15":"13","2":"0","5":"3","7":"5"},"page_1":{"10":"8","12":"10","14":"12","3":"1","6":"4","8":"6"},"performance":{"dilation":"179_126"}}

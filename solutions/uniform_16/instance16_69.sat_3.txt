@@ -1,0 +1,9 @@
+Hello world
+(4,7)
+get dilation: 11309/6347
+(4,7)
+get dilation: 11309/6347
+(4,7)
+get dilation: 11309/6347
+Sat2P solved with 11309, 6347Hello world
+{"info":{"algo_type":"sat","file":"uniform_1_16_69.txt","solver":"sat"},"page_0":{"10":"8","13":"11","15":"13","3":"1","5":"3","7":"5"},"page_1":{"11":"9","14":"12","2":"0","4":"2","6":"4","8":"6"},"performance":{"dilation":"11309_6347"}}

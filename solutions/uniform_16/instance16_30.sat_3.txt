@@ -1,0 +1,15 @@
+Hello world
+(9,12)
+get dilation: 10319/7818
+(9,12)
+get dilation: 10319/7818
+(9,12)
+get dilation: 10319/7818
+(9,12)
+get dilation: 10319/7818
+(9,12)
+get dilation: 10319/7818
+(9,12)
+get dilation: 10319/7818
+Sat2P solved with 10319, 7818Hello world
+{"info":{"algo_type":"sat","file":"uniform_1_16_30.txt","solver":"sat"},"page_0":{"10":"8","12":"10","14":"12","3":"1","5":"3","8":"6"},"page_1":{"11":"9","13":"11","15":"13","2":"0","4":"2","6":"4","9":"7"},"performance":{"dilation":"10319_7818"}}

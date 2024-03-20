@@ -1,0 +1,13 @@
+Hello world
+(9,12)
+get dilation: 29493/21497
+(9,12)
+get dilation: 29493/21497
+(9,12)
+get dilation: 29493/21497
+(9,12)
+get dilation: 29493/21497
+(9,12)
+get dilation: 29493/21497
+Sat2P solved with 29493, 21497Hello world
+{"info":{"algo_type":"sat","file":"uniform_1_16_33.txt","solver":"sat"},"page_0":{"11":"9","13":"11","15":"13","2":"0","5":"3","7":"5","9":"7"},"page_1":{"10":"8","12":"10","14":"12","4":"2","6":"4","8":"6"},"performance":{"dilation":"29493_21497"}}

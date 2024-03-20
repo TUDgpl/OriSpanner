@@ -1,0 +1,13 @@
+Hello world
+(11,13)
+get dilation: 4820/3313
+(4,6)
+get dilation: 15979/12097
+(6,9)
+get dilation: 7301/5746
+(6,9)
+get dilation: 7301/5746
+(6,9)
+get dilation: 7301/5746
+Sat2P solved with 7301, 5746Hello world
+{"info":{"algo_type":"sat","file":"uniform_1_16_77.txt","solver":"sat"},"page_0":{"12":"10","15":"12","3":"1","5":"3","7":"5","9":"7"},"page_1":{"11":["8","9"],"13":"11","15":"13","2":"0","4":"2","6":"4","8":"6"},"performance":{"dilation":"7301_5746"}}

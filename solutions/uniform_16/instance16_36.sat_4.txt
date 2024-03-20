@@ -1,0 +1,13 @@
+Hello world
+(7,9)
+get dilation: 3231/2278
+(0,3)
+get dilation: 19779/14848
+(6,9)
+get dilation: 24323/19169
+(6,9)
+get dilation: 24323/19169
+(6,9)
+get dilation: 24323/19169
+Sat2P solved with 24323, 19169Hello world
+{"info":{"algo_type":"sat","file":"uniform_1_16_36.txt","solver":"sat"},"page_0":{"12":"10","15":"13","2":"0","4":"2","7":["4","5"],"9":"7"},"page_1":{"10":"8","13":"11","14":"11","3":"0","5":"3","8":"6"},"performance":{"dilation":"24323_19169"}}

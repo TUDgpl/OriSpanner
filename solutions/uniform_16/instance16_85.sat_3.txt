@@ -1,0 +1,13 @@
+Hello world
+(6,8)
+get dilation: 4808/3061
+(6,8)
+get dilation: 4808/3061
+(11,14)
+get dilation: 499/327
+(11,14)
+get dilation: 499/327
+(11,14)
+get dilation: 499/327
+Sat2P solved with 499, 327Hello world
+{"info":{"algo_type":"sat","file":"uniform_1_16_85.txt","solver":"sat"},"page_0":{"12":"10","14":"12","3":"1","5":"3","7":"5","9":"7"},"page_1":{"10":"8","13":"11","15":"13","2":"0","4":"2","8":"6"},"performance":{"dilation":"499_327"}}

@@ -76,17 +76,14 @@ void Sat1P::write_clauses_2(vector<pair<unsigned int, unsigned int>>& candidate_
 void Sat1P::write_solver_input(RationalNumber test_v) {
     ofstream outdata;
     int count = 0;
-    string filename = tmp_dictionary + "/" + Input_file_s + +"_" +
-        to_string(boost::rational_cast<double>(test_v)) + "_DIMACS.txt";
-
-    outdata.open(filename.c_str());
+    outdata.open(instance_f.c_str());
     if (!outdata) {
         // file couldn't be opened
-        cerr << filename << " Error: (write_solver_input) file could not be opened"
+        cerr << instance_f << " Error: (write_solver_input) file could not be opened"
             << endl;
         exit(1);
     }
-    outdata << "c  SAT for 1D 1PPB  " << filename << endl;
+    outdata << "c  SAT for 1D 1PPB  " << instance_f << endl;
     outdata << std::setprecision(0);
     vector<pair<unsigned int, unsigned int>> edges;
     // Todo: write candidate clauses
@@ -151,15 +148,12 @@ void Sat1P::verify(const vector<unsigned int>& solution_indices, RationalNumber 
 }
 bool Sat1P::read_solution(RationalNumber test_v) {
     vector<unsigned int> solution_indices;
-    string file_d =
-        tmp_dictionary + "/" + Input_file_s + +"_" + to_string(boost::rational_cast<double>(test_v));
-    string solution_d = file_d + "_DIMACS_solution.txt";
     ifstream solution_file;
-    solution_file.open(solution_d.c_str());
+    solution_file.open(solution_f.c_str());
     if (!solution_file) {
         // file couldn't be opened
         cerr << "Error: solution file could not be opened" << endl;
-        cerr << "Error:" << solution_d << endl;
+        cerr << "Error:" << solution_f << endl;
         exit(1);
     }
     string line;
@@ -183,8 +177,6 @@ bool Sat1P::read_solution(RationalNumber test_v) {
         token = strtok(NULL, s);
     }
     solution_file.close();
-    if (remove((file_d + "_DIMACS_solution.txt").c_str()) != 0)
-        perror("Error deleting solution file");
     verify(solution_indices, test_v);
     return true;
 };
@@ -192,15 +184,9 @@ bool Sat1P::read_solution(RationalNumber test_v) {
 
 bool Sat1P::sat_solve(bool only_short, RationalNumber test_v) {
     // remove the datas
-    string file_d =
-        tmp_dictionary + "/" + Input_file_s + +"_" + to_string(boost::rational_cast<double>(test_v));
     write_solver_input(test_v);
-    string o = sat_solver_PATH + file_d + "_DIMACS.txt " + file_d +
-        "_DIMACS_solution.txt" + "> NUL 2>&1";;
+    string o = sat_solver_PATH + " "+ instance_f + " " +solution_f + "> NUL 2>&1";;
     int success = system(o.c_str());
-    if (remove((file_d + "_DIMACS.txt").c_str()) != 0)
-        perror("Error deleting instance file");
-
     return read_solution(test_v);
 }
 vector<RationalNumber> Sat1P::get_candidate() {
@@ -228,6 +214,13 @@ RationalNumber Sat1P::solve() {
     RationalNumber best_od = teo_g;
     while (r >= l) {
         int mid = l + (r - l) / 2;
+        string file_d = tmp_dictionary + "/" + Input_file_name + "_" + to_string(candidate_ods[mid]);
+        if (short_edges_only_flag) {
+            file_d += "_short_" + to_string(long_edge_length);
+        }
+        instance_f = file_d + "_sat1_DIMACS.txt";
+        solution_f = file_d + "_sat1_DIMACS_solution.txt";
+
         bool found = sat_solve( false, candidate_ods[mid]);
         if (found) {
             best_od = candidate_ods[mid];

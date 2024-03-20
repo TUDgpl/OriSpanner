@@ -18,7 +18,7 @@ std::string tmp_dictionary = "D:/GIT/OriSpanner/tmp";
 
 #ifdef linux
 std::string sat_solver_PATH = "./glucose-simp";
-std::string tmp_dictionary = "/scratch";
+std::string tmp_dictionary = "scratch";
 #endif
 
 

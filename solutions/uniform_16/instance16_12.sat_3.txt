@@ -1,0 +1,11 @@
+Hello world
+(12,15)
+get dilation: 8880/6833
+(12,15)
+get dilation: 8880/6833
+(11,13)
+get dilation: 15819/11830
+(12,15)
+get dilation: 8880/6833
+Sat2P solved with 8880, 6833Hello world
+{"info":{"algo_type":"sat","file":"uniform_1_16_12.txt","solver":"sat"},"page_0":{"12":"10","14":"12","2":"0","4":"2","7":"5","9":"7"},"page_1":{"11":"9","13":"11","15":"13","3":"1","5":"3","8":"6"},"performance":{"dilation":"8880_6833"}}

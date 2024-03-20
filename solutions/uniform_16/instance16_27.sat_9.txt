@@ -1,0 +1,11 @@
+Hello world
+(8,10)
+get dilation: 37206/22853
+(10,13)
+get dilation: 22675/16917
+(2,5)
+get dilation: 3028/2609
+(6,8)
+get dilation: 16448/14353
+Sat2P solved with 16448, 14353Hello world
+{"info":{"algo_type":"sat","file":"uniform_1_16_27.txt","solver":"sat"},"page_0":{"12":"10","13":"10","15":"13","2":"0","3":"0","6":"4","7":"4","9":"7"},"page_1":{"11":["8","9"],"15":"12","5":["2","3"],"7":"5","8":"5"},"performance":{"dilation":"16448_14353"}}

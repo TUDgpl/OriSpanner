@@ -1,0 +1,11 @@
+Hello world
+(8,11)
+get dilation: 7419/5369
+(12,14)
+get dilation: 18173/14073
+(12,14)
+get dilation: 18173/14073
+(12,14)
+get dilation: 18173/14073
+Sat2P solved with 18173, 14073Hello world
+{"info":{"algo_type":"sat","file":"uniform_1_16_28.txt","solver":"sat"},"page_0":{"10":["7","8"],"12":"10","13":"10","15":"13","2":"0","4":"2","7":"4"},"page_1":{"11":"8","13":"11","14":"11","3":["0","1"],"6":["3","4"],"8":"6"},"performance":{"dilation":"18173_14073"}}

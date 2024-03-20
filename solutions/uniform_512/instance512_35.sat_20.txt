@@ -1,0 +1,2 @@
+Hello world
+slurmstepd: error: *** STEP 33990115.146 ON cstd01-153 CANCELLED AT 2024-03-14T13:05:38 DUE TO TIME LIMIT ***

@@ -1,0 +1,6 @@
+Hello world
+(7,9)
+(0,2)
+(12,14)
+(11,13)
+Sat1P solved with 11668, 6255{"info":{"algo_type":"sat1","file":"uniform_1_16_55.txt","solver":"sat1"},"performance":{"dilation":"11668_6255"},"solution":{"10":"6","15":["10","11","12","13"],"2":"0","3":"0","6":["3","4"],"9":"6"}}

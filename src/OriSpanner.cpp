@@ -48,8 +48,7 @@ void test_solver(){
 	}
 }
 
-int main(int argc, char* argv[]) {
-	std::cout << "Hello world" << std::endl;
+int test(int argc, char* argv[]) {
 	parseInitOptions(argc, argv);
 	if (Algo_t.compare("dp") == 0)
 	{
@@ -66,18 +65,17 @@ int main(int argc, char* argv[]) {
 		test_solver<Sat1P>();
 		return 0;
 	}
-
 	return -1;
 }
 
-
-/*
 int main(int argc, char* argv[]) {
-for (const auto& dirEntry : recursive_directory_iterator(myPath))
-	 std::cout << dirEntry << std::endl;
-
-
-
-
+	for (const auto& dirEntry : recursive_directory_iterator(argv[1])) {
+		string arg = dirEntry.path().generic_string();
+		string bina= "./OriSpanner";
+		string a_flag = "-a";
+		string algo = "sat1";
+		string instance_flag= "-f";
+		char* argv[] = {bina.data(), a_flag.data(), algo.data(),instance_flag.data(),  arg.data()};
+		test(5, argv);
+	}
 }
-*/

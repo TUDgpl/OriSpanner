@@ -1,0 +1,1 @@
+Sat1P solved with 182, 83{"info":{"algo_type":"sat1","file":"uniform_1_512_7.txt","solver":"sat1"},"performance":{"dilation":"182_83"}}

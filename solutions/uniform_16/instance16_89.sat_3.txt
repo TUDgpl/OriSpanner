@@ -1,0 +1,7 @@
+Hello world
+(6,8)
+get dilation: 13058/7627
+(6,8)
+get dilation: 13058/7627
+Sat2P solved with 44083, 23133Hello world
+{"info":{"algo_type":"sat","file":"uniform_1_16_89.txt","solver":"sat"},"page_0":{"11":"9","13":"11","15":"13","3":"1","5":"3","7":"5","9":"7"},"page_1":{"10":"8","12":"10","14":"12","2":"0","4":"2","6":"4"},"performance":{"dilation":"44083_23133"}}

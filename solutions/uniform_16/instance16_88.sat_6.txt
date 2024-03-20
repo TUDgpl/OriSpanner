@@ -1,0 +1,13 @@
+Hello world
+(8,10)
+get dilation: 10610/7053
+(6,8)
+get dilation: 1984/1393
+(9,12)
+get dilation: 2149/1558
+(7,10)
+get dilation: 7078/5305
+(7,10)
+get dilation: 7078/5305
+Sat2P solved with 7078, 5305Hello world
+{"info":{"algo_type":"sat","file":"uniform_1_16_88.txt","solver":"sat"},"page_0":{"12":"9","13":"9","14":"9","3":"1","4":"1","6":["1","4"],"9":"7"},"page_1":{"10":"8","12":"10","15":"13","3":"0","5":"0","7":"5","8":"5"},"performance":{"dilation":"7078_5305"}}

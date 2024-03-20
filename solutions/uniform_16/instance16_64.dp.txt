@@ -1,0 +1,8 @@
+Hello world
+(11,13)
+(5,7)
+(0,2)
+(5,7)
+(5,7)
+(5,7)
+Sat1P solved with 13485, 7237{"info":{"algo_type":"sat1","file":"uniform_1_16_64.txt","solver":"sat1"},"performance":{"dilation":"13485_7237"},"solution":{"10":"8","11":"8","15":["11","12"],"2":"0","5":"3","6":"3","8":["2","6"]}}

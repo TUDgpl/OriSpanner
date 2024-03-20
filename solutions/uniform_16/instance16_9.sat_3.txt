@@ -1,0 +1,7 @@
+Hello world
+(7,10)
+get dilation: 7563/4861
+(7,10)
+get dilation: 7563/4861
+Sat2P solved with 7563, 4861Hello world
+{"info":{"algo_type":"sat","file":"uniform_1_16_9.txt","solver":"sat"},"page_0":{"11":"9","15":"13","3":"1","5":"3","7":"5","9":"7"},"page_1":{"10":"8","12":"10","14":"12","2":"0","4":"2","6":"4","8":"6"},"performance":{"dilation":"7563_4861"}}

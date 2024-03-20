@@ -382,7 +382,7 @@ RationalNumber Sat2P::solve() {
         int mid = l + (r - l) / 2;
         assert(candidate_ods[mid].numerator() > 0);
         assert(candidate_ods[mid].denominator() > 0);
-        std::cout << "Testing the candidate: " <<mid << " " <<candidate_ods[mid].numerator() << ", " << candidate_ods[mid].denominator() << std::endl;
+        //std::cout << "Testing the candidate: " <<mid << " " <<candidate_ods[mid].numerator() << ", " << candidate_ods[mid].denominator() << std::endl;
         // set paths
         string file_d = tmp_dictionary + "/" + Input_file_name+"_" + to_string(candidate_ods[mid]);
         if (short_edges_only_flag) {

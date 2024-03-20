@@ -1,0 +1,11 @@
+Hello world
+(3,6)
+get dilation: 10199/7545
+(3,6)
+get dilation: 10199/7545
+(3,6)
+get dilation: 10199/7545
+(3,6)
+get dilation: 10199/7545
+Sat2P solved with 10199, 7545Hello world
+{"info":{"algo_type":"sat","file":"uniform_1_16_14.txt","solver":"sat"},"page_0":{"11":"9","13":"11","15":"13","2":"0","5":"3","7":"5","9":"7"},"page_1":{"10":"8","12":"10","14":"12","4":"2","6":"4","8":"6"},"performance":{"dilation":"10199_7545"}}

@@ -1,0 +1,11 @@
+Hello world
+(6,9)
+get dilation: 1999/1386
+(6,9)
+get dilation: 1999/1386
+(6,9)
+get dilation: 1999/1386
+(6,9)
+get dilation: 1999/1386
+Sat2P solved with 15127, 9488Hello world
+{"info":{"algo_type":"sat","file":"uniform_1_16_11.txt","solver":"sat"},"page_0":{"10":"8","12":"10","14":"12","3":"1","5":"3","8":"6"},"page_1":{"13":"11","15":"13","2":"0","4":"2","7":"5","9":"7"},"performance":{"dilation":"15127_9488"}}

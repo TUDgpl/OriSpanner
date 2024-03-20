@@ -1,0 +1,7 @@
+Hello world
+(3,5)
+get dilation: 1362/913
+(7,9)
+get dilation: 16985/12754
+Sat2P solved with 16985, 12754Hello world
+{"info":{"algo_type":"sat","file":"uniform_1_16_37.txt","solver":"sat"},"page_0":{"10":["7","8"],"12":"10","14":"12","3":"1","4":"1","6":"4"},"page_1":{"11":["8","9"],"13":"11","15":"13","2":"0","4":"2","7":"5","8":"5"},"performance":{"dilation":"16985_12754"}}

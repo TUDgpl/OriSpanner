@@ -1,0 +1,13 @@
+Hello world
+(11,13)
+get dilation: 21399/16430
+(11,13)
+get dilation: 21399/16430
+(11,13)
+get dilation: 21399/16430
+(11,13)
+get dilation: 21399/16430
+(11,13)
+get dilation: 21399/16430
+Sat2P solved with 21399, 16430Hello world
+{"info":{"algo_type":"sat","file":"uniform_1_16_5.txt","solver":"sat"},"page_0":{"10":"8","11":"8","12":"8","13":"8","15":"13","3":"1","4":"1","6":["1","4"],"8":"6"},"page_1":{"14":["11","12"],"3":"0","5":"3","7":"5","9":"7"},"performance":{"dilation":"21399_16430"}}

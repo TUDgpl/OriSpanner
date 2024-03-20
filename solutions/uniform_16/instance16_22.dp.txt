@@ -1,0 +1,6 @@
+Hello world
+(12,14)
+(12,14)
+(2,4)
+(2,4)
+Sat1P solved with 9643, 4376{"info":{"algo_type":"sat1","file":"uniform_1_16_22.txt","solver":"sat1"},"performance":{"dilation":"9643_4376"},"solution":{"10":"8","11":"8","14":["11","12"],"15":"11","3":["0","1"],"5":"3","6":"3","7":"3","8":"3"}}

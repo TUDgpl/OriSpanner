@@ -1,0 +1,9 @@
+Hello world
+(7,9)
+get dilation: 13692/9671
+(7,9)
+get dilation: 13692/9671
+(7,9)
+get dilation: 13692/9671
+Sat2P solved with 37729, 20501Hello world
+{"info":{"algo_type":"sat","file":"uniform_1_16_28.txt","solver":"sat"},"page_0":{"11":"9","13":"11","15":"13","3":"1","5":"3","7":"5"},"page_1":{"10":"8","12":"10","14":"12","2":"0","4":"2","6":"4","8":"6"},"performance":{"dilation":"37729_20501"}}

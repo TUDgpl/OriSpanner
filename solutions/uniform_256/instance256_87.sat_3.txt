@@ -1,0 +1,3 @@
+Hello world
+Sat2P solved with 2, 1Hello world
+{"info":{"algo_type":"sat","file":"uniform_1_256_87.txt","solver":"sat"},"performance":{"dilation":"2_1"}}

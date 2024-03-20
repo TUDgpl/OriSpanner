@@ -1,0 +1,13 @@
+Hello world
+(11,13)
+get dilation: 20899/13008
+(0,3)
+get dilation: 35143/26262
+(9,12)
+get dilation: 877/735
+(9,12)
+get dilation: 877/735
+(9,12)
+get dilation: 877/735
+Sat2P solved with 877, 735Hello world
+{"info":{"algo_type":"sat","file":"uniform_1_16_7.txt","solver":"sat"},"page_0":{"11":"9","13":"11","14":"11","2":"0","5":["2","3"],"8":"6","9":"6"},"page_1":{"10":"8","12":"10","15":"13","3":["0","1"],"7":["4","5"]},"performance":{"dilation":"877_735"}}

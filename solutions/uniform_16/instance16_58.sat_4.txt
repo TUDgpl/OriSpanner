@@ -1,0 +1,11 @@
+Hello world
+(3,6)
+get dilation: 7249/4827
+(1,4)
+get dilation: 10298/8023
+(9,11)
+get dilation: 8088/7315
+(9,11)
+get dilation: 8088/7315
+Sat2P solved with 8088, 7315Hello world
+{"info":{"algo_type":"sat","file":"uniform_1_16_58.txt","solver":"sat"},"page_0":{"10":"8","13":"11","15":"13","4":["1","2"],"8":["5","6"]},"page_1":{"12":["9","10"],"14":"12","2":"0","5":"3","6":"3","9":"7"},"performance":{"dilation":"8088_7315"}}

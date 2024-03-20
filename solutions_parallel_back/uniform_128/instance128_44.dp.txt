@@ -1,0 +1,1 @@
+Sat1P solved with 2059, 954{"info":{"algo_type":"sat1","file":"uniform_1_128_44.txt","solver":"sat1"},"performance":{"dilation":"2059_954"}}
