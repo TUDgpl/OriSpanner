@@ -100,11 +100,12 @@ int main(int argc, char* argv[]) {
 	vector<RationalNumber> pVector_max_global;
 	instance_size = std::stoi(argv[argc-1]);
 	generate_point_size = std::stoi(argv[argc - 2]);
+	int seed_step = std::stoi(argv[argc - 3]) * instance_size;
 	range = 100000;
 	RationalNumber max = RationalNumber(1, 1);
 	parseInitOptions(argc, argv);
 	for (int i = 0; i < instance_size; ++i) {
-		r.seed(i);
+		r.seed(i+ seed_step);
 		RationalNumber od = test(argc, argv);
 		if (od > max) {
 			max = od;
