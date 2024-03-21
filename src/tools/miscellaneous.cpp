@@ -1,8 +1,11 @@
 #include "miscellaneous.h"
 //jsonM measures;
+bool generation_mode = false;
+std::mt19937 r;
 string Result_folder_s;
 string Algo_t;
 string input_ipe_s;
+string gen_model;
 string Input_file_s;
 string Input_file_name;
 double W;
@@ -10,7 +13,10 @@ double H;
 bool short_edges_only_flag = false;
 int long_edge_length = 6;
 double epsilon = 0.000000000000001;
-
+int instance_size;
+int range;
+vector<RationalNumber> pVector_max;
+int generate_point_size;
 #ifdef _WIN32
 std::string sat_solver_PATH = "D:/glucose-4.1-win-x64/glucose.exe";
 std::string tmp_dictionary = "D:/GIT/OriSpanner/tmp";
@@ -43,6 +49,8 @@ void parseInitOptions(int argc, char* argv[]) {
 		("s,short", "short edge only", cxxopts::value<bool>()->default_value("false"))
 		("p", "path", cxxopts::value<std::string>())
 		("t", "tmp", cxxopts::value<std::string>())
+		("g,generate", "generate instance", cxxopts::value<bool>()->default_value("false"))
+		("m,model", "generation model", cxxopts::value<std::string>()->default_value("uniform"))
 
 		;
 	options.allow_unrecognised_options();
@@ -77,9 +85,15 @@ void parseInitOptions(int argc, char* argv[]) {
 			//measures.addElement("info", "file", outFile);
 		}
 		else {
-			std::cerr << "Input file missing" << std::endl;
-			printInitUsage();
-			exit(0);
+			if (result.count("g")) {
+				generation_mode = true;
+				gen_model = strdup(result["model"].as<std::string>().c_str());
+			}
+			else {
+				std::cerr << "Input file missing" << std::endl;
+				printInitUsage();
+				exit(0);
+			}
 		}
 	}
 	if (result.count("path")) {
@@ -216,3 +230,13 @@ bool is_planar(const vector<pair<unsigned int, unsigned int>>& page_0) {
 	return true;
 }
 
+void fill_uniform_numbers(vector<RationalNumber>& pVector) {
+	pVector_max.clear();
+	std::uniform_int_distribution<> dis(1, range);
+	for (int i = 0; i < generate_point_size; i++) {
+		int t = dis(r);
+		pVector.push_back(RationalNumber(t, 1));
+		pVector_max.push_back(RationalNumber(t,1));
+	}
+	std::sort(pVector.begin(), pVector.end());
+}

@@ -17,6 +17,7 @@ public:
 	void draw() override;
 	void debug() override;
 	virtual bool is_planarity() = 0;
+	void generate_instance() override;
 	vector<RationalNumber> pVector;
 	DGraph solution;
 	RationalNumber teo_g = 5;

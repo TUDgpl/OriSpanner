@@ -30,45 +30,53 @@ int main(int argc, char* argv[]) {
 }
 */
 template <typename Solver_T>
-void test_solver(){
+RationalNumber test_solver(){
 	Solver_T S;
-	if (Input_file_s.empty()) S.readIPE();
-	else S.readFile();
+	if (!Input_file_s.empty()) {
+		S.readFile();
+	}
+	if (!input_ipe_s.empty()) {
+		S.readIPE();
+	}
+	else {
+		if (generation_mode) {
+			S.generate_instance();
+		}
+	}
 	//S.print();
 	// set solver
 	if (true) {
 		RationalNumber od = S.solve();
-		S.debug();
-		S.output(od);
+		//S.debug();
+		//S.output(od);
+		return od;
 		//measures.addElement("info", "solver", Algo_t);
 		//measures.addElement("performance", "dilation", to_string(od));
 		//S.outputMeasures();
 		//outputMeasure(".json");
-		S.draw();
+		//S.draw();
 	}
 }
 
-int test(int argc, char* argv[]) {
-	parseInitOptions(argc, argv);
+RationalNumber test(int argc,  char* argv[]) {
+	//parseInitOptions(argc, argv);
 	if (Algo_t.compare("dp") == 0)
 	{
-		test_solver<DP>();
-		return 0;
+		return test_solver<DP>();
 	}
 	if (Algo_t.compare("sat") == 0)
 	{
-		test_solver<Sat2P>();
-		return 0;
+		return test_solver<Sat2P>();
 	}
 	if (Algo_t.compare("sat1") == 0)
 	{
-		test_solver<Sat1P>();
-		return 0;
+		return test_solver<Sat1P>();
 	}
-	return -1;
+	cerr << " Error: "<<Algo_t << " can not be recognized " << endl;
+	exit(1);
 }
 
-int main(int argc, char* argv[]) {
+void  batch_folder_solver(int argc, char* argv[]) {
 	for (const auto& dirEntry : recursive_directory_iterator(argv[2])) {
 		string bina = "./OriSpanner";
 		string a_flag = "-a";
@@ -85,4 +93,29 @@ int main(int argc, char* argv[]) {
 			test(5, argv2);
 		}
 	}
+}
+
+int main(int argc, char* argv[]) {
+	//generate 
+	vector<RationalNumber> pVector_max_global;
+	instance_size = std::stoi(argv[argc-1]);
+	generate_point_size = std::stoi(argv[argc - 2]);
+	range = 100000;
+	RationalNumber max = RationalNumber(1, 1);
+	parseInitOptions(argc, argv);
+	for (int i = 0; i < instance_size; ++i) {
+		r.seed(i);
+		RationalNumber od = test(argc, argv);
+		if (od > max) {
+			max = od;
+			// overwrite the worst case
+			pVector_max_global = pVector_max;
+		}
+	}
+	std::sort(pVector_max_global.begin(), pVector_max_global.end());
+	std::cout << max.numerator() <<" "<< max.denominator() << std::endl;
+	for (auto& i : pVector_max_global) {
+		cout << i.numerator() << endl;
+	}
+
 }

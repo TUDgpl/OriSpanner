@@ -90,3 +90,10 @@ void Solver_1D::debug() {
 	bool is_planar = is_planarity();
 	assert(is_planar);
 }
+
+void Solver_1D::generate_instance() {
+	if (gen_model.compare("uniform") == 0) {
+		fill_uniform_numbers(pVector);
+	}
+	set(pVector.size());
+};

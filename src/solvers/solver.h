@@ -17,6 +17,7 @@ public:
 	virtual void draw() = 0;
 	virtual bool is_planarity() = 0;
 	virtual void outputMeasures() = 0;
+	virtual void generate_instance() = 0;
 	// theoretical guarantee
 protected:
 	double teo_g = 5;

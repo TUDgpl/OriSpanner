@@ -16,6 +16,7 @@
 #include <set>
 
 #include <boost/rational.hpp>
+#include <random>
 
 
 
@@ -28,14 +29,15 @@
 
 extern std::string sat_solver_PATH;
 extern std::string tmp_dictionary;
-
-
+extern int generate_point_size;
+extern int range;
 
 using namespace std;
 //extern jsonM measures;
 extern string Result_folder_s;
 extern string input_ipe_s;
 extern string Input_file_s;
+extern string gen_model;
 extern string Input_file_name;
 extern string Algo_t;
 extern double W;
@@ -43,6 +45,9 @@ extern double H;
 extern double epsilon;
 extern bool short_edges_only_flag;
 extern int long_edge_length;
+extern int instance_size;
+extern std::mt19937 r;
+extern bool  generation_mode;
 
 
 void hello();
@@ -71,6 +76,7 @@ void hello();
 #define BOLDWHITE   "\033[1m\033[37m"      /* Bold White */
 
 typedef boost::rational<long long> RationalNumber;
+extern vector<RationalNumber> pVector_max;
 
 void printArgs(int argc, char* argv[]);
 void parseInitOptions(int argc, char* argv[]);
@@ -383,3 +389,5 @@ inline const char* const BoolToString(bool b)
 {
     return b ? "true" : "false";
 }
+
+void fill_uniform_numbers(vector<RationalNumber>& pVector);
