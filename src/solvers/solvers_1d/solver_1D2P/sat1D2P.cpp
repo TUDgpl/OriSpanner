@@ -287,7 +287,8 @@ RationalNumber Sat2P::read_solution(bool only_short, RationalNumber test_v) {
         // file couldn't be opened
         cerr << "Error: solution file could not be opened" << endl;
         cerr << "Error:" << solution_f << endl;
-        exit(1);
+        //exit(1);
+        return -1;
     }
     string line;
     char head;
@@ -295,7 +296,7 @@ RationalNumber Sat2P::read_solution(bool only_short, RationalNumber test_v) {
     getline(solution_file, line);
     if (!line.compare("UNSAT")) {
         // 's' and 't' are equal.
-        return -1;
+        return 0;
     }
     solution_indices.clear();
     char* str = line.data();
@@ -394,12 +395,12 @@ RationalNumber Sat2P::solve() {
         if (remove(instance_f.c_str()) != 0) {
             perror("Error deleting instance file");
             cerr << "Error:" << instance_f << endl;
-            exit(1);
+            //exit(1);
         }
         if (remove(solution_f.c_str()) != 0) {
             perror("Error deleting solution file");
             cerr << "Error:" << solution_f << endl;
-            exit(1);
+            //exit(1);
         }
 
         if (found_od > 0) {
@@ -407,6 +408,7 @@ RationalNumber Sat2P::solve() {
             best_od = candidate_ods[mid];
         }
         else {
+            if (found_od < 0) return RationalNumber(-1, 1);
             l = mid + 1;
         }
     }

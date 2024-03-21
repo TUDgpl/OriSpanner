@@ -1,9 +1,17 @@
 file (GLOB_RECURSE sources *.h *.cpp *.hpp *.tpp)
 include_directories(solvers)
+include_directories(explorers)
 include_directories(solvers/solvers_1d)
 include_directories(solvers/solvers_1d/solver_1D1P)
 include_directories(solvers/solvers_1d/solver_1D2P)
 include_directories(solvers/solvers_2d)
+
+include_directories(explorers/explorers_1d)
+include_directories(explorers/explorers_1d/explorers_1D1P)
+include_directories(explorers/explorers_1d/explorers_1D2P)
+include_directories(explorers/explorers_2d)
+
+
 include_directories(gpl_data_structure)
 include_directories(tools)
 add_executable(OriSpanner ${sources})
@@ -18,7 +26,7 @@ if(CXX)
     enable_language(CXX)
 endif()
 
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
 message (STATUS "CMAKE_MODULE_PATH = ${CMAKE_MODULE_PATH}")
 
 
@@ -43,6 +51,14 @@ if(MSVC AND MT)
 	
 endif()
 
+find_package(GUROBI REQUIRED)
+include_directories(${GUROBI_INCLUDE_DIRS})
+target_link_libraries(OriSpanner PUBLIC ${GUROBI_LIBRARY})
+
+if(CXX)
+    set(CMAKE_CXX_STANDARD 11)
+    target_link_libraries(OriSpanner PUBLIC optimized ${GUROBI_CXX_LIBRARY} debug ${GUROBI_CXX_DEBUG_LIBRARY})
+endif()
 
 
 

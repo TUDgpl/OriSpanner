@@ -105,8 +105,10 @@ int main(int argc, char* argv[]) {
 	RationalNumber max = RationalNumber(1, 1);
 	parseInitOptions(argc, argv);
 	for (int i = 0; i < instance_size; ++i) {
+		Input_file_name = "test_" + std::to_string(generate_point_size) + "_" + std::to_string(i) ;
 		r.seed(i+ seed_step);
 		RationalNumber od = test(argc, argv);
+		if (od.numerator() < 0) continue;
 		if (od > max) {
 			max = od;
 			// overwrite the worst case
@@ -120,3 +122,58 @@ int main(int argc, char* argv[]) {
 	}
 
 }
+
+
+
+/*
+#include <cassert>
+#include "gurobi_c++.h"
+using namespace std;
+
+int
+main(int   argc, char* argv[])
+{
+	try {
+		GRBEnv env = GRBEnv();
+
+		GRBModel model = GRBModel(env);
+
+		// Create variables
+
+		GRBVar x = model.addVar(0.0, 9, 0.0, GRB_CONTINUOUS, "x");
+		GRBVar y = model.addVar(0.0, GRB_INFINITY, 0.0, GRB_CONTINUOUS, "y");
+		GRBVar z = model.addVar(0.0, GRB_INFINITY, 0.0, GRB_CONTINUOUS, "z");
+
+		// Set objective
+
+		GRBLinExpr obj = x;
+		model.setObjective(obj, GRB_MAXIMIZE);
+
+		// Add linear constraint: x + y + z <= 10
+
+		model.addConstr(x + y + z <= 10, "c0");
+
+		// Add bilinear inequality constraint: x * y <= 2
+
+	
+
+		try {
+			model.optimize();
+		}
+		catch (GRBException e) {
+			cout << "Failed (as expected)" << endl;
+			exit(-1);
+		}
+		cout << x.get(GRB_StringAttr_VarName) << " "
+			<< x.get(GRB_DoubleAttr_X) << endl;
+		cout << y.get(GRB_StringAttr_VarName) << " "
+			<< y.get(GRB_DoubleAttr_X) << endl;
+		cout << z.get(GRB_StringAttr_VarName) << " "
+			<< z.get(GRB_DoubleAttr_X) << endl;
+	}
+	catch (...) {
+		cout << "Exception during optimization" << endl;
+		exit(-1);
+	}
+}
+*/

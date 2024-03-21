@@ -81,7 +81,8 @@ void Sat1P::write_solver_input(RationalNumber test_v) {
         // file couldn't be opened
         cerr << instance_f << " Error: (write_solver_input) file could not be opened"
             << endl;
-        exit(1);
+        //exit(1);
+        return;
     }
     outdata << "c  SAT for 1D 1PPB  " << instance_f << endl;
     outdata << std::setprecision(0);
@@ -126,7 +127,7 @@ void Sat1P::write_solver_input(RationalNumber test_v) {
 //      compute the dilation (<= test_v)
 
 //// tuple(a,b,c) -----> edge (a,b) on page c
-void Sat1P::verify(const vector<unsigned int>& solution_indices, RationalNumber test_v) {
+RationalNumber Sat1P::verify(const vector<unsigned int>& solution_indices, RationalNumber test_v) {
     vector<pair<unsigned int, unsigned int>> page_0;
     unsigned int base = pVector.size();
     for (int i = 0; i < solution_indices.size(); i++) {
@@ -145,8 +146,9 @@ void Sat1P::verify(const vector<unsigned int>& solution_indices, RationalNumber 
     solution.addEdges(page_0);
     RationalNumber od = solution.get_dilation(pVector);
     assert(od <= test_v);
+    return od;
 }
-bool Sat1P::read_solution(RationalNumber test_v) {
+RationalNumber Sat1P::read_solution(RationalNumber test_v) {
     vector<unsigned int> solution_indices;
     ifstream solution_file;
     solution_file.open(solution_f.c_str());
@@ -154,7 +156,8 @@ bool Sat1P::read_solution(RationalNumber test_v) {
         // file couldn't be opened
         cerr << "Error: solution file could not be opened" << endl;
         cerr << "Error:" << solution_f << endl;
-        exit(1);
+        //exit(1);
+        return RationalNumber(-1,1);
     }
     string line;
     char head;
@@ -162,7 +165,7 @@ bool Sat1P::read_solution(RationalNumber test_v) {
     getline(solution_file, line);
     if (!line.compare("UNSAT")) {
         // 's' and 't' are equal.
-        return false;
+        return 0;
     }
     char* str = strdup(line.c_str());
     const char s[2] = " ";
@@ -177,12 +180,12 @@ bool Sat1P::read_solution(RationalNumber test_v) {
         token = strtok(NULL, s);
     }
     solution_file.close();
-    verify(solution_indices, test_v);
-    return true;
+    RationalNumber od = verify(solution_indices, test_v);
+    return od;
 };
 
 
-bool Sat1P::sat_solve(bool only_short, RationalNumber test_v) {
+RationalNumber Sat1P::sat_solve(bool only_short, RationalNumber test_v) {
     // remove the datas
     write_solver_input(test_v);
     string o = sat_solver_PATH + " "+ instance_f + " " +solution_f + "> NUL 2>&1";;
@@ -221,12 +224,26 @@ RationalNumber Sat1P::solve() {
         instance_f = file_d + "_sat1_DIMACS.txt";
         solution_f = file_d + "_sat1_DIMACS_solution.txt";
 
-        bool found = sat_solve( false, candidate_ods[mid]);
-        if (found) {
+        RationalNumber found = sat_solve( false, candidate_ods[mid]);
+        if (remove(instance_f.c_str()) != 0) {
+            perror("Error deleting instance file");
+            cerr << "Error:" << instance_f << endl;
+            //exit(1);
+            return RationalNumber(-1, 1);
+        }
+        if (remove(solution_f.c_str()) != 0) {
+            perror("Error deleting solution file");
+            cerr << "Error:" << solution_f << endl;
+            //exit(1);
+            return RationalNumber(-1, 1);
+        }
+
+        if (found >0) {
             best_od = candidate_ods[mid];
             r = mid - 1;
         }
         else {
+            if (found <0 ) return RationalNumber(-1, 1);
             l = mid + 1;
         }
     }

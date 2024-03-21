@@ -23,13 +23,13 @@ public:
 
 protected:
     vector<RationalNumber> get_candidate();
-    bool sat_solve(bool only_short, RationalNumber test_v);
-    bool read_solution(RationalNumber test_v);
+    RationalNumber sat_solve(bool only_short, RationalNumber test_v);
+    RationalNumber read_solution(RationalNumber test_v);
     void write_solver_input(RationalNumber test_v);
 private:
     string instance_f;
     string solution_f;
     void write_clauses_2(vector<pair<unsigned int, unsigned int>>& candidate_edges,
         int C, ofstream& outdata, RationalNumber test_v);
-    void verify(const vector<unsigned int>& solution_indices, RationalNumber test_v);
+    RationalNumber verify(const vector<unsigned int>& solution_indices, RationalNumber test_v);
 };
