@@ -74,7 +74,7 @@ int main(int argc, char* argv[]) {
 		string a_flag = "-a";
 		string instance_flag = "-f";
 		string arg = dirEntry.path().generic_string();
-		if (argv[1] == "sat1") {
+		if (strcmp(argv[1],"sat1") == 0) {
 			string algo = "sat1";
 			char* argv1[] = { bina.data(), a_flag.data(), algo.data(),instance_flag.data(),  arg.data() };
 			test(5, argv1);
